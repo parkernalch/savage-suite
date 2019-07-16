@@ -3,10 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CharacterVaultComponent } from './components/character-vault/character-vault.component';
+import { CampaignManagerComponent } from './components/campaign-manager/campaign-manager.component';
+import { EncounterBuilderComponent } from './components/encounter-builder/encounter-builder.component';
+import { InitiativeComponent } from './components/initiative/initiative.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CharacterVaultComponent,
+    CampaignManagerComponent,
+    EncounterBuilderComponent,
+    InitiativeComponent
   ],
   imports: [
     BrowserModule,
