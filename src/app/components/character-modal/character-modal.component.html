@@ -1,11 +1,23 @@
 <div class="modal">
     <div class="cmodal">
         <div class="cmodal-portrait"></div>
-        <div class="cmodal-body"></div>
+        <div class="cmodal-body">
+            <form #cmodalForm="ngForm">
+                <div class="form-group">
+                    <label for="cname">Name:</label>
+                    <input type="text" id="cname" [(ngModel)]="characterData.name" name="cname">
+                </div>
+                <div class="form-group">
+                    <label for="cdesc">Description:</label>
+                    <input type="text" id="cdesc" [(ngModel)]="characterData.description" name="cdesc">
+                </div>
+                <input type="submit">
+            </form>
+        </div>
         <div class="cmodal-footer">
-            <button class="modal-button">save</button>
-            <button class="modal-button">cancel</button>
-            <button class="modal-button">delete</button>
+            <button class="modal-button save">save</button>
+            <button class="modal-button cancel">cancel</button>
+            <button class="modal-button delete">delete</button>
         </div>
     </div>
 </div>
