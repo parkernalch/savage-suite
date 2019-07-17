@@ -85,7 +85,7 @@ class Deck {
         let output = [];
         for(let i=0; i<n; i++){
             if(this.next_index > 53){
-                this.shuffle();
+                this.Shuffle();
             }
             output.push(this.cards[this.next_index]);
             this.next_index++;

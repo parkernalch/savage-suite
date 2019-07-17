@@ -4,7 +4,7 @@ import _Edge from './Edge';
 import _Power from './Power';
 import _Race from './Race';
 
-interface _BaseCharacter {
+export interface _BaseCharacter {
     name:string;
     traits:_TraitBlock;
     race:_Race;
@@ -12,19 +12,19 @@ interface _BaseCharacter {
     portrait?:string;
 }
 
-interface _D5eCharacter extends _BaseCharacter {
+export interface _D5eCharacter extends _BaseCharacter {
     bonds?:string[];
     flaws?:string[];
     ideals?:string[];
 }
-interface _SavageCharacter extends _BaseCharacter {
+export interface _SavageCharacter extends _BaseCharacter {
     edges:_Edge[];
     hindrances:_Hindrance[];
     powers:_Power[];
     rank:number;
 }
 
-class SavageCharacter implements _SavageCharacter {
+export default class SavageCharacter implements _SavageCharacter {
     name:string;
     traits: _TraitBlock;
     race:_Race;
