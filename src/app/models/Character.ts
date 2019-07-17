@@ -41,6 +41,8 @@ export default class SavageCharacter implements _SavageCharacter {
     hand_cards: number[];
     tactician_cards?: number[];
     adventure_cards?: string[];
+    
+    isEdit:boolean;
 
     constructor(
         name:string,
@@ -61,6 +63,11 @@ export default class SavageCharacter implements _SavageCharacter {
         this.hindrances = hindrances || [];
         this.powers = powers || [];
         this.SetInitiative();
+        this.isEdit = false;
+    }
+
+    toggleEdit(): void {
+        this.isEdit = !this.isEdit;
     }
 
     SetInitiative(){
