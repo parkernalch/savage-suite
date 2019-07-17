@@ -10,6 +10,7 @@ import { InitiativeComponent } from './components/initiative/initiative.componen
 import { HeaderComponent } from './components/layout/header/header.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
+import { CharacterModalComponent } from './components/character-modal/character-modal.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FooterComponent } from './components/layout/footer/footer.component';
     InitiativeComponent,
     HeaderComponent,
     HomepageComponent,
-    FooterComponent
+    FooterComponent,
+    CharacterModalComponent
   ],
   imports: [
     BrowserModule,
