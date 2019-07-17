@@ -8,6 +8,8 @@ import { CampaignManagerComponent } from './components/campaign-manager/campaign
 import { EncounterBuilderComponent } from './components/encounter-builder/encounter-builder.component';
 import { InitiativeComponent } from './components/initiative/initiative.component';
 import { HeaderComponent } from './components/layout/header/header.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { HeaderComponent } from './components/layout/header/header.component';
     CampaignManagerComponent,
     EncounterBuilderComponent,
     InitiativeComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomepageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
