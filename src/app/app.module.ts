@@ -7,6 +7,7 @@ import { CharacterVaultComponent } from './components/character-vault/character-
 import { CampaignManagerComponent } from './components/campaign-manager/campaign-manager.component';
 import { EncounterBuilderComponent } from './components/encounter-builder/encounter-builder.component';
 import { InitiativeComponent } from './components/initiative/initiative.component';
+import { HeaderComponent } from './components/layout/header/header.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { InitiativeComponent } from './components/initiative/initiative.componen
     CharacterVaultComponent,
     CampaignManagerComponent,
     EncounterBuilderComponent,
-    InitiativeComponent
+    InitiativeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
