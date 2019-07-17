@@ -23,4 +23,10 @@ export class CharacterVaultComponent implements OnInit {
         this.characters = characters;
       }); 
   }
+
+  toggleEdit(character:SavageCharacter): void {
+    console.log(character);
+    character.toggleEdit();
+  }
+
 }
