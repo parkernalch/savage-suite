@@ -1,4 +1,4 @@
-interface User {
+interface _User {
     id:number;
     name:string;
     email:string;
