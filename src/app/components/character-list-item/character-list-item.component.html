@@ -1,0 +1,7 @@
+<div class="character-list-item">
+    <div class="character-portrait">{{character.portrait}}</div>
+    <div class="character-name">{{character.name}}</div>
+    <div class="character-description">{{character.description}}</div>
+    <button (click)="toggleEdit()">EDIT</button>
+    <app-character-modal *ngIf="isEdit" [characterData]="character"></app-character-modal>
+</div>
