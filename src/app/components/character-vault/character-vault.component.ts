@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CharacterService } from '../../services/character.service';
 import SavageCharacter from 'src/app/models/Character';
+import { match } from 'minimatch';
 
 @Component({
   selector: 'app-character-vault',
@@ -19,7 +20,7 @@ export class CharacterVaultComponent implements OnInit {
   getCharacters(): void {
     this.characterService.getCharacters()
       .subscribe(characters => {
-        console.log(characters);
+        // console.log(characters);
         this.characters = characters;
       }); 
   }
@@ -27,6 +28,15 @@ export class CharacterVaultComponent implements OnInit {
   toggleEdit(character:SavageCharacter): void {
     console.log(character);
     character.toggleEdit();
+  }
+
+  filterCharacters($event:KeyboardEvent): SavageCharacter[] {
+    // console.log(document.getElementById("filterfield").value);
+    let val:string = document.getElementById('filterfield').value.toLowerCase();
+    let pattern:RegExp = new RegExp(`${val}`);
+    this.getCharacters();
+    this.characters = this.characters.filter(character => pattern.test(character.name.toLowerCase()));
+    return this.characters.filter(character => pattern.test(character.name.toLowerCase()));
   }
 
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import SavageCharacter, {_SavageCharacter} from '../models/Character';
 import _Race from '../models/Race';
 import { Observable, of } from 'rxjs';
-
+import data from '../data/characters.json'
 @Injectable({
   providedIn: 'root'
 })
@@ -16,10 +16,11 @@ export class CharacterService {
       features: []
     }
 
-    for(let i=0; i<10; i++){
-      let C:SavageCharacter = new SavageCharacter(`Character${i}`, Human);
+    for(let i=0; i<data.charlist.length; i++){
+      let C:SavageCharacter = new SavageCharacter(data.charlist[i].name, Human);
       if(i==7) C.isEdit = true;
-      C.description = 'Test Character Data';
+      C.description = data.charlist[i].description;
+      C.campaign = data.charlist[i].campaign;
       this.characters.push(C);
     }
   }

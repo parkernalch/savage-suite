@@ -1,0 +1,53 @@
+{ "charlist" : [
+        {
+            "name": "Kaladin Stormblessed",
+            "description": "Darkeyes Captain of the King's Guard",
+            "campaign": "Stormlight Archive"
+        },
+        {
+            "name": "Shallan Davar",
+            "description": "Lighteyes heir to Jah Keved's Throne",
+            "campaign": "Stormlight Archive"
+        },
+        {
+            "name": "Adolin Kholin",
+            "description": "Firstborn son to Davilar Kholin and full Shardbearer",
+            "campaign": "Stormlight Archive"
+        },
+        {
+            "name": "Renarin Kholin",
+            "description": "Secondborn son to Davilar Kholin and full Shardbearer",
+            "campaign": "Stormlight Archive"
+        },
+        {
+            "name": "Davilar Kholin",
+            "description": "Highprince of war and uncle to the King",
+            "campaign": "Stormlight Archive"
+        },
+        {
+            "name": "Jasnah Kholin",
+            "description": "Deceased sister to Davilar and Galivar Kholin",
+            "campaign": "Stormlight Archive"
+        },
+        {
+            "name": "Martin Greenwood",
+            "description": "Beastmaster turned villain",
+            "campaign": "4th Edition"
+        },
+        {
+            "name": "Thimblestitch the Tinkerer",
+            "description": "Gnome Artificer and star traveler",
+            "campaign": "5th Edition Ragnarok One-Shot"
+        },
+        {
+            "name": "Puck",
+            "description": "Dwarven cleric of Auril. Fell to a giant boulder",
+            "campaign": "Storm King's Thunder"
+        },
+        {
+            "name": "Phaedra",
+            "description": "Firbolg Warlock of the Blade",
+            "campaign": "Storm King's Thunder"
+        }
+    ]
+}
