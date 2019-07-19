@@ -5,6 +5,7 @@ import _Power from './Power';
 import _Race from './Race';
 
 export interface _BaseCharacter {
+    id:number;
     name:string;
     traits:_TraitBlock;
     race:_Race;
@@ -26,6 +27,7 @@ export interface _SavageCharacter extends _BaseCharacter {
 }
 
 export default class SavageCharacter implements _SavageCharacter {
+    id:number;
     name:string;
     traits: _TraitBlock;
     race:_Race;
@@ -47,6 +49,7 @@ export default class SavageCharacter implements _SavageCharacter {
     isEdit:boolean;
 
     constructor(
+        id:number,
         name:string,
         race:_Race, 
         campaign?:string,
@@ -55,6 +58,7 @@ export default class SavageCharacter implements _SavageCharacter {
         hindrances?:_Hindrance[], 
         powers?:_Power[]
     ){
+        this.id = id;
         this.name = name;
         this.description = '';
         this.rank = rank || 0;
