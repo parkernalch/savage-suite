@@ -87,6 +87,7 @@ export class CharacterService {
   }
 
   getCharacters():Observable<SavageCharacter[]>{
+    console.log(this.characters);
     return of(this.characters);
   }
 
