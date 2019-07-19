@@ -94,4 +94,25 @@ export class CharacterService {
   getCharacterByID(id:number): Observable<SavageCharacter> {
     return of(this.characters.filter(character => character.id == id)[0]);
   }
+
+  addEdgeToCharacter(id:number, edge:_Edge): Observable<SavageCharacter> {
+    let char:SavageCharacter = this.characters.filter(character => character.id === id)[0];
+    char.edges.push(edge);
+
+    return of(this.characters.filter(character => character.id === id)[0]);
+  }
+
+  addHindranceToCharacter(id:number, hindrance:_Hindrance): Observable<SavageCharacter> {
+    let char:SavageCharacter = this.characters.filter(character => character.id === id)[0];
+    char.hindrances.push(hindrance);
+
+    return of(this.characters.filter(character => character.id === id)[0]);
+  }
+
+  addPowerToCharacter(id:number, power:_Power): Observable<SavageCharacter> {
+    let char: SavageCharacter = this.characters.filter(character => character.id === id)[0];
+    char.powers.push(power);
+
+    return of(this.characters.filter(character => character.id === id)[0]);
+  }
 }

@@ -1,8 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { CharacterService } from '../../services/character.service';
 import SavageCharacter from 'src/app/models/Character';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import _Edge from 'src/app/models/Edge';
+import _Hindrance from 'src/app/models/Hindrance';
+import _Power from 'src/app/models/Power';
 
 @Component({
   selector: 'app-character-view',
@@ -25,8 +28,48 @@ export class CharacterViewComponent implements OnInit {
     this.characterService.getCharacterByID(this.id).subscribe(character => {
       console.log(character);
       this.character = character
-    }
+    });
+  }
+
+  addEdge() {
+    let edge: _Edge = {
+      "name": "Command",
+      "description": "You are a leader of men. ",
+      "effect": "Extras within 5 inches increase their parry by 1",
+      "prerequisites": []
+    };
+    this.characterService.addEdgeToCharacter(this.character.id, edge).subscribe(
+      character => this.character = character
     );
   }
 
+  addHindrance() {
+    let hind: _Hindrance = {
+      "name": "Gravity Sickness",
+      "description": "You really prefer solid ground.",
+      "major": false,
+      "minor": true
+    };
+  
+    this.characterService.addHindranceToCharacter(this.character.id, hind).subscribe(
+      character => this.character = character
+    );
+  }
+
+  addPower() {
+    let power: _Power = {
+      "name": "Fly",
+      "trapping": "Cybernetic Jet Engines",
+      "varities": [
+        {
+          "cost": 4,
+          "effect": "for the next minute, you have a fly speed equal to your pace"
+        }
+      ]
+    };
+
+    this.characterService.addPowerToCharacter(this.character.id, power).subscribe(
+      character => this.character = character
+    );
+  }
 }
