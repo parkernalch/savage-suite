@@ -1,0 +1,6 @@
+<h2>{{power.name}}</h2>
+<p>{{power.trapping}}</p>
+<div *ngFor="let cost of power.varieties">
+    <h4>{{cost.cost}}:</h4>
+    <span>{{cost.effect}}</span>
+</div>
