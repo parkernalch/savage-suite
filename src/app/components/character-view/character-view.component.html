@@ -20,15 +20,27 @@
 </div>
 <h1>Edges</h1>
 <ul>
-    <li *ngFor="let edge of character.edges">{{edge.name}}</li>
+    <app-cview-edge *ngFor="let edge of character.edges" [edge]="edge"></app-cview-edge>
+    <div class="add-edge">
+        <input type="text" placeholder="Start typing edge name ..." id="edge-add-input">
+        <span><button>ADD</button></span>
+    </div>
 </ul>
 
 <h1>Hindrances</h1>
 <ul>
-    <li *ngFor="let hindrance of character.hindrances">{{hindrance.name}}</li>
+    <app-cview-hindrance *ngFor="let hindrance of character.hindrances" [hindrance]="hindrance"></app-cview-hindrance>
+    <div class="add-hindrance">
+        <input type="text" placeholder="Start typing hindrance name ..." id="hind-add-input">
+        <span><button>ADD</button></span>
+    </div>
 </ul>
 
 <h1>Powers</h1>
 <ul>
-    <li *ngFor="let power of character.powers">{{power.name}}</li>
+    <app-cview-power *ngFor="let power of character.powers" [power]="power"></app-cview-power>
+    <div class="add-power">
+        <input type="text" placeholder="Start typing power name ..." id="pwr-add-input">
+        <span><button>ADD</button></span>
+    </div>
 </ul>
