@@ -13,6 +13,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { CharacterModalComponent } from './components/character-modal/character-modal.component';
 import { CharacterListItemComponent } from './components/character-list-item/character-list-item.component';
+import { CharacterViewComponent } from './components/character-view/character-view.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CharacterListItemComponent } from './components/character-list-item/cha
     HomepageComponent,
     FooterComponent,
     CharacterModalComponent,
-    CharacterListItemComponent
+    CharacterListItemComponent,
+    CharacterViewComponent
   ],
   imports: [
     FormsModule,
