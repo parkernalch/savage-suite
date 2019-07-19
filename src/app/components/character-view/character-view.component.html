@@ -1,0 +1,34 @@
+<h1>{{character.name}}</h1>
+<div class="row">
+    <div class="col">
+        <div class="character-portfolio"></div>
+    </div>
+    <div class="col">
+        <div class="charview-name-input">
+            <label for="cv-name">Name: </label>
+            <input type="text" id="cv-name" value={{character.name}}>
+        </div>
+        <div class="charview-race-input">
+            <label for="cv-race">Race:</label>
+            <input type="text" id="cv-race" value={{character.race.name}}>
+        </div>
+        <div class="charview-description-input">
+            <label for="cv-desc">Short Bio:</label>
+            <input type="text" id="cv-desc" value={{character.description}}>
+        </div>
+    </div>
+</div>
+<h1>Edges</h1>
+<ul>
+    <li *ngFor="let edge of character.edges">{{edge.name}}</li>
+</ul>
+
+<h1>Hindrances</h1>
+<ul>
+    <li *ngFor="let hindrance of character.hindrances">{{hindrance.name}}</li>
+</ul>
+
+<h1>Powers</h1>
+<ul>
+    <li *ngFor="let power of character.powers">{{power.name}}</li>
+</ul>
