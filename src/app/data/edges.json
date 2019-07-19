@@ -1,0 +1,69 @@
+[
+    {
+        "name": "Two-Fisted",
+        "description": "Your character is well-versed in fighting with a weapon in each hand.",
+        "effect": "Ignore the MAP when attacking with one weapon in each hand",
+        "prerequisites": [ ],
+        "initiative": 0,
+        "tactician": 0,
+        "adventure": 0
+    },
+    {
+        "name": "Ambidextrous",
+        "description": "Your character has dextrous use of both hands interchangably",
+        "effect": "Ignore the off-hand penalty when making actions with your 'off hand'.",
+        "prerequisites": [ ],
+        "initiative": 0,
+        "tactician": 0,
+        "adventure": 0
+    },
+    {
+        "name": "Quick",
+        "description": "Your character is always ready to go",
+        "effect": "Discard any action card with a value less than five",
+        "prerequisites": [ ],
+        "initiative": 0,
+        "tactician": 0,
+        "adventure": 0
+    },
+    {
+        "name": "Level Headed",
+        "description": "Your character is old hat in combat and can often see the best course of action before his comrades.",
+        "effect": "Draw two action cards per round of combat and act on the better of the two",
+        "prerequisites": [ ],
+        "initiative": 1,
+        "tactician": 0,
+        "adventure": 0
+    },
+    {
+        "name": "Improved Level Headed",
+        "description": "Your character is a master combatant",
+        "effect": "Draw three action cards per round of combat and act on the best one",
+        "prerequisites": [ 
+            "Level Headed"
+        ],
+        "initiative": 1,
+        "tactician": 0,
+        "adventure": 0
+    },
+    {
+        "name": "Tactician",
+        "description": "Your character is a leader of men and calls out instructions that all can hear.",
+        "effect": "At the start of each round, you get two cards which you can give to allies and extras under your control",
+        "prerequisites": [ ],
+        "initiative": 0,
+        "tactician": 2,
+        "adventure": 0
+    },
+    {
+        "name": "Battle Master",
+        "description": "Your character is among the best tacticians around.",
+        "effect": "At the start of each round, you get three cards which you can give to allies and extras under your control",
+        "prerequisites": [ 
+            "Tactician"
+        ],
+        "initiative": 0,
+        "tactician": 0,
+        "adventure": 0
+    }
+]

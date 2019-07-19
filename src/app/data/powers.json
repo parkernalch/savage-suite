@@ -1,0 +1,110 @@
+[
+   {
+       "name": "Bolt",
+       "trapping": "Electricity",
+       "varieties": [
+           {
+               "cost": 1,
+               "effect": "2d4 damage and target must make a Vigor check or be vulnerable until next turn"
+           },
+           {
+               "cost": 2,
+               "effect": "3d4 damage and target must make a Vigor check or be vulnerable until next turn"
+           } 
+       ]
+   }, 
+   {
+       "name": "Blast",
+       "trapping": "Spiral of Flame",
+       "varieties": [
+           {
+               "cost": 3,
+               "effect": "All targets in MBT must succeed on an agility test or take 3d6 damage"
+           },
+           {
+               "cost": 2,
+               "effect": "All targets in SBT take 2d6 damage"
+           } 
+       ]
+   }, 
+   {
+       "name": "Havoc",
+       "trapping": "Force Grenade",
+       "varieties": [
+           {
+               "cost": 4,
+               "effect": "All targets in LBT must succeed on Strength test or be moved 25ft from point of explosion"
+           }
+       ]
+   }, 
+   {
+       "name": "Jet",
+       "trapping": "Major Lazor",
+       "varieties": [
+           {
+               "cost": 3,
+               "effect": "Targets in straight line take 4d4 damage"
+           },
+           {
+               "cost": 2,
+               "effect": "Targets in straight line take 2d6 damage"
+           } 
+       ]
+   }, 
+   {
+       "name": "Object Reading",
+       "trapping": "Psionics",
+       "varieties": [
+           {
+               "cost": 5,
+               "effect": "On success, you can 'read' the history of an object you are touching for the last month."
+           } 
+       ]
+   }, 
+   {
+       "name": "Telekinesis",
+       "trapping": "Psionics",
+       "varieties": [
+           {
+               "cost": 5,
+               "effect": "Target in range of SMx2 gets lifted into the air. You can move it on your turn"
+           } 
+       ]
+   }, 
+   {
+       "name": "Stun",
+       "trapping": "Concussive Grenade",
+       "varieties": [
+           {
+               "cost": 1,
+               "effect": "Targets in SBT are shaken"
+           },
+           {
+               "cost": 2,
+               "effect": "Targets in MBT are shaken"
+           },
+           {
+               "cost": 3,
+               "effect": "Targets in LBT are shaken"
+           } 
+       ]
+   }, 
+   {
+       "name": "Smite",
+       "trapping": "Acidic Coating",
+       "varieties": [
+           {
+               "cost": 1,
+               "effect": "For one minute, your attacks deal an extra 1 damage"
+           },
+           {
+               "cost": 2,
+               "effect": "For the next minute, your attacks deal and extra 2 damage"
+           },
+           {
+               "cost": 3,
+               "effect": "For the next minute, your attacks deal an extra 1d4 damage"
+           } 
+       ]
+   } 
+]

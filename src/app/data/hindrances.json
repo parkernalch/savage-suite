@@ -1,0 +1,68 @@
+[
+    {
+        "name": "Pacifist",
+        "description": "Character will not take violent action unless her life is at stake",
+        "major": false,
+        "minor": true
+    },
+    {
+        "name": "Darkeyes",
+        "description": "Character is born of the lower class. He will find many doors closed to him.",
+        "major": true,
+        "minor": false
+    },
+    {
+        "name": "Yellow",
+        "description": "Your character is squeamish to a fault. At the sight of blood, he is likely to faint.",
+        "major": true,
+        "minor": false
+    },
+    {
+        "name": "Slow",
+        "description": "Whether because of long-standing injury or general lack of fitness, your character is slower than most",
+        "major": false,
+        "minor": true
+    },
+    {
+        "name": "Brash",
+        "description": "Your character doesn't know when to keep his mouth shut and it often gets him in trouble.",
+        "major": false,
+        "minor": true
+    },
+    {
+        "name": "Doubting Thomas",
+        "description": "Your character doesn't believe in the supernatural, even if it's staring her in the face.",
+        "major": false,
+        "minor": true
+    },
+    {
+        "name": "Young",
+        "description": "Your character hasn't hit the age of maturity yet. He is underdeveloped and likely not to be taken as seriously as a fully-grown member of his race",
+        "major": true,
+        "minor": false
+    },
+    {
+        "name": "Headstrong",
+        "description": "Your character knows the right path and will boldly take it, naysayers be damned",
+        "major": false,
+        "minor": true
+    },
+    {
+        "name": "Seasick",
+        "description": "Your character doesn't have sea legs. While traveling on water, he is always considered vulnerable",
+        "major": true,
+        "minor": true
+    },
+    {
+        "name": "Unlucky",
+        "description": "Your character has run out of luck more times than she can count. You start each session with one fewer benny.",
+        "major": true,
+        "minor": false
+    },
+    {
+        "name": "Simple",
+        "description": "Your character isn't blessed by intellect. Oftentimes complex ideas completely pass him up",
+        "major": false,
+        "minor": true
+    }
+]
