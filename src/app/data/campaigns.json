@@ -1,0 +1,271 @@
+[
+    {
+        "id": 1,
+        "name": "Skimmers of Ord",
+        "chronicle": [ ],
+        "party": [
+            {
+                "id": 1,
+                "name": "Tennison Aqualian",
+                "description": "Haggard old pirate driven mad by years on the sea",
+                "race": {
+                    "name": "Human",
+                    "description": "Seen one, you've seen em all",
+                    "features": []
+                },
+                "rank": 25,
+                "campaign": "Skimmers of Ord"
+            },
+            {
+                "id": 2,
+                "name": "Yug Lamron",
+                "description": "A rusted out automaton convinced of his humanity in spite of his appearance",
+                "race": {
+                    "name": "Automaton",
+                    "description": "A machine operating and perceiving powered by an unknown energy source",
+                    "features": []
+                },
+                "rank": 25,
+                "campaign": "Skimmers of Ord"
+            },
+            {
+                "id": 3,
+                "name": "Baron Tydes",
+                "description": "Headstrong captain of his ship and owner to pet monkey, Steven",
+                "race": {
+                    "name": "Human",
+                    "description": "Seen one, you've seen em all",
+                    "features": []
+                },
+                "rank": 25,
+                "campaign": "Skimmers of Ord"
+            },
+            {
+                "id": 4,
+                "name": "The Skipper",
+                "description": "Nobody knows why they call him The Skipper. He has a face that makes you want to turn away at the first chance you get",
+                "race": {
+                    "name": "Human",
+                    "description": "Seen one, you've seen em all",
+                    "features": []
+                },
+                "rank": 25,
+                "campaign": "Skimmers of Ord"
+            }
+        ],
+        "sessions": [
+            "2019-5-10|1900",
+            "2019-5-24|1900",
+            "2019-6-8|1730"
+        ], 
+        "next_session": "2019-10-10|1900",
+        "motd": "Welcome, Skimmers! Keep an eye out for the next session date, releasing soon.",
+        "chat": [
+            {
+                "user": 4,
+                "message": "Hey guys, I'm excited for the game tonight!",
+                "date": "2019-5-10|2001",
+                "tags": []
+            },
+            {
+                "user": 2,
+                "message": "you do realize we started an hour ago, right?",
+                "date": "2019-5-10|2020",
+                "tags": []
+            },
+            {
+                "user": 3,
+                "message": "LOL",
+                "date": "2019-5-10|2125",
+                "tags": []
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "The Hyperion Chronicles",
+        "chronicle": [ ],
+        "party": [
+            {
+                "id": 5,
+                "name": "Sukorb Tsif",
+                "description": "First Officer aboard the Hyperion and now vice president of the Black Hole Coalition",
+                "race": {
+                    "name": "Dwarf",
+                    "description": "Fantasy dwarf",
+                    "features": []
+                },
+                "edges": [
+                    {
+                        "name": "Tactician",
+                        "description": "You are a seasoned battle director",
+                        "effect": "draw an additional two cards at the start of each turn. 75You may give them to your allies in battle",
+                        "prerequisites": []
+                    },
+                    {
+                        "name": "Two-Fisted",
+                        "description": "You have trained in two-weapon fighting",
+                        "effect": "Ignore the MAP when shooting with one weapon in each hand",
+                        "prerequisites": []
+                    }
+                ],
+                "rank": 75,
+                "campaign": "The Hyperion Chronicles"
+            },
+            {
+                "id": 6,
+                "name": "Klethic Parnastalos",
+                "description": "Once-ambassador between the Saurian homeworld and the Council-controlled worlds. Klethic now serves as the de facto leader of our band of heroes",
+                "race": {
+                    "name": "Pelosteran Saurian",
+                    "description": "Green-skinned bipedal lizard-men",
+                    "features": []
+                },
+                "rank": 75,
+                "campaign": "The Hyperion Chronicles"
+            },
+            {
+                "id": 7,
+                "name": "Ravikanth Naraiya",
+                "description": "Equal parts gruff and brilliant, Vik can engineer his way out of any situation",
+                "race": {
+                    "name": "Rakshasan",
+                    "description": "Bipedal feral cat-person",
+                    "features": []
+                },
+                "rank": 75,
+                "campaign": "The Hyperion Chronicles"
+            },
+            {
+                "id": 8,
+                "name": "Garen Aldor",
+                "description": "Though his medical training makes him the medic of the crew, it is his even head that keeps the party from losing its humanity",
+                "race": {
+                    "name": "Human",
+                    "description": "Seen one, you've seen em all",
+                    "features": []
+                },
+                "rank": 75,
+                "campaign": "The Hyperion Chronicles"
+            },
+            {
+                "id": 9,
+                "name": "Soombala",
+                "description": "Sent from his far-off homeworld to establish political relations, Soombala has become one of the prime officers in the fight against the rise of the Eclipse",
+                "race": {
+                    "name": "Lunar Serran",
+                    "description": "Long limbed, dark skinned psionic inhabitant of a distant world",
+                    "features": []
+                },
+                "rank": 75,
+                "campaign": "The Hyperion Chronicles"
+            },
+            {
+                "id": 10,
+                "name": "Caspian Wright",
+                "description": "Brash, headstrong, and now dying slowly in an alien restoration pod",
+                "race": {
+                    "name": "Human",
+                    "description": "Seen one, you've seen em all",
+                    "features": []
+                },
+                "rank": 75,
+                "campaign": "The Hyperion Chronicles"
+            },
+            {
+                "id": 11,
+                "name": "Hector Barrelwaite",
+                "description": "Dumb as rocks, but loyal as nothing you've ever seen before.",
+                "race": {
+                    "name": "Human",
+                    "description": "Seen one, you've seen em all",
+                    "features": []
+                },
+                "rank": 75,
+                "campaign": "The Hyperion Chronicles"
+            }
+        ],
+        "sessions": [
+            "2017-10-6|1900",
+            "2017-11-17|1900",
+            "2017-12-20|1900",
+            "2018-1-12|1900",
+            "2018-2-2|1900",
+            "2018-3-2|1900",
+            "2018-4-6|1900",
+            "2018-6-1|1900",
+            "2018-7-7|1900",
+            "2018-8-10|1900",
+            "2018-10-27|1900",
+            "2018-11-30|1900",
+            "2019-2-15|1900",
+            "2019-3-1|1900",
+            "2019-3-14|1900",
+            "2019-3-29|1900"
+        ], 
+        "next_session": "2019-3-29|1900",
+        "motd": "On hiatus until Parker finds a job or starts his program, sorry.",
+        "chat": [
+            {
+                "user": 9,
+                "message": "Hope the game goes well tonight, gents. I didn't have time for a whole game",
+                "date": "2019-3-14",
+                "tags": []
+            },
+            {
+                "user": 11,
+                "message": "Sunday the 24th from Noon to about 4pm, I'd like to run another game. If you're available and interested, please let me know!.",
+                "date": "2019-3-20",
+                "tags": ["Announcement"]
+            },
+            {
+                "user": 7,
+                "message": "I should be available, if anyone else is.",
+                "date": "2019-3-24",
+                "tags": []
+            },
+            {
+                "user": 11,
+                "message": "Yeah, to the best of my knowledge, Burke and Aaron will be playing as well.",
+                "date": "2019-3-24",
+                "tags": []
+            },
+            {
+                "user": 7,
+                "message": "Wrapping up now. Will be home shortly",
+                "date": "2019-3-24",
+                "tags": []
+            },
+            {
+                "user": 9,
+                "message": "7pm?",
+                "date": "2019-3-29",
+                "tags": []
+            },
+            {
+                "user": 11,
+                "message": "yes indeedy",
+                "date": "2019-3-29",
+                "tags": []
+            },
+            {
+                "user": 8,
+                "message": "Hangouts or Roll20?",
+                "date": "2019-3-29",
+                "tags": []
+            },
+            {
+                "user": 11,
+                "message": "how about the voice channel on Discord?",
+                "date": "2019-3-29",
+                "tags": []
+            },
+            {
+                "user": 8,
+                "message": "sure",
+                "date": "2019-3-29",
+                "tags": []
+            }
+        ]
+    }
+]

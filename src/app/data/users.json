@@ -1,0 +1,32 @@
+[
+    {
+        "id": 100001,
+        "name": "Parker Nalchajian",
+        "email": "parker.nalchajian@gmail.com",
+        "username": "parker"
+    },
+    {
+        "id": 100002,
+        "name": "John Lennon",
+        "email": "jlennon@gmail.com",
+        "username": "jlennon"
+    },
+    {
+        "id": 100003,
+        "name": "Paul McCartney",
+        "email": "pmccartney@gmail.com",
+        "username": "pmccartney"
+    },
+    {
+        "id": 100004,
+        "name": "Ringo Starr",
+        "email": "rstarr@gmail.com",
+        "username": "drumdrum"
+    },
+    {
+        "id": 100005,
+        "name": "George Harrison",
+        "email": "gharr@gmail.com",
+        "username": "gharrison"
+    }
+]

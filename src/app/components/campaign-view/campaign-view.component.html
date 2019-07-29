@@ -1,0 +1,49 @@
+<div class="campaign-view-header">
+    <div class="campaign-view-date">Next Game: {{campaign.next_session}}</div>
+    <div class="campaign-view-name">{{campaign.name}}</div>
+    <button >JOIN</button>
+</div>
+<div class="campaign-view-motd">
+    {{campaign.motd}}
+</div>
+<div class="row">
+    <div class="col campaign-view-characters">
+        <h3>Characters</h3>
+        <ul>
+            <li *ngFor="let char of campaign.party">{{char.name}}</li>
+        </ul>
+    </div>
+    <div class="col campaign-view-chronicle">
+        <h3>Chronicle</h3>
+        <ul>
+            <li *ngFor="let post of campaign.chronicle">{{post}}</li>
+        </ul>
+    </div>
+    <div class="col campaign-view-chat">
+        <h3>Chat Log</h3>
+        <ul>
+            <li *ngFor="let msg of campaign.chat">
+                <span>{{msg.user}}: {{msg.message}}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<h3>Custom Content</h3>
+<div class="row">
+    <div class="col campaign-view-custom-races">
+        <h3>Races</h3>
+        <ul></ul>
+    </div>
+    <div class="col campaign-view-custom-edges">
+        <h3>Edges</h3>
+        <ul></ul>
+    </div>
+    <div class="col campaign-view-custom-hindrances">
+        <h3>Hindrances</h3>
+        <ul></ul>
+    </div>
+    <div class="col campaign-view-custom-powers">
+        <h3>Powers</h3>
+        <ul></ul>
+    </div>
+</div>

@@ -17,6 +17,7 @@ import { CharacterViewComponent } from './components/character-view/character-vi
 import { CviewEdgeComponent } from './components/cview-edge/cview-edge.component';
 import { CviewHindranceComponent } from './components/cview-hindrance/cview-hindrance.component';
 import { CviewPowerComponent } from './components/cview-power/cview-power.component';
+import { CampaignViewComponent } from './components/campaign-view/campaign-view.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CviewPowerComponent } from './components/cview-power/cview-power.compon
     CharacterViewComponent,
     CviewEdgeComponent,
     CviewHindranceComponent,
-    CviewPowerComponent
+    CviewPowerComponent,
+    CampaignViewComponent
   ],
   imports: [
     FormsModule,
