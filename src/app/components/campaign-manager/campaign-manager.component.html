@@ -1,2 +1,13 @@
-<p>campaign-manager works!</p>
+<div>
+    <h1>My Campaigns</h1>
 
+    <div class="row" id="campaigns-list">
+        <div class="container campaign-item" *ngFor="let campaign of campaigns">
+            <div class="title">
+                <a href="campaign/{{campaign.id}}">
+                    {{campaign.name}}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
