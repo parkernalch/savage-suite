@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import _Edge from 'src/app/models/Edge';
 import _Hindrance from 'src/app/models/Hindrance';
 import _Power from 'src/app/models/Power';
+import { CampaignService } from 'src/app/services/campaign.service';
 
 @Component({
   selector: 'app-character-view',
@@ -17,6 +18,7 @@ export class CharacterViewComponent implements OnInit {
   character: SavageCharacter;
 
   constructor(
+    private campaignService: CampaignService,
     private characterService: CharacterService,
     private route: ActivatedRoute,
     private location: Location

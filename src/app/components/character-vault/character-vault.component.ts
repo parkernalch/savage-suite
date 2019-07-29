@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CharacterService } from '../../services/character.service';
 import SavageCharacter from 'src/app/models/Character';
-import { match } from 'minimatch';
+import { CampaignService } from '../../services/campaign.service';
 
 @Component({
   selector: 'app-character-vault',
@@ -11,18 +11,26 @@ import { match } from 'minimatch';
 export class CharacterVaultComponent implements OnInit {
   characters: SavageCharacter[];
 
-  constructor(private characterService:CharacterService) { }
+  constructor(
+    private campaignService: CampaignService,
+    private characterService:CharacterService) { }
 
   ngOnInit() {
     this.getCharacters();
   }
 
   getCharacters(): void {
-    this.characterService.getCharacters()
-      .subscribe(characters => {
-        // console.log(characters);
-        this.characters = characters;
-      }); 
+    // this.characterService.getCharacters()
+    //   .subscribe(characters => {
+    //     // console.log(characters);
+    //     this.characters = characters;
+    //   }); 
+    this.campaignService.getCampaigns()
+      .subscribe(campaigns => {
+        var parties = [].concat.apply([], campaigns.map(campaign => campaign.party));
+        console.log(parties);
+        this.characters = parties;
+      })    
   }
 
   toggleEdit(character:SavageCharacter): void {
