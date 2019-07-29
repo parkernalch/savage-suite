@@ -1,14 +1,14 @@
 import { _SavageCharacter } from "./Character";
 import  _ChroniclePost from "./ChroniclePost";
+import _ChatMessage from "./ChatMessage";
 
-interface _Campaign {
+export default interface _Campaign {
     id:number;
+    name:string;
     chronicle:_ChroniclePost[];
     party: _SavageCharacter[];
     sessions: Date[];
-    next_session: Date[];
+    next_session: Date;
     motd: string;
     chat: _ChatMessage[];
-
-    
 }
