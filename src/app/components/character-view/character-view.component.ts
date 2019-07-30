@@ -28,7 +28,7 @@ export class CharacterViewComponent implements OnInit {
     console.log(this.route.snapshot.paramMap.get("id"));
     this.id = parseInt(this.route.snapshot.paramMap.get("id"));
     this.characterService.getCharacterByID(this.id).subscribe(character => {
-      console.log(character);
+      console.log(`Character: ${character}`);
       this.character = character
     });
   }

@@ -20,31 +20,24 @@ export class CharacterVaultComponent implements OnInit {
   }
 
   getCharacters(): void {
-    // this.characterService.getCharacters()
-    //   .subscribe(characters => {
-    //     // console.log(characters);
-    //     this.characters = characters;
-    //   }); 
-    this.campaignService.getCampaigns()
-      .subscribe(campaigns => {
-        var parties = [].concat.apply([], campaigns.map(campaign => campaign.party));
-        console.log(parties);
-        this.characters = parties;
-      })    
-  }
+    this.characterService.getCharacters()
+      .subscribe(characters => {
+        this.characters = characters;
+      }); 
+ }
 
   toggleEdit(character:SavageCharacter): void {
     console.log(character);
     character.toggleEdit();
   }
 
-  filterCharacters($event:KeyboardEvent): SavageCharacter[] {
+  filterCharacters($event:KeyboardEvent): void {
     // console.log(document.getElementById("filterfield").value);
     let val:string = (<HTMLInputElement>document.getElementById('filterfield')).value.toLowerCase();
     let pattern:RegExp = new RegExp(`${val}`);
     this.getCharacters();
-    this.characters = this.characters.filter(character => pattern.test(character.name.toLowerCase()));
-    return this.characters.filter(character => pattern.test(character.name.toLowerCase()));
+    this.characters = this.characters.filter(character => pattern.test(character.campaign.toLowerCase() + character.name.toLowerCase()));
+    // return this.characters.filter(character => pattern.test(character.name.toLowerCase()));
   }
 
 }
