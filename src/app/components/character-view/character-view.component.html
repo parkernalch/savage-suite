@@ -1,4 +1,11 @@
+<h3>{{character.campaign}}</h3>
 <h1>{{character.name}}</h1>
+<h3>{{character.class}}</h3>
+<h3>{{character.rank}}</h3>
+<div class="container">
+    <div class="character-portrait" style="background-color: blue">IMG GOES HERE</div>
+</div>
+
 <div class="row">
     <div class="col">
         <div class="character-portfolio"></div>
@@ -18,29 +25,44 @@
         </div>
     </div>
 </div>
-<h1>Edges</h1>
-<ul>
-    <app-cview-edge *ngFor="let edge of character.edges" [edge]="edge"></app-cview-edge>
-    <div class="add-edge">
-        <input type="text" placeholder="Start typing edge name ..." id="edge-add-input">
-        <span><button (click)="addEdge()">ADD</button></span>
-    </div>
-</ul>
 
-<h1>Hindrances</h1>
-<ul>
-    <app-cview-hindrance *ngFor="let hindrance of character.hindrances" [hindrance]="hindrance"></app-cview-hindrance>
-    <div class="add-hindrance">
-        <input type="text" placeholder="Start typing hindrance name ..." id="hind-add-input">
-        <span><button (click)="addHindrance()">ADD</button></span>
+<div class="container" style="padding-bottom: 25px">
+    <h3>Stats</h3>
+    <div class="row">
+        <div class="col" *ngFor="let attr of character.traits.attributes">
+            <app-attribute-die [attribute]="attr.name" [value]="attr.level"></app-attribute-die>
+        </div>
     </div>
-</ul>
+</div>
 
-<h1>Powers</h1>
-<ul>
-    <app-cview-power *ngFor="let power of character.powers" [power]="power"></app-cview-power>
-    <div class="add-power">
-        <input type="text" placeholder="Start typing power name ..." id="pwr-add-input">
-        <span><button (click)="addPower()">ADD</button></span>
-    </div>
-</ul>
+<app-attribute-table [character]="character"></app-attribute-table>
+
+<div style="display:none">
+    <h1>Edges</h1>
+    <ul>
+        <app-cview-edge *ngFor="let edge of character.edges" [edge]="edge"></app-cview-edge>
+        <div class="add-edge">
+            <input type="text" placeholder="Start typing edge name ..." id="edge-add-input">
+            <span><button (click)="addEdge()">ADD</button></span>
+        </div>
+    </ul>
+
+    <h1>Hindrances</h1>
+    <ul>
+        <app-cview-hindrance *ngFor="let hindrance of character.hindrances" [hindrance]="hindrance"></app-cview-hindrance>
+        <div class="add-hindrance">
+            <input type="text" placeholder="Start typing hindrance name ..." id="hind-add-input">
+            <span><button (click)="addHindrance()">ADD</button></span>
+        </div>
+    </ul>
+
+    <h1>Powers</h1>
+    <ul>
+        <app-cview-power *ngFor="let power of character.powers" [power]="power"></app-cview-power>
+        <div class="add-power">
+            <input type="text" placeholder="Start typing power name ..." id="pwr-add-input">
+            <span><button (click)="addPower()">ADD</button></span>
+        </div>
+    </ul>
+
+</div>
