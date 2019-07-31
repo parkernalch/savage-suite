@@ -62,6 +62,10 @@ export class CampaignService {
           features: char.race.features
         }
         let CH: SavageCharacter = new SavageCharacter(char.id, char.name, race, char.campaign, char.rank);
+        CH.traits = {
+          attributes: char.traits.attributes,
+          skills: char.traits.skills
+        }
         if(char.description){
           CH.description = char.description;
         }
@@ -99,9 +103,9 @@ export class CampaignService {
       let day: number = parseInt(splitNext[2].split('|')[0]);
       let hour: number = parseInt(splitNext[2].split('|')[1].substring(0,2));
       let minute: number = parseInt(splitNext[2].split('|')[1].substring(2,4));
-      console.log(`Next Session: ${year} - ${month} - ${day} | ${hour}`);
+      // console.log(`Next Session: ${year} - ${month} - ${day} | ${hour}`);
       C.next_session = new Date(year, month, day, hour, minute);
-      console.log(C.next_session);
+      // console.log(C.next_session);
 
       this.campaigns.push(C);
 
