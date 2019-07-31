@@ -14,7 +14,61 @@
                     "features": []
                 },
                 "rank": 25,
-                "campaign": "Skimmers of Ord"
+                "campaign": "Skimmers of Ord",
+                "traits": {
+                    "attributes": [ 
+                        {
+                            "name": "Agility",
+                            "level": 6
+                        },
+                        {
+                            "name": "Smarts",
+                            "level": 6
+                        },
+                        {
+                            "name": "Spirit",
+                            "level": 8
+                        },
+                        {
+                            "name": "Strength",
+                            "level": 4
+                        },
+                        {
+                            "name": "Vigor",
+                            "level": 6
+                        }
+                    ],
+                    "skills": [
+                        {
+                            "name": "Fighting",
+                            "level": 6
+                        },
+                        {
+                            "name": "Shooting",
+                            "level": 8
+                        },
+                        {
+                            "name": "Notice",
+                            "level": 4
+                        },
+                        {
+                            "name": "Sailing",
+                            "level": 4
+                        },
+                        {
+                            "name": "Persuasion",
+                            "level": 4
+                        },
+                        {
+                            "name": "Stealth",
+                            "level": 4
+                        },
+                        {
+                            "name": "Intimidation",
+                            "level": 8
+                        }
+                    ]
+                }
             },
             {
                 "id": 2,
@@ -26,7 +80,62 @@
                     "features": []
                 },
                 "rank": 25,
-                "campaign": "Skimmers of Ord"
+                "campaign": "Skimmers of Ord",
+                "traits": {
+                    "attributes": [ 
+                        {
+                            "name": "Agility",
+                            "level": 4
+                        },
+                        {
+                            "name": "Smarts",
+                            "level": 6
+                        },
+                        {
+                            "name": "Spirit",
+                            "level": 8
+                        },
+                        {
+                            "name": "Strength",
+                            "level": 10
+                        },
+                        {
+                            "name": "Vigor",
+                            "level": 4
+                        }
+                    ],
+                    "skills": [
+                        {
+                            "name": "Fighting",
+                            "level": 12
+                        },
+                        {
+                            "name": "Shooting",
+                            "level": 4
+                        },
+                        {
+                            "name": "Notice",
+                            "level": 10
+                        },
+                        {
+                            "name": "Sailing",
+                            "level": 6
+                        },
+                        {
+                            "name": "Persuasion",
+                            "level": 4
+                        },
+                        {
+                            "name": "Stealth",
+                            "level": 4
+                        },
+                        {
+                            "name": "Intimidation",
+                            "level": 4
+                        }
+                    ]
+                }
+
             },
             {
                 "id": 3,
@@ -38,7 +147,61 @@
                     "features": []
                 },
                 "rank": 25,
-                "campaign": "Skimmers of Ord"
+                "campaign": "Skimmers of Ord",
+                "traits": {
+                    "attributes": [ 
+                        {
+                            "name": "Agility",
+                            "level": 6
+                        },
+                        {
+                            "name": "Smarts",
+                            "level": 6
+                        },
+                        {
+                            "name": "Spirit",
+                            "level": 6
+                        },
+                        {
+                            "name": "Strength",
+                            "level": 6
+                        },
+                        {
+                            "name": "Vigor",
+                            "level": 6
+                        }
+                    ],
+                    "skills": [
+                        {
+                            "name": "Fighting",
+                            "level": 4
+                        },
+                        {
+                            "name": "Shooting",
+                            "level": 10
+                        },
+                        {
+                            "name": "Notice",
+                            "level": 6
+                        },
+                        {
+                            "name": "Sailing",
+                            "level": 8
+                        },
+                        {
+                            "name": "Persuasion",
+                            "level": 10
+                        },
+                        {
+                            "name": "Stealth",
+                            "level": 4
+                        },
+                        {
+                            "name": "Intimidation",
+                            "level": 4
+                        }
+                    ]
+                }
             },
             {
                 "id": 4,
@@ -50,7 +213,61 @@
                     "features": []
                 },
                 "rank": 25,
-                "campaign": "Skimmers of Ord"
+                "campaign": "Skimmers of Ord",
+                "traits": {
+                    "attributes": [ 
+                        {
+                            "name": "Agility",
+                            "level": 8
+                        },
+                        {
+                            "name": "Smarts",
+                            "level": 4
+                        },
+                        {
+                            "name": "Spirit",
+                            "level": 8
+                        },
+                        {
+                            "name": "Strength",
+                            "level": 6
+                        },
+                        {
+                            "name": "Vigor",
+                            "level": 8
+                        }
+                    ],
+                    "skills": [
+                        {
+                            "name": "Fighting",
+                            "level": 10
+                        },
+                        {
+                            "name": "Shooting",
+                            "level": 6
+                        },
+                        {
+                            "name": "Notice",
+                            "level": 4
+                        },
+                        {
+                            "name": "Sailing",
+                            "level": 8
+                        },
+                        {
+                            "name": "Persuasion",
+                            "level": 6
+                        },
+                        {
+                            "name": "Stealth",
+                            "level": 4
+                        },
+                        {
+                            "name": "Intimidation",
+                            "level": 4
+                        }
+                    ]
+                }
             }
         ],
         "sessions": [
@@ -110,7 +327,61 @@
                     }
                 ],
                 "rank": 75,
-                "campaign": "The Hyperion Chronicles"
+                "campaign": "The Hyperion Chronicles",
+                "traits": {
+                    "attributes": [ 
+                        {
+                            "name": "Agility",
+                            "level": 8
+                        },
+                        {
+                            "name": "Smarts",
+                            "level": 6
+                        },
+                        {
+                            "name": "Spirit",
+                            "level": 6
+                        },
+                        {
+                            "name": "Strength",
+                            "level": 4
+                        },
+                        {
+                            "name": "Vigor",
+                            "level": 8
+                        }
+                    ],
+                    "skills": [
+                        {
+                            "name": "Fighting",
+                            "level": 4
+                        },
+                        {
+                            "name": "Shooting",
+                            "level": 12
+                        },
+                        {
+                            "name": "Notice",
+                            "level": 6
+                        },
+                        {
+                            "name": "Sailing",
+                            "level": 10
+                        },
+                        {
+                            "name": "Persuasion",
+                            "level": 6
+                        },
+                        {
+                            "name": "Stealth",
+                            "level": 10
+                        },
+                        {
+                            "name": "Intimidation",
+                            "level": 6
+                        }
+                    ]
+                }
             },
             {
                 "id": 6,
@@ -122,7 +393,61 @@
                     "features": []
                 },
                 "rank": 75,
-                "campaign": "The Hyperion Chronicles"
+                "campaign": "The Hyperion Chronicles",
+                "traits": {
+                    "attributes": [ 
+                        {
+                            "name": "Agility",
+                            "level": 8
+                        },
+                        {
+                            "name": "Smarts",
+                            "level": 10
+                        },
+                        {
+                            "name": "Spirit",
+                            "level": 6
+                        },
+                        {
+                            "name": "Strength",
+                            "level": 8
+                        },
+                        {
+                            "name": "Vigor",
+                            "level": 6
+                        }
+                    ],
+                    "skills": [
+                        {
+                            "name": "Fighting",
+                            "level": 10
+                        },
+                        {
+                            "name": "Shooting",
+                            "level": 4
+                        },
+                        {
+                            "name": "Notice",
+                            "level": 8
+                        },
+                        {
+                            "name": "Sailing",
+                            "level": 6
+                        },
+                        {
+                            "name": "Persuasion",
+                            "level": 12
+                        },
+                        {
+                            "name": "Stealth",
+                            "level": 6
+                        },
+                        {
+                            "name": "Intimidation",
+                            "level": 4
+                        }
+                    ]
+                }
             },
             {
                 "id": 7,
@@ -134,7 +459,61 @@
                     "features": []
                 },
                 "rank": 75,
-                "campaign": "The Hyperion Chronicles"
+                "campaign": "The Hyperion Chronicles",
+                "traits": {
+                    "attributes": [ 
+                        {
+                            "name": "Agility",
+                            "level": 6
+                        },
+                        {
+                            "name": "Smarts",
+                            "level": 10
+                        },
+                        {
+                            "name": "Spirit",
+                            "level": 6
+                        },
+                        {
+                            "name": "Strength",
+                            "level": 4
+                        },
+                        {
+                            "name": "Vigor",
+                            "level": 8
+                        }
+                    ],
+                    "skills": [
+                        {
+                            "name": "Fighting",
+                            "level": 6
+                        },
+                        {
+                            "name": "Shooting",
+                            "level": 10
+                        },
+                        {
+                            "name": "Notice",
+                            "level": 4
+                        },
+                        {
+                            "name": "Sailing",
+                            "level": 6
+                        },
+                        {
+                            "name": "Persuasion",
+                            "level": 8
+                        },
+                        {
+                            "name": "Stealth",
+                            "level": 12
+                        },
+                        {
+                            "name": "Intimidation",
+                            "level": 10
+                        }
+                    ]
+                }
             },
             {
                 "id": 8,
@@ -146,7 +525,61 @@
                     "features": []
                 },
                 "rank": 75,
-                "campaign": "The Hyperion Chronicles"
+                "campaign": "The Hyperion Chronicles",
+                "traits": {
+                    "attributes": [ 
+                        {
+                            "name": "Agility",
+                            "level": 6
+                        },
+                        {
+                            "name": "Smarts",
+                            "level": 10
+                        },
+                        {
+                            "name": "Spirit",
+                            "level": 6
+                        },
+                        {
+                            "name": "Strength",
+                            "level": 6
+                        },
+                        {
+                            "name": "Vigor",
+                            "level": 8
+                        }
+                    ],
+                    "skills": [
+                        {
+                            "name": "Fighting",
+                            "level": 10
+                        },
+                        {
+                            "name": "Shooting",
+                            "level": 6
+                        },
+                        {
+                            "name": "Notice",
+                            "level": 4
+                        },
+                        {
+                            "name": "Sailing",
+                            "level": 6
+                        },
+                        {
+                            "name": "Persuasion",
+                            "level": 10
+                        },
+                        {
+                            "name": "Stealth",
+                            "level": 6
+                        },
+                        {
+                            "name": "Intimidation",
+                            "level": 4
+                        }
+                    ]
+                }
             },
             {
                 "id": 9,
@@ -158,7 +591,61 @@
                     "features": []
                 },
                 "rank": 75,
-                "campaign": "The Hyperion Chronicles"
+                "campaign": "The Hyperion Chronicles",
+                "traits": {
+                    "attributes": [ 
+                        {
+                            "name": "Agility",
+                            "level": 4
+                        },
+                        {
+                            "name": "Smarts",
+                            "level": 10
+                        },
+                        {
+                            "name": "Spirit",
+                            "level": 6
+                        },
+                        {
+                            "name": "Strength",
+                            "level": 4
+                        },
+                        {
+                            "name": "Vigor",
+                            "level": 10
+                        }
+                    ],
+                    "skills": [
+                        {
+                            "name": "Fighting",
+                            "level": 4
+                        },
+                        {
+                            "name": "Shooting",
+                            "level": 6
+                        },
+                        {
+                            "name": "Notice",
+                            "level": 8
+                        },
+                        {
+                            "name": "Sailing",
+                            "level": 12
+                        },
+                        {
+                            "name": "Persuasion",
+                            "level": 6
+                        },
+                        {
+                            "name": "Stealth",
+                            "level": 8
+                        },
+                        {
+                            "name": "Intimidation",
+                            "level": 6
+                        }
+                    ]
+                }
             },
             {
                 "id": 10,
@@ -170,7 +657,61 @@
                     "features": []
                 },
                 "rank": 75,
-                "campaign": "The Hyperion Chronicles"
+                "campaign": "The Hyperion Chronicles",
+                "traits": {
+                    "attributes": [ 
+                        {
+                            "name": "Agility",
+                            "level": 0
+                        },
+                        {
+                            "name": "Smarts",
+                            "level": 0
+                        },
+                        {
+                            "name": "Spirit",
+                            "level": 0
+                        },
+                        {
+                            "name": "Strength",
+                            "level": 0
+                        },
+                        {
+                            "name": "Vigor",
+                            "level": 0
+                        }
+                    ],
+                    "skills": [
+                        {
+                            "name": "Fighting",
+                            "level": 0
+                        },
+                        {
+                            "name": "Shooting",
+                            "level": 0
+                        },
+                        {
+                            "name": "Notice",
+                            "level": 0
+                        },
+                        {
+                            "name": "Sailing",
+                            "level": 0
+                        },
+                        {
+                            "name": "Persuasion",
+                            "level": 0
+                        },
+                        {
+                            "name": "Stealth",
+                            "level": 0
+                        },
+                        {
+                            "name": "Intimidation",
+                            "level": 0
+                        }
+                    ]
+                }
             },
             {
                 "id": 11,
@@ -182,7 +723,61 @@
                     "features": []
                 },
                 "rank": 75,
-                "campaign": "The Hyperion Chronicles"
+                "campaign": "The Hyperion Chronicles",
+                "traits": {
+                    "attributes": [ 
+                        {
+                            "name": "Agility",
+                            "level": 8
+                        },
+                        {
+                            "name": "Smarts",
+                            "level": 4
+                        },
+                        {
+                            "name": "Spirit",
+                            "level": 4
+                        },
+                        {
+                            "name": "Strength",
+                            "level": 10
+                        },
+                        {
+                            "name": "Vigor",
+                            "level": 6
+                        }
+                    ],
+                    "skills": [
+                        {
+                            "name": "Fighting",
+                            "level": 12
+                        },
+                        {
+                            "name": "Shooting",
+                            "level": 4
+                        },
+                        {
+                            "name": "Notice",
+                            "level": 6
+                        },
+                        {
+                            "name": "Sailing",
+                            "level": 4
+                        },
+                        {
+                            "name": "Persuasion",
+                            "level": 4
+                        },
+                        {
+                            "name": "Stealth",
+                            "level": 4
+                        },
+                        {
+                            "name": "Intimidation",
+                            "level": 8
+                        }
+                    ]
+                }
             }
         ],
         "sessions": [
