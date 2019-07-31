@@ -18,6 +18,8 @@ import { CviewEdgeComponent } from './components/cview-edge/cview-edge.component
 import { CviewHindranceComponent } from './components/cview-hindrance/cview-hindrance.component';
 import { CviewPowerComponent } from './components/cview-power/cview-power.component';
 import { CampaignViewComponent } from './components/campaign-view/campaign-view.component';
+import { AttributeTableComponent } from './components/attribute-table/attribute-table.component';
+import { AttributeDieComponent } from './components/attribute-die/attribute-die.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { CampaignViewComponent } from './components/campaign-view/campaign-view.
     CviewEdgeComponent,
     CviewHindranceComponent,
     CviewPowerComponent,
-    CampaignViewComponent
+    CampaignViewComponent,
+    AttributeTableComponent,
+    AttributeDieComponent
   ],
   imports: [
     FormsModule,
