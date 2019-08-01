@@ -25,10 +25,10 @@ export class CharacterViewComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    console.log(this.route.snapshot.paramMap.get("id"));
+    // console.log(this.route.snapshot.paramMap.get("id"));
     this.id = parseInt(this.route.snapshot.paramMap.get("id"));
     this.characterService.getCharacterByID(this.id).subscribe(character => {
-      console.log(`Character: ${character}`);
+      // console.log(`Character: ${character}`);
       this.character = character
     });
   }
