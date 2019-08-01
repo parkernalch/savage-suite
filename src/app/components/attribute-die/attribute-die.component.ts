@@ -12,7 +12,7 @@ export class AttributeDieComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(`Attribute ${this.attribute}: ${this.value}`);
+    // console.log(`Attribute ${this.attribute}: ${this.value}`);
   }
 
 }

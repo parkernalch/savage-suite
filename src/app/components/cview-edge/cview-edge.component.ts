@@ -12,7 +12,7 @@ export class CviewEdgeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.edge);
+    // console.log(this.edge);
   }
 
 }
