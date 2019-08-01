@@ -66,6 +66,7 @@ export class CampaignService {
           attributes: char.traits.attributes,
           skills: char.traits.skills
         }
+        CH.traits.skills.forEach(skill => skill.modifier = 0);
         if(char.description){
           CH.description = char.description;
         }
