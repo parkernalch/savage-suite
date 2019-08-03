@@ -459,6 +459,7 @@
                     "features": []
                 },
                 "rank": 75,
+                "class": "Augmented Technomancer",
                 "campaign": "The Hyperion Chronicles",
                 "traits": {
                     "attributes": [ 
@@ -513,7 +514,75 @@
                             "level": 10
                         }
                     ]
-                }
+                },
+                "powers": [
+                    {
+                        "name": "Bolt",
+                        "trapping": "Arm-Mounted Matter Accelerator",
+                        "varieties": [
+                            {
+                                "name": "Rivet Gun",
+                                "cost": 1,
+                                "effect": "Deal 2d6 damage per bolt (up to three) in a range of 12/24/48"
+                            },
+                            {
+                                "name": "Strut Cannon",
+                                "cost": 2,
+                                "effect": "Deal 3d6 damage in a single big bolt of range 12/24/48"
+                            }
+                        ]
+                    }
+                ],
+                "hindrances": [
+                    {
+                        "name": "Mean",
+                        "description": "This fellow is ill-tempered and disagreeable. No one really likes him, and he has trouble doing anything kind for anyone else. He must be paid for his troubles and doesn't even accept awards graciously. Your character suffers from -2 to Charisma.",
+                        "major": false,
+                        "minor": true
+                    },
+                    {
+                        "name": "Arrogant",
+                        "description": "Your hero doesn't think he's the best -- he knows he is. Winning isn't enough for your hero. He must DOMINATE his opponent. Arrogant heroes always look for the 'boss' in battle, attacking lesser minions only if they get in the way",
+                        "major": false,
+                        "minor": true
+                    },
+                    {
+                        "name": "Outsider",
+                        "description": "In a society made up of only a few types of people, your hero isn't one of them. Locals are likely to raise prices for you, ignore your pleas for help, and generally treat you as if you're a lower class of society. You suffer -2 Charisma when interacting with anyone outside your own race.",
+                        "major": false,
+                        "minor": true
+                    }
+                ],
+                "edges": [
+                    {
+                        "name": "Luck",
+                        "description": "You're blessed by fate, the gods, or some external force",
+                        "effect": "Draw one extra Benny at the beginning of each game session",
+                        "prerequisites": ["Novice"]
+                    },
+                    {
+                        "name": "Natural Weapons",
+                        "description": "You have retractable claws",
+                        "effect": "Deal Str+d6 damage when you would otherwise be unarmed and have +2 to Climbing rolls on non-sheer surfaces",
+                        "prerequisites": ["Rakshasan"]
+                    },
+                    {
+                        "name": "Gadgeteer",
+                        "description": "You are so technically savvy that you can quickly build a machine to handle nearly any situation",
+                        "effect": "Once per game session, you can create a 'jury-rigged' device that operates just like any Weird Science device and uses any power available to Weird Scientists. It has half your PP and does not recharge. Construction time: 1d20 minutes.",
+                        "prerequisites": [
+                            "Novice",
+                            "Arcane Background(Weird Science)",
+                            "Smarts d8+",
+                            "Repair d8+",
+                            "Weird Science d8+",
+                            "At least two other scientific knowledge skills at d6+"
+                        ]
+                    }
+                ],
+                "gear": [
+
+                ]
             },
             {
                 "id": 8,
