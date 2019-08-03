@@ -1,10 +1,11 @@
 interface _Power {
     name:string;
     trapping:string;
-    varities: _PowerInstance[];
+    varieties: _PowerInstance[];
 }
 
-interface _PowerInstance {
+export interface _PowerInstance {
+    name: string,
     cost: number;
     effect: string;
 }

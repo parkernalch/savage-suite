@@ -32,6 +32,7 @@ export default class SavageCharacter implements _SavageCharacter {
     traits: _TraitBlock;
     race:_Race;
     description:string;
+    class?:string;
     edges:_Edge[];
     hindrances:_Hindrance[];
     powers:_Power[];
