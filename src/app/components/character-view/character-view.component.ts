@@ -62,8 +62,9 @@ export class CharacterViewComponent implements OnInit {
     let power: _Power = {
       "name": "Fly",
       "trapping": "Cybernetic Jet Engines",
-      "varities": [
+      "varieties": [
         {
+          "name": "Jetpack",
           "cost": 4,
           "effect": "for the next minute, you have a fly speed equal to your pace"
         }
