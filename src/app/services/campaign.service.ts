@@ -5,7 +5,9 @@ import _ChatMessage from "../models/ChatMessage";
 import SavageCharacter, { _SavageCharacter } from '../models/Character.js';
 import _Race from "../models/Race";
 import _Edge from "../models/Edge";
+import _Power, { _PowerInstance } from "../models/Power";
 import { Observable, of } from 'rxjs';
+import _Hindrance from '../models/Hindrance.js';
 
 @Injectable({
   providedIn: 'root'
@@ -61,15 +63,23 @@ export class CampaignService {
           description: char.race.description,
           features: char.race.features
         }
+
         let CH: SavageCharacter = new SavageCharacter(char.id, char.name, race, char.campaign, char.rank);
+
         CH.traits = {
           attributes: char.traits.attributes,
           skills: char.traits.skills
         }
         CH.traits.skills.forEach(skill => skill.modifier = 0);
+
         if(char.description){
           CH.description = char.description;
         }
+
+        if(char.class){
+          CH.class = char.class;
+        }
+
         if(char.edges){ 
           char.edges.forEach((edge) => {
             let _E: _Edge = {
@@ -81,6 +91,40 @@ export class CampaignService {
             CH.edges.push(_E);
           });
         }
+
+        if(char.powers){
+          char.powers.forEach(power => {
+            let _P: _Power = {
+              name: power.name,
+              trapping: power.trapping,
+              varieties: []
+            };
+            power.varieties.forEach(v => {
+              let _V: _PowerInstance = {
+                name: v.name,
+                cost: v.cost,
+                effect: v.effect
+              }
+              _P.varieties.push(_V);
+            });
+            CH.powers.push(power);
+          });
+        }
+
+        if(char.hindrances){
+          char.hindrances.forEach(hindrance => {
+            let _H: _Hindrance = {
+              name: hindrance.name,
+              description: hindrance.description,
+              major: hindrance.major,
+              minor: hindrance.minor
+            };
+
+            CH.hindrances.push(_H);
+          });
+        }
+
+        // console.log(CH);
         C.party.push(CH);
       });
 
