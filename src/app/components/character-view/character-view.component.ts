@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, ViewChild } from '@angular/core';
 import { CharacterService } from '../../services/character.service';
 import SavageCharacter from 'src/app/models/Character';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +7,8 @@ import _Edge from 'src/app/models/Edge';
 import _Hindrance from 'src/app/models/Hindrance';
 import _Power from 'src/app/models/Power';
 import { CampaignService } from 'src/app/services/campaign.service';
+import { DOCUMENT } from "@angular/common";
+import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 @Component({
   selector: 'app-character-view',
@@ -74,5 +76,10 @@ export class CharacterViewComponent implements OnInit {
     this.characterService.addPowerToCharacter(this.character.id, power).subscribe(
       character => this.character = character
     );
+  }
+
+
+  toggleEdit() {
+    this.character.isEdit = !this.character.isEdit;
   }
 }
