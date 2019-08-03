@@ -26,6 +26,7 @@ export class AttributeTableComponent implements OnInit {
   rollSkill(skill: _Skill): number {
     var result: number = Math.floor(Math.random() * skill.level) + 1 + skill.modifier;
     console.log(result);
+    alert(result);
     return result;
   }
 

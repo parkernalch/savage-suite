@@ -1,6 +1,7 @@
 <div class="container">
     <h3>Attributes</h3>
     <hr>
+    <hr>
     <div class="row">
         <button class="col" id="table-hindrances" (click)="toggleView('hindrances')">HINDRANCES</button>
         <button class="col" id="table-edges" (click)="toggleView('edges')">EDGES</button>
@@ -9,47 +10,109 @@
         <button class="col" id="table-gear" (click)="toggleView('gear')">GEAR</button>
     </div>
     <hr>
-    <div class="row" id="table-hindrances" *ngIf="viewHindrances">
-        <div class="col" id="table-hindrances" *ngIf="viewHindrances">
-            <div class="attribute-item" *ngFor="let hindrance of character.hindrances">
-                <span>{{hindrance.name}}</span> | <span>{{hindrance.description}}</span>
-            </div>
-        </div>
-    </div>
+    <hr>
 
-    <div class="row" id="table-edges" *ngIf="viewEdges">
-        <div class="col" id="table-edges" *ngIf="viewEdges">
-            <div class="attribute-item" *ngFor="let edge of character.edges">
-                <span>{{edge.name}}</span> | <span>{{edge.effect}}</span>
-            </div>
-        </div>
-    </div>
+    <table *ngIf="viewHindrances">
+        <thead>
+            <tr>
+                <th>Hindrance</th>
+                <th>Details</th>
+                <th>Major</th>
+                <th>Minor</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let hindrance of character.hindrances">
+                <td>{{hindrance.name}}</td>
+                <td>{{hindrance.description}}</td>
+                <td>{{hindrance.major}}</td>
+                <td>{{hindrance.minor}}</td>
+            </tr>
+        </tbody>
+    </table>
 
-    <div class="row" id="table-powers" *ngIf="viewPowers">
-        <div class="col" id="table-powers" *ngIf="viewPowers">
-            <div class="attribute-item" *ngFor="let power of character.powers">
-                <span>{{power.name}}</span> | <span>{{power.trapping}}</span> | <span *ngFor="let cost of power.varities">{{cost.number}}:{{cost.effect}}</span>
-            </div>
-        </div>
-    </div>
+    <table *ngIf="viewEdges">
+        <thead>
+            <tr>
+                <th>Edge</th>
+                <th>Description</th>
+                <th>Effect</th>
+                <th>Prerequisites</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let edge of character.edges">
+                <td>{{edge.name}}</td>
+                <td>{{edge.description}}</td>
+                <td>{{edge.effect}}</td>
+                <td><span *ngFor="let prereq of edge.prerequisites">{{prereq}} ,</span></td>
+            </tr>
+        </tbody>
+    </table>
 
-    <div class="row" id="table-skills" *ngIf="viewSkills">
-        <div class="col" id="table-skills" *ngIf="viewSkills">
-            <div class="attribute-item" *ngFor="let skill of character.traits.skills">
-                <span>{{skill.name}}</span> | <span>d{{skill.level}}</span><span *ngIf="skill.modifier > 0"> + {{skill.modifier}}</span>
-                <button (click)="rollSkill(skill)">ROLL</button>
-                <button (click)="increaseSkill(skill)">+</button>
-                <button (click)="decreaseSkill(skill)">-</button>
-            </div>
-        </div>
-    </div>
+    <table *ngIf="viewPowers">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Trapping</th>
+                <th>Cost</th>
+                <th>Effect</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let power of character.powers">
+            <tr *ngFor="let variety of power.varieties">
+                <td>{{power.name}}</td>
+                <td>{{power.trapping}}</td>
+                <td>{{variety.cost}}</td>
+                <td>{{variety.effect}}</td>
+            </tr>
+        </tbody>
+    </table>
 
-    <div class="row" id="table-gear" *ngIf="viewGear">
-        <div class="col" id="table-gear" *ngIf="viewGear">
-            <div class="attribute-item" *ngFor="let item of character.gear">
+    <table *ngIf="viewSkills">
+        <thead>
+            <tr>
+                <th>Advancement</th>
+                <th>Skill</th>
+                <th>Level</th>
+                <th>ROLL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let skill of character.traits.skills">
+                <td>
+                    <button (click)="increaseSkill(skill)">+</button>
+                    <button (click)="decreaseSkill(skill)">-</button>
+                </td>
+                <td>
+                    {{skill.name}}
+                </td>
+                <td>
+                    d{{skill.level}} <span *ngIf="skill.modifier > 0"> + {{skill.modifier}}</span>
+                </td>
+                <td>
+                    <button (click)="rollSkill(skill)">ROLL</button> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-            </div>
-        </div>
-    </div>
+    <table *ngIf="viewGear">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Type</th>
+                <th>Weight</th>
+                <th>Cost</th>
+                <th>Damage</th>
+                <th>Range</th>
+                <th>RoF</th>
+                <th>Shots</th>
+                <th>Min Str.</th>
+                <th>Armor</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+    </table>
 
 </div>

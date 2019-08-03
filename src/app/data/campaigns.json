@@ -316,7 +316,7 @@
                     {
                         "name": "Tactician",
                         "description": "You are a seasoned battle director",
-                        "effect": "draw an additional two cards at the start of each turn. 75You may give them to your allies in battle",
+                        "effect": "draw an additional two cards at the start of each turn. You may give them to your allies in battle",
                         "prerequisites": []
                     },
                     {
