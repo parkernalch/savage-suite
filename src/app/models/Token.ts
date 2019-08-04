@@ -3,5 +3,6 @@ export default interface _Token {
     y_coord: number,
     width: number,
     height: number,
-    color: string
+    color: string,
+    icon?: string
 }
