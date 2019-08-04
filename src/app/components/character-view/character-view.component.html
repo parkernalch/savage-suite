@@ -14,9 +14,9 @@
         <div class="charview-descbox"> 
             <p *ngIf="!character.isEdit" class="charview-description">{{character.description}}</p> 
             <textarea *ngIf="character.isEdit" type="text" id="cv-desc" [(ngModel)]="character.description"></textarea>
-            <button (click)="toggleEdit()">
-                <span *ngIf="character.isEdit">SUBMIT</span>
-                <span *ngIf="!character.isEdit">EDIT</span>
+            <button id="edit-submit-description" (click)="toggleEdit()">
+                <span *ngIf="character.isEdit">X</span>
+                <span *ngIf="!character.isEdit">O</span>
             </button>
         </div>
     </div>

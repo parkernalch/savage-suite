@@ -1,15 +1,13 @@
 <div class="container">
     <h3>Attributes</h3>
     <hr>
-    <hr>
-    <div class="row">
-        <button class="col" id="table-hindrances" (click)="toggleView('hindrances')">HINDRANCES</button>
-        <button class="col" id="table-edges" (click)="toggleView('edges')">EDGES</button>
-        <button class="col" id="table-powers" (click)="toggleView('powers')">POWERS</button>
-        <button class="col" id="table-skills" (click)="toggleView('skills')">SKILLS</button>
-        <button class="col" id="table-gear" (click)="toggleView('gear')">GEAR</button>
+    <div class="row att-table-headers">
+        <div class="col table-header" id="table-hindrances" (click)="toggleView('hindrances')">HINDRANCES</div>
+        <div class="col table-header" id="table-edges" (click)="toggleView('edges')">EDGES</div>
+        <div class="col table-header" id="table-powers" (click)="toggleView('powers')">POWERS</div>
+        <div class="col table-header" id="table-skills" (click)="toggleView('skills')">SKILLS</div>
+        <div class="col table-header" id="table-gear" (click)="toggleView('gear')">GEAR</div>
     </div>
-    <hr>
     <hr>
 
     <table *ngIf="viewHindrances">
@@ -45,7 +43,8 @@
                 <td>{{edge.name}}</td>
                 <td>{{edge.description}}</td>
                 <td>{{edge.effect}}</td>
-                <td><span *ngFor="let prereq of edge.prerequisites">{{prereq}} ,</span></td>
+                <!-- <td><span *ngFor="let prereq of edge.prerequisites"> {{",".join(character.prerequisites)}} </span></td> -->
+                <td><span> {{edge.prerequisites.join(' , ')}} </span></td>
             </tr>
         </tbody>
     </table>
@@ -116,5 +115,176 @@
             </tr>
         </thead>
     </table>
+
+    <div class="add-attribute">
+        <button *ngIf="viewHindrances">Add Hindrance</button>
+        <button *ngIf="viewEdges">Add Edge</button>
+        <button *ngIf="viewPowers">Add Power</button>
+        <button *ngIf="viewSkills">Add Skill</button>
+        <button *ngIf="viewGear">Add Gear</button>
+    </div>
+
+    <div class="add-attribute-modal">
+        <div class="modal-header">
+            <h3>
+                Add 
+                <span *ngIf="addHindrance">Hindrance</span>
+                <span *ngIf="addEdge">Edge</span>
+                <span *ngIf="addSkill">Skill</span>
+                <span *ngIf="addPower">Power</span>
+                <span *ngIf="addItem">Item</span>
+            </h3>
+        </div>
+        <div class="modal-body">
+            <div class="add-hindrance" *ngIf="addHindrance">
+                <label>Hindrance</label>
+                <input />
+                <br>
+                <label>Description</label>
+                <input />
+                <br>
+                <label>Type</label>
+                <button>Major</button>
+                <button>Minor</button>
+            </div>
+            <div class="add-edge" *ngIf="addEdge">
+                <label>Edge</label>
+                <input />
+                <br>
+                <label>Description</label>
+                <input />
+                <br>
+                <label>Effect</label>
+                <input />
+                <br>
+                <label>Prerequisites</label>
+                <input />
+                <br>
+            </div>
+            <div class="add-power" *ngIf="addPower">
+                <label>Power</label>
+                <input />
+                <br>
+                <label>Trapping</label>
+                <input />
+                <br>
+                <label>Flavor</label>
+                <input />
+                <br>
+                <label>Cost</label>
+                <input />
+                <br>
+                <label>Effect</label>
+                <input />
+            </div>
+            <div class="add-skill" *ngIf="addSkill">
+                <label>Skill</label>
+                <input />
+                <br>
+                <label>Base Attribute</label>
+                <input />
+                <br>
+                <label>Die Type</label>
+                <input />
+            </div>
+            <div class="add-melee-weapon" *ngIf="addMeleeWeapon">
+                <label>Weapon</label>
+                <input />
+                <br>
+                <label>Damage</label>
+                <input />
+                <br>
+                <label>Weight</label>
+                <input />
+                <br>
+                <label>Cost</label>
+                <input />
+                <br>
+                <label>Notes</label>
+                <input />
+            </div>
+            <div class="add-ranged-weapon" *ngIf="addRangedWeapon">
+                <label>Weapon</label>
+                <input />
+                <br>
+                <label>Range</label>
+                <input /><span>/</span><input /><span>/</span><input />
+                <br>
+                <label>Damage</label>
+                <input />
+                <br>
+                <label>RoF</label>
+                <input />
+                <br>
+                <label>Cost</label>
+                <input />
+                <br>
+                <label>Weight</label>
+                <input />
+                <br>
+                <label>Shots</label>
+                <input />
+                <br>
+                <label>Min Str.</label>
+                <input />
+                <br>
+                <label>Notes</label>
+                <input />
+            </div>
+            <div class="add-armor" *ngIf="addArmor">
+                <label>Type</label>
+                <input />
+                <br>
+                <label>Armor Mod</label>
+                <input /> 
+                <br>
+                <label>Weight</label>
+                <input />
+                <br>
+                <label>Cost</label>
+                <input />
+                <br>
+                <label>Notes</label>
+                <input />
+            </div>
+            <div class="add-ammo" *ngIf="addAmmo">
+                <label>Ammo</label>
+                <input />
+                <br>
+                <label>Weight</label>
+                <input />
+                <br>
+                <label>Cost</label>
+                <input />
+                <br>
+                <label>Notes</label>
+                <input />
+            </div>
+            <div class="add-mundane-item" *ngIf="addMundaneItem">
+                <label>Item</label>
+                <input />
+                <br>
+                <label>Cost</label>
+                <input />
+                <br>
+                <label>Weight</label>
+                <input />
+            </div>
+            <div class="add-magic-item">
+                <label>Name</label>
+                <input />
+                <br>
+                <label>Effect</label>
+                <input />
+                <br>
+                <label>Cost</label>
+                <input />
+            </div> 
+        </div>
+        <div class="modal-footer">
+            <button>Cancel</button>
+            <button>Submit</button>
+        </div>
+    </div>
 
 </div>

@@ -1,0 +1,43 @@
+.att-table-headers
+    padding-top: 5px
+    padding-bottom: 5px
+    text-align: center
+    .table-header
+        transition: all 0.5s
+        line-height: 40px
+        font-family: sans-serif
+        cursor: pointer
+    .table-header:hover
+        background: #f3f3f3
+        cursor: pointer
+    .table-header.active
+        color: #0033ff
+        font-weight: bold
+        
+table
+    border-collapse: collapse
+    width: 100%
+    margin-top: 10px
+    margin-bottom: 10px
+th, td
+    border: 1px solid black
+    min-width: 100px
+    padding: 5px
+th
+    background: #f0f0f0
+    padding-top: 15px
+    padding-bottom: 15px
+    font-family: sans-serif
+.add-attribute-modal
+    display: none
+    position: fixed
+    top: 50px
+    left: 50%
+    transform: translateX(-50%)
+    background: white
+    border: 2px red solid
+    .modal-header
+        background: gray
+    .modal-footer
+        float: right
+        background: green
