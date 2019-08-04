@@ -1,0 +1,38 @@
+{
+    "width_squares": 25,
+    "height_squares": 25,
+    "tokens": {
+        "action": [
+            {
+                "x_coord": 1,
+                "y_coord": 1,
+                "width": 1,
+                "height": 1,
+                "color": "#00ff00"
+            },
+            {
+                "x_coord": 5,
+                "y_coord": 6,
+                "width": 1,
+                "height": 1,
+                "color": "#ff00ff"
+            },
+            {
+                "x_coord": 10,
+                "y_coord": 1,
+                "width": 1,
+                "height": 1,
+                "color": "#ffff00"
+            },
+            {
+                "x_coord": 3,
+                "y_coord": 12,
+                "width": 1,
+                "height": 1,
+                "color": "#00ffff"
+            }
+        ],
+        "map": [],
+        "gm": []
+    }
+}
