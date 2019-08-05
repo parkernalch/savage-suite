@@ -37,6 +37,12 @@ export class InitiativeComponent implements OnInit {
     fill: {color: string, visible: boolean}
   }
 
+  customDrawings: {
+    points: {x: number, y:number}[],
+    stroke: {color:string, width:number, visible:boolean},
+    fill: {color:string, visible:boolean}
+  }[];
+
   tool: string;
   @ViewChild('toolHand', {static: false })
   toolHand: ElementRef<HTMLDivElement>;
@@ -66,6 +72,20 @@ export class InitiativeComponent implements OnInit {
       grab_x: null,
       grab_y: null
     };
+    this.drawData = {
+      isDrawing: false,
+      points: [],
+      stroke: {
+        color: "#000000",
+        width: 1,
+        visible: true
+      },
+      fill: {
+        color: "#ffffff",
+        visible: true
+      }
+    };
+    this.customDrawings = [];
   }
 
   ngOnInit() {
@@ -128,6 +148,7 @@ export class InitiativeComponent implements OnInit {
     // console.log("Update GO");
     this.clearCanvas();
     this.drawGrid(this.boardState);
+    this.drawAllCustomShapes();
     this.drawTokens(this.boardState);
   }
 
@@ -156,17 +177,14 @@ export class InitiativeComponent implements OnInit {
       let y_top = tk.y_coord * this.gridScale * this.zoom + this.offset.y_offset;
       let y_bottom = y_top + tk.height * this.gridScale * this.zoom;
 
-      // console.log(`(${x_left}, ${x_right}, ${y_top}, ${y_bottom})`);
       if(
         mouse_x > x_left &&
         mouse_x < x_right &&
         mouse_y > y_top &&
         mouse_y < y_bottom
       ) {
-        // console.log(`Matched Token: ${tk}`);
         return true
       } else {
-        // console.log(`Rejected Token: ${tk}`);
         return false
       }
     });
@@ -222,23 +240,119 @@ export class InitiativeComponent implements OnInit {
   // Doodle Functions
   startShape(event: MouseEvent): void { 
     this.drawData.isDrawing = true;
-    this.drawData.points = [{x: event.x, y: event.y}];
+    this.drawData.points = [{x: event.x, y: event.y - 40}];
+    console.log(`Started shape at (${event.x}, ${event.y - 40})`);
   }
 
   addVertex(event: MouseEvent): void {
-    
+    let origin = this.drawData.points[0];
+    if(event.x <= origin.x + 10 && event.x >= origin.x - 10 && event.y <= origin.y + 50 && event.y >= origin.y - 30){
+      this.closeShape(event);
+      return
+    }
+    this.drawData.points.push({x: event.x, y: event.y - 40}); 
+    console.log(`Added vertex at (${event.x}, ${event.y - 40})`);
   }
 
   closeShape(event: MouseEvent):void {
-
+    let DD = this.drawData;
+    let coords = DD.points.map(point => {
+      let newCoords = {
+        x: (point.x - this.offset.x_offset) / (this.gridScale * this.zoom),
+        y: (point.y - this.offset.y_offset) / (this.gridScale * this.zoom)
+      }
+      return newCoords
+    });
+    DD.points = coords;
+    this.customDrawings.push(DD);
+    this.clearDrawData();
+    this.update();
   }
 
-  setShapeStroke(): void {
-
+  drawAllCustomShapes():void {
+    this.customDrawings.forEach(drawing => {
+      this.drawCustomShape(drawing.points, drawing.stroke, drawing.fill);
+    });
   }
 
-  setShapeFill(): void {
+  drawCustomShape(points: {x:number, y:number}[], stroke:{color:string, width:number, visible:boolean}, fill:{color:string, visible:boolean}):void {
+    this.ctx.beginPath();
+    this.ctx.moveTo(
+      points[0].x * this.gridScale * this.zoom + this.offset.x_offset,
+      points[0].y * this.gridScale * this.zoom + this.offset.y_offset
+    );
 
+    for(let i=1; i< points.length; i++){
+      this.ctx.lineTo(
+        points[i].x * this.gridScale * this.zoom + this.offset.x_offset, 
+        points[i].y * this.gridScale * this.zoom + this.offset.y_offset
+      );
+    }
+
+    this.ctx.lineTo(
+      points[0].x * this.gridScale * this.zoom + this.offset.x_offset,
+      points[0].y * this.gridScale * this.zoom + this.offset.y_offset
+    );
+
+    this.ctx.lineWidth = stroke.width;
+    this.ctx.strokeStyle = stroke.color;
+    if(stroke.visible){
+      this.ctx.stroke(); 
+    }
+    this.ctx.fillStyle = fill.color;
+    if(fill.visible){
+      this.ctx.fill();
+    }
+  }
+
+  clearDrawData():void {
+    this.drawData = {
+      isDrawing: false,
+      points: [],
+      stroke: {
+        color: "#000000",
+        width: 1,
+        visible: true
+      },
+      fill: {
+        color: "#ffffff",
+        visible: true
+      }
+    }; 
+  }
+
+  setShapeStroke(width?: number, color?:string, visible?:boolean): void {
+    if(width){ 
+      this.drawData.stroke.width = width;
+    }
+    if(color){
+      this.drawData.stroke.color = color; 
+    }
+    if(visible != null){
+      this.drawData.stroke.visible = visible; 
+    } 
+  }
+
+  setShapeFill(color?: string, visible?:boolean): void {
+    if(color){
+      this.drawData.fill.color = color;
+    }
+    if(visible != null){
+      this.drawData.fill.visible = visible;
+    } 
+  }
+
+  visualizeShape():void {
+    this.ctx.fillStyle = "#aa33ff";
+    this.drawData.points.forEach(point => {
+      this.ctx.beginPath();
+      this.ctx.arc(point.x, point.y, 4, 0, Math.PI * 2);
+      if(point === this.drawData.points[0]){
+        this.ctx.stroke();
+      } else {
+        this.ctx.fill(); 
+      }
+    });
   }
 
   // Tool Swapper
@@ -291,6 +405,18 @@ export class InitiativeComponent implements OnInit {
 
   // Mouse Click Handler
   mouseClickHandler(event: MouseEvent): void {
+    if(this.tool === "draw"){
+      console.log("Doing the draw thing");
+      if(!this.drawData.isDrawing){
+        this.drawData.isDrawing = true;
+        this.startShape(event);
+      } else {
+        this.addVertex(event);
+      }
+      this.visualizeShape();
+    } else if(this.tool === "select"){
+      this.getTarget(event);
+    }
   }
 
   // Mousedown Handler
