@@ -4,6 +4,11 @@
     position: absolute
     top: 60px
     right: 20px
+    width: 60px
+    height: 600px
+    white-space: nowrap
+    overflow-x: hidden
+    overflow-y: hidden
     .uiButton
         display: block
         cursor: pointer
@@ -19,4 +24,37 @@
             font-size: 20px
     .uiButton.active
         background: blue
-        
+    .map-layer-div
+        display: block
+        margin: 10px
+        .map-button
+            transition: all 0.3s 0.2s
+            width: 40px
+            height: 40px
+            background: gray
+            border: 1px solid black
+            font-size: 20px
+            text-align: center
+            line-height: 40px
+        .map-button.active
+            background: white
+        .map-button:first-child
+            border-top-left-radius: 20px
+            border-top-right-radius: 20px
+        .map-button:last-child
+            border-bottom-left-radius: 20px
+            border-bottom-right-radius: 20px
+        .map-button:hover
+            background: darkgray
+            color: white
+.zoom-ui
+    padding: 0
+    display: flex
+    position: relative
+    transform: rotate(90deg)
+    transform-origin: 50% 50% 0
+    top: 20px
+    .zoom-button
+        background: blue
+        width: 20px
+        height: 20px    

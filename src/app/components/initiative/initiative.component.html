@@ -9,19 +9,26 @@
     (mouseout)="mouseOutHandler($event)"
 ></canvas>
 
-<button (click)="zoomOut()">-</button>
-<input #zoomSlider type="range" min="8" max="40" value="8" class="slider" (mousemove)="zoomUpdate($event)">
-<button (click)="zoomIn()">+</button>
+<!-- <div class="zoom-ui"> 
+    <button class="zoom-button" (click)="zoomOut()"> - </button>
+    <input #zoomSlider type="range" min="8" max="40" value="8" class="slider" (mousemove)="zoomUpdate($event)">
+    <button class="zoom-button" (click)="zoomIn()"> + </button> 
+</div> -->
 
 <div class="uibutton-container" style="margin: 10px">
     <div #toolHand class="uiButton active" (click)="changeTool('hand')"><i class="far fa-hand-paper"></i></div>
     <div #toolSelect class="uiButton" (click)="changeTool('select')"><i class="fas fa-mouse-pointer"></i></div>
     <div #toolDraw class="uiButton" (click)="changeTool('draw')"><i class="fas fa-pencil-alt"></i></div>
     <div #toolMeasure class="uiButton" (click)="changeTool('measure')"><i class="fas fa-ruler-combined"></i></div>
-</div>
-
-<div style="margin:10px"> 
-    <button>ACTIVE LAYER</button>
-    <button>MAP LAYER</button>
-    <button>GM LAYER</button>
+    <div class="map-layer-div">
+        <div #gmLayer class="map-button"><i class="fas fa-drafting-compass"></i></div>
+        <div #tokenLayer class="map-button"><i class="fas fa-map-marker-alt"></i></div>
+        <div #mapLayer class="map-button"><i class="fas fa-globe"></i></div>
+    </div>
+    <div #toolZoom class="uiButton" id="toolZoom" (click)="changeTool('zoom')"><i class="fas fa-search"></i></div>
+    <div class="zoom-ui"> 
+        <button class="zoom-button" (click)="zoomOut()"> - </button>
+        <input #zoomSlider type="range" min="8" max="40" value="8" class="slider" (mousemove)="zoomUpdate($event)">
+        <button class="zoom-button" (click)="zoomIn()"> + </button> 
+    </div>
 </div>
