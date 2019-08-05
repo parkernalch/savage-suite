@@ -13,7 +13,9 @@ export class InitiativeComponent implements OnInit {
   canvas: ElementRef<HTMLCanvasElement>;
   @ViewChild('zoomSlider', {static: true})
   zoomSlider: ElementRef<HTMLInputElement>;
+
   boardState: BoardState;
+
   gridScale: number;
   zoom: number;
   offset: {
@@ -27,7 +29,9 @@ export class InitiativeComponent implements OnInit {
   }
   grabData: {
     grab_x: number,
-    grab_y: number
+    grab_y: number,
+    token: _Token,
+    isDragging: boolean
   }
 
   drawData: {
@@ -64,13 +68,11 @@ export class InitiativeComponent implements OnInit {
       y_offset: 20
     };
     this.tool = "hand";
-    this.activeToken = {
-      token: null,
-      isDragging: false
-    };
     this.grabData = {
       grab_x: null,
-      grab_y: null
+      grab_y: null,
+      token: null,
+      isDragging: false
     };
     this.drawData = {
       isDrawing: false,
@@ -190,9 +192,9 @@ export class InitiativeComponent implements OnInit {
     });
     // console.log(tkMatches);
     if(tkMatches.length > 0){ 
-      this.activeToken.token = tkMatches[0];
+      this.grabData.token = tkMatches[0];
     } else {
-      this.activeToken.token = null;
+      this.grabData.token = null;
     }
 
     this.update();
@@ -208,7 +210,7 @@ export class InitiativeComponent implements OnInit {
       this.grabData.grab_y = Tk.y_coord;
 
       // console.log(`Grabbing token: ${Tk}`);
-      this.activeToken.isDragging = true;
+      this.grabData.isDragging = true;
     }  
   }
 
@@ -217,21 +219,20 @@ export class InitiativeComponent implements OnInit {
     let dx = event.movementX;
     let dy = event.movementY;
     // console.log(`dx=${dx}, dy=${dy}`);
-    this.activeToken.token.x_coord += dx / this.gridScale / this.zoom;
-    this.activeToken.token.y_coord += dy / this.gridScale / this.zoom;
-    // console.log(`Grabbed Token Pos: (${this.activeToken.token.x_coord}, ${this.activeToken.token.y_coord})`);
+    this.grabData.token.x_coord += dx / this.gridScale / this.zoom;
+    this.grabData.token.y_coord += dy / this.gridScale / this.zoom;
   }
 
   dropToken(event: MouseEvent): void {
-    if(this.activeToken.isDragging){
-      this.activeToken.isDragging = false;
-      this.activeToken.token.x_coord = Math.max(Math.floor(this.activeToken.token.x_coord + this.activeToken.token.width / 2), 0);
-      this.activeToken.token.y_coord = Math.max(Math.floor(this.activeToken.token.y_coord + this.activeToken.token.height / 2), 0);
-      // console.log(`Token dropped at (${this.activeToken.token.x_coord}, ${this.activeToken.token.y_coord})`);
-      this.activeToken.token = null;
+    if(this.grabData.isDragging){
+      this.grabData.isDragging = false;
+      this.grabData.token.x_coord = Math.max(Math.floor(this.grabData.token.x_coord + this.grabData.token.width / 2), 0);
+      this.grabData.token.y_coord = Math.max(Math.floor(this.grabData.token.y_coord + this.grabData.token.height / 2), 0);
       this.grabData = {
         grab_x: null,
-        grab_y: null
+        grab_y: null,
+        token: null,
+        isDragging: false
       };
       this.update();
     }
@@ -431,7 +432,7 @@ export class InitiativeComponent implements OnInit {
   mouseMoveHandler(event: MouseEvent): void {
     if(event.ctrlKey || (this.tool === "hand" && event.buttons === 1)){
       this.panGrid(event);
-    } else if(this.tool === "select" && this.activeToken.isDragging){
+    } else if(this.tool === "select" && this.grabData.isDragging){
       this.dragToken(event);
       this.update();
     } 
@@ -439,7 +440,7 @@ export class InitiativeComponent implements OnInit {
 
   // Mouse Up Handler
   mouseUpHandler(event: MouseEvent): void {
-    if(this.tool === "select" && this.activeToken.isDragging){
+    if(this.tool === "select" && this.grabData.isDragging){
       this.dropToken(event);
       this.update();
     }
@@ -447,11 +448,11 @@ export class InitiativeComponent implements OnInit {
 
   // Mouse Out Handler
   mouseOutHandler(event: MouseEvent): void {
-    if(this.tool === "select" && this.activeToken.isDragging){
-      this.activeToken.token.x_coord = this.grabData.grab_x;
-      this.activeToken.token.y_coord = this.grabData.grab_y;
-      this.activeToken.isDragging = false;
-      this.activeToken.token = null;
+    if(this.tool === "select" && this.grabData.isDragging){
+      this.grabData.token.x_coord = this.grabData.grab_x;
+      this.grabData.token.y_coord = this.grabData.grab_y;
+      this.grabData.isDragging = false;
+      this.grabData.token = null;
       this.update();
     }
   }
@@ -541,8 +542,8 @@ export class InitiativeComponent implements OnInit {
     _bs.tokens.action.forEach(token => { 
       this.drawToken(token);
     });
-    if(this.activeToken.token){ 
-      this.drawToken(this.activeToken.token);
+    if(this.grabData.token){ 
+      this.drawToken(this.grabData.token);
     }
   }
 
@@ -570,7 +571,7 @@ export class InitiativeComponent implements OnInit {
       this.ctx.lineWidth = 2;
       this.ctx.strokeRect(tx, ty, tw, th);
     } 
-    if(token === this.activeToken.token){
+    if(token === this.grabData.token){
       // console.log(`Matched Token: ${token}`);
       this.drawBoundingBox(token);
     }
