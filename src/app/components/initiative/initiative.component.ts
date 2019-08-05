@@ -30,7 +30,24 @@ export class InitiativeComponent implements OnInit {
     grab_y: number
   }
 
+  drawData: {
+    isDrawing: boolean,
+    points: {x: number, y:number }[],
+    stroke: {color: string, width: number, visible: boolean},
+    fill: {color: string, visible: boolean}
+  }
+
   tool: string;
+  @ViewChild('toolHand', {static: false })
+  toolHand: ElementRef<HTMLDivElement>;
+  @ViewChild('toolSelect', {static: false })
+  toolSelect: ElementRef<HTMLDivElement>;
+  @ViewChild('toolDraw', {static: false })
+  toolDraw: ElementRef<HTMLDivElement>;
+  @ViewChild('toolMeasure', {static: false})
+  toolMeasure: ElementRef<HTMLDivElement>;
+
+  uibuttons: ElementRef<HTMLDivElement>[];
 
   private ctx: CanvasRenderingContext2D;
 
@@ -98,6 +115,15 @@ export class InitiativeComponent implements OnInit {
     this.canvas.nativeElement.style.cursor = "all-scroll";
   }
 
+  ngAfterViewInit(){
+    this.uibuttons = [
+      this.toolDraw,
+      this.toolHand,
+      this.toolSelect,
+      this.toolMeasure
+    ];
+  }
+
   update(): void {
     // console.log("Update GO");
     this.clearCanvas();
@@ -144,7 +170,7 @@ export class InitiativeComponent implements OnInit {
         return false
       }
     });
-    console.log(tkMatches);
+    // console.log(tkMatches);
     if(tkMatches.length > 0){ 
       this.activeToken.token = tkMatches[0];
     } else {
@@ -156,26 +182,26 @@ export class InitiativeComponent implements OnInit {
   }
 
   pickUpToken(event: MouseEvent): void {
-    console.log("picking up GO");
+    // console.log("picking up GO");
     let Tk = this.getTarget(event);
-    console.log(Tk);
+    // console.log(Tk);
     if(Tk){
       this.grabData.grab_x = Tk.x_coord;
       this.grabData.grab_y = Tk.y_coord;
 
-      console.log(`Grabbing token: ${Tk}`);
+      // console.log(`Grabbing token: ${Tk}`);
       this.activeToken.isDragging = true;
     }  
   }
 
   dragToken(event: MouseEvent): void {
-    if(this.activeToken.isDragging){
-      let dx = event.movementX;
-      let dy = event.movementY;
-      this.activeToken.token.x_coord += dx / this.gridScale / this.zoom;
-      this.activeToken.token.y_coord += dy / this.gridScale / this.zoom;
-      // console.log(`Grabbed Token Pos: (${this.activeToken.token.x_coord}, ${this.activeToken.token.y_coord})`);
-    }
+    // console.log(event.x, event.y);
+    let dx = event.movementX;
+    let dy = event.movementY;
+    // console.log(`dx=${dx}, dy=${dy}`);
+    this.activeToken.token.x_coord += dx / this.gridScale / this.zoom;
+    this.activeToken.token.y_coord += dy / this.gridScale / this.zoom;
+    // console.log(`Grabbed Token Pos: (${this.activeToken.token.x_coord}, ${this.activeToken.token.y_coord})`);
   }
 
   dropToken(event: MouseEvent): void {
@@ -193,29 +219,78 @@ export class InitiativeComponent implements OnInit {
     }
   }
 
+  // Doodle Functions
+  startShape(event: MouseEvent): void { 
+    this.drawData.isDrawing = true;
+    this.drawData.points = [{x: event.x, y: event.y}];
+  }
+
+  addVertex(event: MouseEvent): void {
+    
+  }
+
+  closeShape(event: MouseEvent):void {
+
+  }
+
+  setShapeStroke(): void {
+
+  }
+
+  setShapeFill(): void {
+
+  }
+
   // Tool Swapper
   changeTool(tool:string){
-    console.log(tool);
+    // console.log(tool);
     this.tool = tool;
     switch(tool){
       case "hand":
         this.canvas.nativeElement.style.cursor = "all-scroll";
+        this.uibuttons.forEach(button => {
+          if(button === this.toolHand){
+            button.nativeElement.classList.add("active");
+          } else { 
+            button.nativeElement.classList.remove("active");
+          }
+        });
         break;
       case "select": 
-        this.canvas.nativeElement.style.cursor = "pointer";
+        this.canvas.nativeElement.style.cursor = "cursor";
+        this.uibuttons.forEach(button => {
+          if(button === this.toolSelect){
+            button.nativeElement.classList.add("active");
+          } else { 
+            button.nativeElement.classList.remove("active");
+          }
+        });
         break;
       case "draw":
         this.canvas.nativeElement.style.cursor =  "crosshair";
+        this.uibuttons.forEach(button => {
+          if(button === this.toolDraw){
+            button.nativeElement.classList.add("active");
+          } else { 
+            button.nativeElement.classList.remove("active");
+          }
+        });
         break;
       case "measure":
         this.canvas.nativeElement.style.cursor = "cell";
+        this.uibuttons.forEach(button => {
+          if(button === this.toolMeasure){
+            button.nativeElement.classList.add("active");
+          } else { 
+            button.nativeElement.classList.remove("active");
+          }
+        });
         break;
     }
   }
 
   // Mouse Click Handler
   mouseClickHandler(event: MouseEvent): void {
-
   }
 
   // Mousedown Handler
@@ -340,6 +415,9 @@ export class InitiativeComponent implements OnInit {
     _bs.tokens.action.forEach(token => { 
       this.drawToken(token);
     });
+    if(this.activeToken.token){ 
+      this.drawToken(this.activeToken.token);
+    }
   }
 
   drawToken(token: _Token): void {
@@ -356,7 +434,7 @@ export class InitiativeComponent implements OnInit {
       ty > -th )
     {
       if(token.icon){ 
-        console.log(token.icon);
+        // console.log(token.icon);
         this.ctx.font = `${this.gridScale}px FontAwesome`;
         this.ctx.fillText(token.icon, tx, ty);
       } else { 
@@ -387,5 +465,47 @@ export class InitiativeComponent implements OnInit {
     {
     this.ctx.strokeRect(bbx, bby, bbw, bbh);
     } 
+    this.drawBBHandles(token, {x: bbx, y: bby, width: bbw, height: bbh});
+  }
+
+  drawBBHandles(token: _Token, box:{x:number, y:number, width:number, height: number }): void {
+    let topleft: {x:number, y:number} = {
+      x: box.x,
+      y: box.y
+    };
+    let topright: {x:number, y:number} = {
+      x: box.x + box.width,
+      y: box.y
+    };
+    let bottomleft: {x: number, y:number} = {
+      x: box.x,
+      y: box.y + box.height
+    };
+    let bottomright: {x:number, y:number } = {
+      x: box.x + box.width,
+      y: box.y + box.height
+    };
+    let corners: {x:number, y:number}[] = [topleft, topright, bottomleft, bottomright];
+
+    this.ctx.fillStyle = "#ff0000";
+
+    corners.forEach(corner => {
+      this.ctx.fillRect(corner.x - 5, corner.y - 5, 10, 10);
+    });
+
+    let topmiddle: {x: number, y:number } = {
+      x: topleft.x + 0.5 * box.width - 5,
+      y: topleft.y
+    };
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(topmiddle.x + 5, topmiddle.y);
+    this.ctx.lineTo(topmiddle.x + 5, topmiddle.y - 25);
+    this.ctx.stroke();
+    this.ctx.beginPath();
+    this.ctx.arc(topmiddle.x + 5, topmiddle.y - 25, 5, 0, Math.PI * 2);
+    this.ctx.stroke();
+    this.ctx.fill();
+    // this.ctx.fillRect(topmiddle.x, topmiddle.y - 25, 10, 10);
   }
 }
