@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import BoardState from 'src/app/models/BoardState';
 import _Token from 'src/app/models/Token';
 import data from '../../data/board.json';
@@ -36,6 +37,7 @@ export class InitiativeComponent implements OnInit {
     stroke: {color: string, width: number, visible: boolean},
     fill: {color: string, visible: boolean}
   }
+  tokenCache: HTMLImageElement[];
 
   customDrawings: {
     points: {x: number, y:number}[],
@@ -84,6 +86,7 @@ export class InitiativeComponent implements OnInit {
       }
     };
     this.customDrawings = [];
+    this.tokenCache = [];
   }
 
   ngOnInit() {
@@ -101,7 +104,9 @@ export class InitiativeComponent implements OnInit {
         y_coord: tk.y_coord,
         width: tk.width,
         height: tk.height,
-        color: tk.color
+        color: tk.color,
+        icon: tk.icon,
+        htmlImage: null
       });
     });
     data.tokens.map.map(tk => {
@@ -122,6 +127,12 @@ export class InitiativeComponent implements OnInit {
         color: tk.color
       });
     }); 
+
+    this.boardState.tokens.action.forEach(tk => {
+      if(tk.icon){
+        this.loadImage(tk.icon).subscribe(_I => tk.htmlImage = _I);
+      }
+    });
 
     this.canvas.nativeElement.width = window.innerWidth;
 
@@ -603,25 +614,37 @@ export class InitiativeComponent implements OnInit {
     let ty: number = token.y_coord * this.gridScale * this.zoom + this.offset.y_offset;
     let tw: number = token.width * this.gridScale * this.zoom;
     let th: number = token.width * this.gridScale * this.zoom;
+
+    this.ctx.strokeStyle = "#000000";
+    this.ctx.lineWidth = 2;
     if(
       Math.max(tx - 2*tw ) < this.canvas.nativeElement.width || 
       Math.max(ty - 2*th ) < this.canvas.nativeElement.height || 
       tx > -tw ||
       ty > -th )
     {
-      if(token.icon){ 
+      if(token.htmlImage){
+        this.ctx.drawImage(token.htmlImage, tx, ty, tw, th);
+      } else if(token.icon){ 
         this.ctx.font = `${this.gridScale}px FontAwesome`;
         this.ctx.fillText(token.icon, tx, ty);
       } else { 
         this.ctx.fillRect(tx, ty, tw, th); 
+        this.ctx.strokeRect(tx, ty, tw, th);
       }
-      this.ctx.strokeStyle = "#000000";
-      this.ctx.lineWidth = 2;
-      this.ctx.strokeRect(tx, ty, tw, th);
     } 
     if(token === this.grabData.token){
       this.drawBoundingBox(token);
     }
+  }
+
+  // Load Image from URL
+  loadImage(src:string): Observable<HTMLImageElement>{
+    // create image object
+    var image = new Image();
+
+    image.src = src;
+    return of(image);
   }
 
   // Draws bounding box around the token along the cell lines in its periphery

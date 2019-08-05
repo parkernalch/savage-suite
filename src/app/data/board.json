@@ -8,28 +8,64 @@
                 "y_coord": 1,
                 "width": 1,
                 "height": 1,
-                "color": "#00ff00"
+                "color": "#BB8FCE",
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Cypher_token.png"
             },
             {
-                "x_coord": 5,
-                "y_coord": 6,
+                "x_coord": 2,
+                "y_coord": 2,
                 "width": 1,
                 "height": 1,
-                "color": "#ff00ff"
-            },
-            {
-                "x_coord": 10,
-                "y_coord": 1,
-                "width": 1,
-                "height": 1,
-                "color": "#ffff00"
+                "color": "#85C1E9",
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Eden_token.png"
             },
             {
                 "x_coord": 3,
-                "y_coord": 12,
+                "y_coord": 3,
                 "width": 1,
                 "height": 1,
-                "color": "#00ffff"
+                "color": "#7DCEA0",
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Flack.png"
+            },
+            {
+                "x_coord": 4,
+                "y_coord": 4,
+                "width": 1,
+                "height": 1,
+                "color": "#F7DC6F",
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Flik.png"
+            },
+            {
+                "x_coord": 5,
+                "y_coord": 5,
+                "width": 1,
+                "height": 1,
+                "color": "#E59866",
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Garen_token.png"
+            },
+            {
+                "x_coord": 6,
+                "y_coord": 6,
+                "width": 1,
+                "height": 1,
+                "color": "#B2BABB",
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Hector_token.png"
+            },
+            {
+                "x_coord": 7,
+                "y_coord": 7,
+                "width": 1,
+                "height": 1,
+                "color": "#566573",
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Klethic_token.png"
+            },
+            {
+                "x_coord": 8,
+                "y_coord": 8,
+                "width": 1,
+                "height": 1,
+                "color": "#CB4335",
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Vik.png"
             }
         ],
         "map": [],

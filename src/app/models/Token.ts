@@ -4,5 +4,6 @@ export default interface _Token {
     width: number,
     height: number,
     color: string,
-    icon?: string
+    icon?: string,
+    htmlImage?: HTMLImageElement
 }
