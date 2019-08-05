@@ -23,10 +23,6 @@ export class InitiativeComponent implements OnInit {
     y_offset: number
   };
 
-  activeToken: {
-    token: _Token,
-    isDragging: boolean
-  }
   grabData: {
     grab_x: number,
     grab_y: number,
@@ -146,33 +142,37 @@ export class InitiativeComponent implements OnInit {
     ];
   }
 
+  // Update() redraws all objects on the canvas (Grid, Custom, Tokens)
   update(): void {
-    // console.log("Update GO");
     this.clearCanvas();
     this.drawGrid(this.boardState);
     this.drawAllCustomShapes();
     this.drawTokens(this.boardState);
   }
 
+  // Utility function for clearing the canvas
   clearCanvas(): void {
     // console.log("Clear GO");
     this.ctx.fillStyle = "#ffffff";
     this.ctx.fillRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
   }
 
+  // Triggered when window resizes, this makes sure the canvas fills the screen width
   onResize(){
     this.canvas.nativeElement.width = window.innerWidth;
     this.update();
   }
 
-  // Grab functions
+  // =======================
+  // GRAB AND MOVE FUNCTIONS
+  // =======================
+
+  // Compare mouse location to the token locations and return a reference to the first matched token
+  // I call update() at the end so the bounding boxes are drawn immediately
   getTarget(event:MouseEvent): _Token {
     if(this.tool !== "select"){ return };
-    // console.log("getting target");
     let mouse_x = event.x;
     let mouse_y = event.y - 40;
-    // console.log(`(${mouse_x}, ${mouse_y})`);
-    // console.log(this.boardState.tokens.action);
     let tkMatches = this.boardState.tokens.action.filter(tk => {
       let x_left = tk.x_coord * this.gridScale * this.zoom + this.offset.x_offset;
       let x_right = x_left + tk.width * this.gridScale * this.zoom;
@@ -190,7 +190,7 @@ export class InitiativeComponent implements OnInit {
         return false
       }
     });
-    // console.log(tkMatches);
+
     if(tkMatches.length > 0){ 
       this.grabData.token = tkMatches[0];
     } else {
@@ -201,28 +201,28 @@ export class InitiativeComponent implements OnInit {
     return tkMatches[0];
   }
 
+  // Adds token location to grabData just in case token is dropped in a forbidden location (or off-screen)
   pickUpToken(event: MouseEvent): void {
-    // console.log("picking up GO");
     let Tk = this.getTarget(event);
-    // console.log(Tk);
     if(Tk){
       this.grabData.grab_x = Tk.x_coord;
       this.grabData.grab_y = Tk.y_coord;
 
-      // console.log(`Grabbing token: ${Tk}`);
       this.grabData.isDragging = true;
     }  
   }
 
+  // Increments the position of the dragged token by the event movement props
+  // TODO: Fix strange behavior on smaller? screens
   dragToken(event: MouseEvent): void {
-    // console.log(event.x, event.y);
     let dx = event.movementX;
     let dy = event.movementY;
-    // console.log(`dx=${dx}, dy=${dy}`);
     this.grabData.token.x_coord += dx / this.gridScale / this.zoom;
     this.grabData.token.y_coord += dy / this.gridScale / this.zoom;
   }
 
+  // Finds the nearest cell to the center of the token and snaps its location accordingly
+  // TODO: Allow non-snapping drop if some button is held (probably SHIFT)
   dropToken(event: MouseEvent): void {
     if(this.grabData.isDragging){
       this.grabData.isDragging = false;
@@ -238,13 +238,20 @@ export class InitiativeComponent implements OnInit {
     }
   }
 
-  // Doodle Functions
+  // ========================
+  // CUSTOM DRAWING FUNCTIONS
+  // ========================
+
+  // Kicks off the shape drawing process by loading in the first point into this.drawData
+  // WARNING: if I get rid of the top bar, the 40 pixel modification to the y position won't be accurate anymore
+  // it is accounting for the header height
   startShape(event: MouseEvent): void { 
     this.drawData.isDrawing = true;
     this.drawData.points = [{x: event.x, y: event.y - 40}];
-    console.log(`Started shape at (${event.x}, ${event.y - 40})`);
   }
 
+  // If you click within a 10px radius of the starting node, addVertex will call closeShape instead
+  // Otherwise, addVertex appends the new event location to the array of drawing vertices
   addVertex(event: MouseEvent): void {
     let origin = this.drawData.points[0];
     if(event.x <= origin.x + 10 && event.x >= origin.x - 10 && event.y <= origin.y + 50 && event.y >= origin.y - 30){
@@ -252,9 +259,10 @@ export class InitiativeComponent implements OnInit {
       return
     }
     this.drawData.points.push({x: event.x, y: event.y - 40}); 
-    console.log(`Added vertex at (${event.x}, ${event.y - 40})`);
   }
 
+  // closeShape converts the point values (prior to now, they were in screen pixels) to grid coordinates
+  // this will allow even custom shapes to move, scale, etc along with the grid as a whole
   closeShape(event: MouseEvent):void {
     let DD = this.drawData;
     let coords = DD.points.map(point => {
@@ -270,12 +278,15 @@ export class InitiativeComponent implements OnInit {
     this.update();
   }
 
+  // simple helper function that loops through the customDrawings array and draws each
   drawAllCustomShapes():void {
     this.customDrawings.forEach(drawing => {
       this.drawCustomShape(drawing.points, drawing.stroke, drawing.fill);
     });
   }
 
+  // this draws a custom shape given a specific input set of parameters. Allows for customizability
+  // of the visual aspect of the drawn shape
   drawCustomShape(points: {x:number, y:number}[], stroke:{color:string, width:number, visible:boolean}, fill:{color:string, visible:boolean}):void {
     this.ctx.beginPath();
     this.ctx.moveTo(
@@ -306,6 +317,7 @@ export class InitiativeComponent implements OnInit {
     }
   }
 
+  // another helper function that resets this.drawData back to a 'null'-ish state
   clearDrawData():void {
     this.drawData = {
       isDrawing: false,
@@ -322,29 +334,35 @@ export class InitiativeComponent implements OnInit {
     }; 
   }
 
-  setShapeStroke(width?: number, color?:string, visible?:boolean): void {
-    if(width){ 
-      this.drawData.stroke.width = width;
+  // unused right now, but this function will allow the user to set properties of the context stroke
+  setShapeStroke(input: {width?: number, color?:string, visible?:boolean}): void {
+    if(input.width){ 
+      this.drawData.stroke.width = input.width;
     }
-    if(color){
-      this.drawData.stroke.color = color; 
+    if(input.color){
+      this.drawData.stroke.color = input.color; 
     }
-    if(visible != null){
-      this.drawData.stroke.visible = visible; 
+    if(input.visible != null){
+      this.drawData.stroke.visible = input.visible; 
     } 
   }
 
-  setShapeFill(color?: string, visible?:boolean): void {
-    if(color){
-      this.drawData.fill.color = color;
+  // also unused, allow user to set properties of the context fill
+  setShapeFill(input: {color?: string, visible?:boolean}): void {
+    if(input.color){
+      this.drawData.fill.color = input.color;
     }
-    if(visible != null){
-      this.drawData.fill.visible = visible;
+    if(input.visible != null){
+      this.drawData.fill.visible = input.visible;
     } 
   }
 
+  // visualizeShape puts small circles at each node as the drawing is still being completed
+  // DONE: connect the circles with a light line so user can visualize what she's drawing
+  // TODO: utilize clearCanvas and update so the lines aren't redrawn (and darken) every frame
   visualizeShape():void {
     this.ctx.fillStyle = "#aa33ff";
+    this.ctx.strokeStyle = "#aa33ff";
     this.drawData.points.forEach(point => {
       this.ctx.beginPath();
       this.ctx.arc(point.x, point.y, 4, 0, Math.PI * 2);
@@ -354,11 +372,21 @@ export class InitiativeComponent implements OnInit {
         this.ctx.fill(); 
       }
     });
+
+    this.ctx.beginPath();
+    this.drawData.points.forEach(point => {
+      this.ctx.lineTo(point.x, point.y);
+    });
+    this.ctx.stroke();
   }
 
-  // Tool Swapper
+  // ============
+  // TOOL SWAPPER
+  // ============
+
+  // swaps tool that controls the mouse handlers
+  // TODO: DRY it up and move the forEach statements to a default section
   changeTool(tool:string){
-    // console.log(tool);
     this.tool = tool;
     switch(tool){
       case "hand":
@@ -372,7 +400,7 @@ export class InitiativeComponent implements OnInit {
         });
         break;
       case "select": 
-        this.canvas.nativeElement.style.cursor = "cursor";
+        this.canvas.nativeElement.style.cursor = "default";
         this.uibuttons.forEach(button => {
           if(button === this.toolSelect){
             button.nativeElement.classList.add("active");
@@ -404,10 +432,13 @@ export class InitiativeComponent implements OnInit {
     }
   }
 
-  // Mouse Click Handler
+  // ====================
+  // MOUSE EVENT HANDLERS
+  // ====================
+
+  // Mouse Click Handler routes the function calls based on the active tool
   mouseClickHandler(event: MouseEvent): void {
     if(this.tool === "draw"){
-      console.log("Doing the draw thing");
       if(!this.drawData.isDrawing){
         this.drawData.isDrawing = true;
         this.startShape(event);
@@ -420,7 +451,7 @@ export class InitiativeComponent implements OnInit {
     }
   }
 
-  // Mousedown Handler
+  // Mousedown Handler so far only handles picking up a token
   mouseDownHandler(event: MouseEvent): void {
     if(this.tool === "select"){
       this.pickUpToken(event);
@@ -428,7 +459,7 @@ export class InitiativeComponent implements OnInit {
     }
   }
 
-  // Mouse Move Handler
+  // Mouse Move Handler handles dragging of an object or panning the canvas
   mouseMoveHandler(event: MouseEvent): void {
     if(event.ctrlKey || (this.tool === "hand" && event.buttons === 1)){
       this.panGrid(event);
@@ -438,7 +469,7 @@ export class InitiativeComponent implements OnInit {
     } 
   }
 
-  // Mouse Up Handler
+  // Mouse Up Handler handles releasing a dragged object at this time
   mouseUpHandler(event: MouseEvent): void {
     if(this.tool === "select" && this.grabData.isDragging){
       this.dropToken(event);
@@ -446,7 +477,9 @@ export class InitiativeComponent implements OnInit {
     }
   }
 
-  // Mouse Out Handler
+  // Mouse Out Handler catches a user trying to drag an object off screen
+  // TODO: break the function code into a method instead of handling the select-specific event
+  // inside the mouse handler
   mouseOutHandler(event: MouseEvent): void {
     if(this.tool === "select" && this.grabData.isDragging){
       this.grabData.token.x_coord = this.grabData.grab_x;
@@ -457,7 +490,11 @@ export class InitiativeComponent implements OnInit {
     }
   }
 
-  // Zoom Functions
+  // ==============
+  // ZOOM FUNCTIONS
+  // ==============
+
+  // Zoom in incrementally (and adds a slightly smaller zoom factor than you can get with the slider)
   zoomIn():void {
     let currentZoom = parseInt(this.zoomSlider.nativeElement.value);
     let modZoom: number;
@@ -472,6 +509,7 @@ export class InitiativeComponent implements OnInit {
     this.update();
   }
 
+  // Zoom out incrementally
   zoomOut():void {
     let currentZoom = parseInt(this.zoomSlider.nativeElement.value);
     let modZoom:number;
@@ -485,28 +523,34 @@ export class InitiativeComponent implements OnInit {
     this.update();
   }
 
+  // Called on mousemove for the zoom slider and only if the mouse 1 button is down
+  // TODO: simplify the input range and step value so we don't have to divide by 8
   zoomUpdate(event: MouseEvent):void {
     if(event.buttons === 1){
       let zoomval: number = parseInt(this.zoomSlider.nativeElement.value);
       this.zoom = zoomval / 8;
       this.update();
-      // console.log(this.zoom);
     }
   }
 
   // Pan Function
+  // TODO: verify that this works on different screens/machines. This has the same code as the 
+  // buggy drag object code
   panGrid(event: MouseEvent){
       this.offset.x_offset += event.movementX;
       this.offset.y_offset += event.movementY;
       this.update();
   }
 
-  // Draw Functions
+  // ====================
+  // BASIC DRAW FUNCTIONS
+  // ====================
+
+  // draws each cell of a grid based on BoardState, ignoring the draw calls if the cell is out
+  // of visual range
   drawGrid(_bs: BoardState): void {
-    // console.log("Draw Grid GO");
     for(let i=0; i<_bs.width_squares; i++){
       for(let j=0; j<_bs.height_squares; j++){
-        // console.log(`Printing (${i}, ${j})`);
         this.ctx.strokeStyle = "#000000";
         this.ctx.fillStyle = "#f3f3f3";
         let cx:number = i * this.gridScale * this.zoom + this.offset.x_offset;
@@ -526,18 +570,22 @@ export class InitiativeComponent implements OnInit {
     }
   }
 
+  // draws each token in the map array
   drawMap(_bs: BoardState): void {
     _bs.tokens.map.forEach(mapElement => {
       this.drawToken(mapElement);
     });
   }
 
+  // draws each token in the GM array
   drawGMLayer(_bs: BoardState): void {
     _bs.tokens.gm.forEach(gt => {
       this.drawToken(gt);
     });
   }
 
+  // draws each token in the Main Token array
+  // extra bonus: highlights the active object by drawing a bounding box in red
   drawTokens(_bs: BoardState): void {
     _bs.tokens.action.forEach(token => { 
       this.drawToken(token);
@@ -547,8 +595,9 @@ export class InitiativeComponent implements OnInit {
     }
   }
 
+  // Generic draw token function
+  // TODO: implement either fontawesome drawing or image drawing so we can move past these colored squares
   drawToken(token: _Token): void {
-    // console.log("Draw Token GO");
     this.ctx.fillStyle = token.color;
     let tx: number = token.x_coord * this.gridScale * this.zoom + this.offset.x_offset;
     let ty: number = token.y_coord * this.gridScale * this.zoom + this.offset.y_offset;
@@ -561,7 +610,6 @@ export class InitiativeComponent implements OnInit {
       ty > -th )
     {
       if(token.icon){ 
-        // console.log(token.icon);
         this.ctx.font = `${this.gridScale}px FontAwesome`;
         this.ctx.fillText(token.icon, tx, ty);
       } else { 
@@ -572,11 +620,11 @@ export class InitiativeComponent implements OnInit {
       this.ctx.strokeRect(tx, ty, tw, th);
     } 
     if(token === this.grabData.token){
-      // console.log(`Matched Token: ${token}`);
       this.drawBoundingBox(token);
     }
   }
 
+  // Draws bounding box around the token along the cell lines in its periphery
   drawBoundingBox(token: _Token):void {
     this.ctx.strokeStyle = "#ff0000";
     this.ctx.lineWidth = 2;
@@ -595,6 +643,8 @@ export class InitiativeComponent implements OnInit {
     this.drawBBHandles(token, {x: bbx, y: bby, width: bbw, height: bbh});
   }
 
+  // Draws the little handles in the corners (square) and attached to a rotation arm (circle)
+  // TODO: Add logic to the handlers to allow for scaling, rotating
   drawBBHandles(token: _Token, box:{x:number, y:number, width:number, height: number }): void {
     let topleft: {x:number, y:number} = {
       x: box.x,
@@ -633,6 +683,5 @@ export class InitiativeComponent implements OnInit {
     this.ctx.arc(topmiddle.x + 5, topmiddle.y - 25, 5, 0, Math.PI * 2);
     this.ctx.stroke();
     this.ctx.fill();
-    // this.ctx.fillRect(topmiddle.x, topmiddle.y - 25, 10, 10);
   }
 }
