@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, ObjectUnsubscribedError } from 'rxjs';
 import BoardState from 'src/app/models/BoardState';
 import _Token from 'src/app/models/Token';
 import data from '../../data/board.json';
@@ -29,8 +29,17 @@ export class InitiativeComponent implements OnInit {
     grab_y: number,
     token: _Token,
     isDragging: boolean,
+    isRotating: boolean,
     isGroup: boolean,
-    group?: _Token[]
+    // group?: _Token[]
+    group?: {
+      token: _Token,
+      startLoc: {
+        x:number,
+        y:number
+      }
+    }[],
+    initialangle?:number
   }
 
   drawData: {
@@ -73,8 +82,10 @@ export class InitiativeComponent implements OnInit {
       grab_y: null,
       token: null,
       isDragging: false,
+      isRotating: false,
       isGroup: false,
-      group: []
+      group: [],
+      initialangle: null
     };
     this.drawData = {
       isDrawing: false,
@@ -110,7 +121,9 @@ export class InitiativeComponent implements OnInit {
         height: tk.height,
         color: tk.color,
         icon: tk.icon,
-        htmlImage: null
+        htmlImage: null,
+        rotation: tk.rotation || 0,
+        scale: 1
       });
     });
     data.tokens.map.map(tk => {
@@ -205,10 +218,15 @@ export class InitiativeComponent implements OnInit {
   // I call update() at the end so the bounding boxes are drawn immediately
   getTarget(event:MouseEvent): _Token {
     if(this.tool !== "select"){ return };
-    let mouseCoords = this.screenToCoords(event.x, event.y);
 
     let tkMatches = this.boardState.tokens.action.filter(tk => {
-      return (tk.x_coord === mouseCoords.x && tk.y_coord === mouseCoords.y);
+      let tkScreenCoords = this.coordsToScreen(tk.x_coord,tk.y_coord);
+      return (
+        event.x > tkScreenCoords.x &&
+        event.x < tkScreenCoords.x + tk.width * this.gridScale * this.zoom &&
+        event.y > tkScreenCoords.y &&
+        event.y < tkScreenCoords.y + tk.height * this.gridScale * this.zoom
+        );
     });
 
     if(tkMatches.length > 0){ 
@@ -221,6 +239,12 @@ export class InitiativeComponent implements OnInit {
     return tkMatches[0];
   }
 
+  startGroupSelect(event:MouseEvent):void { 
+    this.grabData.isGroup = true;
+    this.grabData.grab_x = event.x;
+    this.grabData.grab_y = event.y;
+  }
+  
   groupSelect(event:MouseEvent): void {
     let x_vals:number[] = [event.x, this.grabData.grab_x];
     let y_vals:number[] = [event.y, this.grabData.grab_y];
@@ -237,10 +261,28 @@ export class InitiativeComponent implements OnInit {
       )
     });
 
-    this.grabData.group = tokens;
+    this.grabData.group = tokens.map(tk => {
+      return {
+        token: tk,
+        startLoc: {
+          x: tk.x_coord,
+          y: tk.y_coord
+        }
+      }
+    })
     // console.log(tokens);
   }
 
+  visualizeGroupSelect(event:MouseEvent):void {
+    this.ctx.strokeStyle = "#333333";
+    this.ctx.setLineDash([5]);
+    this.ctx.lineWidth = 1;
+
+    let width:number = event.x - this.grabData.grab_x;
+    let height:number = event.y - this.grabData.grab_y;
+    this.ctx.strokeRect(this.grabData.grab_x, this.grabData.grab_y - 40, width, height);
+  }
+  
   // Adds token location to grabData just in case token is dropped in a forbidden location (or off-screen)
   pickUpToken(event: MouseEvent): void {
     if(this.grabData.group.length === 0){
@@ -260,22 +302,6 @@ export class InitiativeComponent implements OnInit {
     }
   }
 
-  startGroupSelect(event:MouseEvent):void { 
-    this.grabData.isGroup = true;
-    this.grabData.grab_x = event.x;
-    this.grabData.grab_y = event.y;
-  }
-
-  visualizeGroupSelect(event:MouseEvent):void {
-    this.ctx.strokeStyle = "#333333";
-    this.ctx.setLineDash([5]);
-    this.ctx.lineWidth = 1;
-
-    let width:number = event.x - this.grabData.grab_x;
-    let height:number = event.y - this.grabData.grab_y;
-    this.ctx.strokeRect(this.grabData.grab_x, this.grabData.grab_y - 40, width, height);
-  }
-
   // Increments the position of the dragged token by the event movement props
   // TODO: Fix strange behavior on smaller? screens
   dragToken(event: MouseEvent): void {
@@ -286,8 +312,8 @@ export class InitiativeComponent implements OnInit {
       this.grabData.token.y_coord += dy / this.gridScale / this.zoom;
     } else if (this.grabData.group.length > 0){
       this.grabData.group.forEach(tk => {
-        tk.x_coord += dx / this.gridScale / this.zoom;
-        tk.y_coord += dy / this.gridScale / this.zoom; 
+        tk.token.x_coord += dx / this.gridScale / this.zoom;
+        tk.token.y_coord += dy / this.gridScale / this.zoom; 
       })
     }
   }
@@ -303,8 +329,8 @@ export class InitiativeComponent implements OnInit {
           this.grabData.token.y_coord = Math.max(this.grabData.token.y_coord, 0); 
         } else {
           this.grabData.group.forEach(tk => { 
-            tk.x_coord = Math.max(tk.x_coord, 0);
-            tk.y_coord = Math.max(tk.y_coord, 0); 
+            tk.token.x_coord = Math.max(tk.token.x_coord, 0);
+            tk.token.y_coord = Math.max(tk.token.y_coord, 0); 
           })
         }
       } else {
@@ -313,8 +339,8 @@ export class InitiativeComponent implements OnInit {
           this.grabData.token.y_coord = Math.max(Math.floor(this.grabData.token.y_coord + this.grabData.token.height / 2), 0); 
         } else {
           this.grabData.group.forEach(tk => {
-            tk.x_coord = Math.max(Math.floor(tk.x_coord + tk.width / 2), 0);
-            tk.y_coord = Math.max(Math.floor(tk.y_coord + tk.height / 2), 0); 
+            tk.token.x_coord = Math.max(Math.floor(tk.token.x_coord + tk.token.width / 2), 0);
+            tk.token.y_coord = Math.max(Math.floor(tk.token.y_coord + tk.token.height / 2), 0); 
           });
         }
       }
@@ -323,11 +349,59 @@ export class InitiativeComponent implements OnInit {
         grab_y: null,
         token: null,
         isDragging: false,
+        isRotating: false,
         isGroup: false,
-        group: []
+        group: [],
+        initialangle: null
       };
       this.update();
     }
+  }
+
+  clearGrabData(event:MouseEvent):void {
+    if(this.grabData.group.length > 0){
+      let outCoords = this.screenToCoords(event.x, event.y);
+      this.grabData.group.forEach(tk => {
+        tk.token.x_coord = tk.startLoc.x;
+        tk.token.y_coord = tk.startLoc.y;
+      });
+    } else if(this.grabData.token) {
+      this.grabData.token.x_coord = this.grabData.grab_x;
+      this.grabData.token.y_coord = this.grabData.grab_y; 
+    }
+    this.grabData.token = null;
+    this.grabData.isDragging = false;
+    this.grabData.group = [];
+    this.grabData.isGroup = false; 
+    this.grabData.isRotating = false;
+  }
+
+  startRotateToken(event:MouseEvent):void {
+    // this.grabData.token = this.getTarget(event);
+    let screenCoords = this.coordsToScreen(this.grabData.token.x_coord, this.grabData.token.y_coord);
+    this.grabData.isDragging = false;
+    this.grabData.grab_x = screenCoords.x + this.grabData.token.width/2;
+    this.grabData.grab_y = screenCoords.y + this.grabData.token.height/2;
+    this.grabData.group = [];
+    this.grabData.isGroup = false;
+    this.grabData.isRotating = true;
+    this.grabData.initialangle = this.grabData.token.rotation;
+  }
+
+  rotateToken(event:MouseEvent):void {
+    let h:number = event.y - this.grabData.grab_y;
+    let b:number = event.x - this.grabData.grab_x;
+    let ang:number = Math.atan2(h, b) + this.grabData.initialangle;
+    // console.log(Math.round(ang * 180/Math.PI));
+    this.grabData.token.rotation = ang * 180/Math.PI;
+    this.update();
+  }
+
+  stopRotateToken(event:MouseEvent):void{
+    // this.boardState.tokens.action.forEach(tk => {
+    //   console.log(tk.x_coord, tk.y_coord);
+    // });
+    this.grabData.isRotating = false;
   }
 
   // ========================
@@ -546,7 +620,13 @@ export class InitiativeComponent implements OnInit {
 
   // Mousedown Handler so far only handles picking up a token
   mouseDownHandler(event: MouseEvent): void {
-    if(this.tool === "select"){
+    if(
+      this.tool === "select" &&
+      this.grabData.token
+      ){
+        console.log("starting rotation");
+      this.startRotateToken(event);
+    } else if(this.tool === "select"){
       this.pickUpToken(event);
       // if pickuptoken doesn't grab anything, then it might be a group selection
       if(!this.grabData.token){
@@ -560,12 +640,14 @@ export class InitiativeComponent implements OnInit {
   mouseMoveHandler(event: MouseEvent): void {
     if(event.ctrlKey || (this.tool === "hand" && event.buttons === 1)){
       this.panGrid(event);
-    } else if(this.tool === "select" && this.grabData.isDragging){
+    } else if(this.tool === "select" && this.grabData.isDragging && !this.grabData.isRotating){
       this.dragToken(event);
       this.update();
-    }  else if (this.tool === "select" && !this.grabData.isDragging && event.buttons === 1){
+    }  else if (this.tool === "select" && !this.grabData.isDragging && event.buttons === 1 && !this.grabData.isRotating){
       this.update();
       this.visualizeGroupSelect(event);
+    } else if (this.tool === "select" && this.grabData.isRotating){
+      this.rotateToken(event);
     }
   }
 
@@ -577,20 +659,19 @@ export class InitiativeComponent implements OnInit {
     } else if(this.tool === "select" && this.grabData.isGroup){
       this.groupSelect(event);
       this.update();
+    } else if(this.tool === "select" && this.grabData.isRotating){
+      this.stopRotateToken(event);
+      // this.clearGrabData(event);
+      this.update();
     }
   }
 
   // Mouse Out Handler catches a user trying to drag an object off screen
-  // TODO: break the function code into a method instead of handling the select-specific event
+  // DONE: break the function code into a method instead of handling the select-specific event
   // inside the mouse handler
   mouseOutHandler(event: MouseEvent): void {
     if(this.tool === "select" && this.grabData.isDragging){
-      this.grabData.token.x_coord = this.grabData.grab_x;
-      this.grabData.token.y_coord = this.grabData.grab_y;
-      this.grabData.isDragging = false;
-      this.grabData.token = null;
-      this.grabData.group = [];
-      this.grabData.isGroup = false;
+      this.clearGrabData(event);
       this.update();
     }
   }
@@ -638,6 +719,17 @@ export class InitiativeComponent implements OnInit {
     }
   }
 
+  // Binding the scroll wheel to zoom in and out on the map
+  scrollZoom(event:any){
+    if(event.altKey){
+      if(event.deltaY > 0){
+        this.zoomOut();
+      } else {
+        this.zoomIn();
+      }
+    }
+  }
+
   // Pan Function
   // TODO: verify that this works on different screens/machines. This has the same code as the 
   // buggy drag object code
@@ -658,6 +750,7 @@ export class InitiativeComponent implements OnInit {
       for(let j=0; j<_bs.height_squares; j++){
         this.ctx.strokeStyle = "#000000";
         this.ctx.fillStyle = "#f3f3f3";
+        this.ctx.lineWidth = 0.5;
         let cx:number = i * this.gridScale * this.zoom + this.offset.x_offset;
         let cy:number = j * this.gridScale * this.zoom + this.offset.y_offset;
         let cw:number = this.gridScale * this.zoom;
@@ -718,7 +811,14 @@ export class InitiativeComponent implements OnInit {
       ty > -th )
     {
       if(token.htmlImage){
-        this.ctx.drawImage(token.htmlImage, tx, ty, tw, th);
+        if(token.rotation !== 0){ 
+          this.ctx.setTransform(1, 0, 0, 1, tx + tw/2, ty + th/2);
+          this.ctx.rotate(token.rotation * Math.PI / 180.0);
+          this.ctx.drawImage(token.htmlImage, -tw/2, -th/2, tw, th);
+          this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+        } else {
+          this.ctx.drawImage(token.htmlImage, tx, ty, tw, th);
+        }
       // } else if(token.icon){ 
       //   this.ctx.font = `${this.gridScale}px FontAwesome`;
       //   this.ctx.fillText(token.icon, tx, ty);
@@ -731,7 +831,7 @@ export class InitiativeComponent implements OnInit {
     if(token === this.grabData.token){
       this.drawBoundingBox(token);
     }
-    if(this.grabData.group.includes(token)){
+    if(this.grabData.group.map(obj => obj.token).includes(token)){
       this.drawBoundingBox(token);
     }
   }
@@ -746,7 +846,7 @@ export class InitiativeComponent implements OnInit {
   }
 
   // Draws bounding box around the token along the cell lines in its periphery
-  drawBoundingBox(token: _Token):void {
+  drawBoundingBox(token: _Token):void { 
     this.ctx.strokeStyle = "#ff0000";
     this.ctx.lineWidth = 2;
     let bbx:number = token.x_coord * this.gridScale * this.zoom + this.offset.x_offset;
