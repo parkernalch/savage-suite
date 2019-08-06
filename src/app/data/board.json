@@ -9,7 +9,8 @@
                 "width": 1,
                 "height": 1,
                 "color": "#BB8FCE",
-                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Cypher_token.png"
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Cypher_token.png",
+                "rotation": 270
             },
             {
                 "x_coord": 2,
@@ -17,7 +18,8 @@
                 "width": 1,
                 "height": 1,
                 "color": "#85C1E9",
-                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Eden_token.png"
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Eden_token.png",
+                "rotation": 155 
             },
             {
                 "x_coord": 3,
@@ -25,7 +27,8 @@
                 "width": 1,
                 "height": 1,
                 "color": "#7DCEA0",
-                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Flack.png"
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Flack.png",
+                "rotation": 300
             },
             {
                 "x_coord": 4,
@@ -33,7 +36,8 @@
                 "width": 1,
                 "height": 1,
                 "color": "#F7DC6F",
-                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Flik.png"
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Flik.png",
+                "rotation": 200
             },
             {
                 "x_coord": 5,
@@ -41,7 +45,8 @@
                 "width": 1,
                 "height": 1,
                 "color": "#E59866",
-                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Garen_token.png"
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Garen_token.png",
+                "rotation": 130
             },
             {
                 "x_coord": 6,
@@ -49,7 +54,8 @@
                 "width": 1,
                 "height": 1,
                 "color": "#B2BABB",
-                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Hector_token.png"
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Hector_token.png",
+                "rotation": 15
             },
             {
                 "x_coord": 7,
@@ -57,7 +63,8 @@
                 "width": 1,
                 "height": 1,
                 "color": "#566573",
-                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Klethic_token.png"
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Klethic_token.png",
+                "rotation": 30
             },
             {
                 "x_coord": 8,
@@ -65,7 +72,8 @@
                 "width": 1,
                 "height": 1,
                 "color": "#CB4335",
-                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Vik.png"
+                "icon": "https://sasstk.blob.core.windows.net/userassets/hyperion-chronicle/Vik.png",
+                "rotation": 45
             }
         ],
         "map": [],
