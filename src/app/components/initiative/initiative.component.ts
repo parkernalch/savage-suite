@@ -233,12 +233,17 @@ export class InitiativeComponent implements OnInit {
   }
 
   // Finds the nearest cell to the center of the token and snaps its location accordingly
-  // TODO: Allow non-snapping drop if some button is held (probably SHIFT)
+  // DONE: Allow non-snapping drop if some button is held (probably ~SHIFT~ it's ALT now)
   dropToken(event: MouseEvent): void {
     if(this.grabData.isDragging){
       this.grabData.isDragging = false;
-      this.grabData.token.x_coord = Math.max(Math.floor(this.grabData.token.x_coord + this.grabData.token.width / 2), 0);
-      this.grabData.token.y_coord = Math.max(Math.floor(this.grabData.token.y_coord + this.grabData.token.height / 2), 0);
+      if(event.altKey){
+        this.grabData.token.x_coord = Math.max(this.grabData.token.x_coord, 0);
+        this.grabData.token.y_coord = Math.max(this.grabData.token.y_coord, 0); 
+      } else {
+        this.grabData.token.x_coord = Math.max(Math.floor(this.grabData.token.x_coord + this.grabData.token.width / 2), 0);
+        this.grabData.token.y_coord = Math.max(Math.floor(this.grabData.token.y_coord + this.grabData.token.height / 2), 0); 
+      }
       this.grabData = {
         grab_x: null,
         grab_y: null,
@@ -607,7 +612,7 @@ export class InitiativeComponent implements OnInit {
   }
 
   // Generic draw token function
-  // TODO: implement either fontawesome drawing or image drawing so we can move past these colored squares
+  // DONE: implement either fontawesome drawing or image drawing so we can move past these colored squares
   drawToken(token: _Token): void {
     this.ctx.fillStyle = token.color;
     let tx: number = token.x_coord * this.gridScale * this.zoom + this.offset.x_offset;
@@ -625,10 +630,11 @@ export class InitiativeComponent implements OnInit {
     {
       if(token.htmlImage){
         this.ctx.drawImage(token.htmlImage, tx, ty, tw, th);
-      } else if(token.icon){ 
-        this.ctx.font = `${this.gridScale}px FontAwesome`;
-        this.ctx.fillText(token.icon, tx, ty);
-      } else { 
+      // } else if(token.icon){ 
+      //   this.ctx.font = `${this.gridScale}px FontAwesome`;
+      //   this.ctx.fillText(token.icon, tx, ty);
+      // } else { 
+      } else {
         this.ctx.fillRect(tx, ty, tw, th); 
         this.ctx.strokeRect(tx, ty, tw, th);
       }
