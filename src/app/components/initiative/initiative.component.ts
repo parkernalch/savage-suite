@@ -28,7 +28,9 @@ export class InitiativeComponent implements OnInit {
     grab_x: number,
     grab_y: number,
     token: _Token,
-    isDragging: boolean
+    isDragging: boolean,
+    isGroup: boolean,
+    group?: _Token[]
   }
 
   drawData: {
@@ -70,7 +72,9 @@ export class InitiativeComponent implements OnInit {
       grab_x: null,
       grab_y: null,
       token: null,
-      isDragging: false
+      isDragging: false,
+      isGroup: false,
+      group: []
     };
     this.drawData = {
       isDrawing: false,
@@ -156,6 +160,9 @@ export class InitiativeComponent implements OnInit {
   // Update() redraws all objects on the canvas (Grid, Custom, Tokens)
   update(): void {
     this.clearCanvas();
+    this.ctx.strokeStyle = "#000000";
+    this.ctx.setLineDash([0]);
+    this.ctx.lineWidth = 2;
     this.drawGrid(this.boardState);
     this.drawAllCustomShapes();
     this.drawTokens(this.boardState);
@@ -174,6 +181,22 @@ export class InitiativeComponent implements OnInit {
     this.update();
   }
 
+  // Helper function that converts event position to coordinates on the map grid
+  screenToCoords(x:number, y:number):{x:number,y:number} {
+    return {
+      x: Math.floor((x - this.offset.x_offset) / (this.gridScale * this.zoom)),
+      y: Math.floor((y - 40 - this.offset.y_offset) / (this.gridScale * this.zoom))
+    }
+  }
+
+  // Helper function that converts token coordinates to screen coordinates
+  coordsToScreen(x:number, y:number):{x:number,y:number} {
+    return {
+      x: x * this.gridScale * this.zoom + this.offset.x_offset,
+      y: y * this.gridScale * this.zoom + this.offset.y_offset + 40
+    }
+  }
+
   // =======================
   // GRAB AND MOVE FUNCTIONS
   // =======================
@@ -182,24 +205,10 @@ export class InitiativeComponent implements OnInit {
   // I call update() at the end so the bounding boxes are drawn immediately
   getTarget(event:MouseEvent): _Token {
     if(this.tool !== "select"){ return };
-    let mouse_x = event.x;
-    let mouse_y = event.y - 40;
-    let tkMatches = this.boardState.tokens.action.filter(tk => {
-      let x_left = tk.x_coord * this.gridScale * this.zoom + this.offset.x_offset;
-      let x_right = x_left + tk.width * this.gridScale * this.zoom;
-      let y_top = tk.y_coord * this.gridScale * this.zoom + this.offset.y_offset;
-      let y_bottom = y_top + tk.height * this.gridScale * this.zoom;
+    let mouseCoords = this.screenToCoords(event.x, event.y);
 
-      if(
-        mouse_x > x_left &&
-        mouse_x < x_right &&
-        mouse_y > y_top &&
-        mouse_y < y_bottom
-      ) {
-        return true
-      } else {
-        return false
-      }
+    let tkMatches = this.boardState.tokens.action.filter(tk => {
+      return (tk.x_coord === mouseCoords.x && tk.y_coord === mouseCoords.y);
     });
 
     if(tkMatches.length > 0){ 
@@ -212,15 +221,59 @@ export class InitiativeComponent implements OnInit {
     return tkMatches[0];
   }
 
+  groupSelect(event:MouseEvent): void {
+    let x_vals:number[] = [event.x, this.grabData.grab_x];
+    let y_vals:number[] = [event.y, this.grabData.grab_y];
+
+    let mins = this.screenToCoords(Math.min(...x_vals), Math.min(...y_vals));
+    let maxs = this.screenToCoords(Math.max(...x_vals), Math.max(...y_vals));
+
+    let tokens = this.boardState.tokens.action.filter(token => {
+      return (
+        token.x_coord <= maxs.x &&
+        token.x_coord >= mins.x &&
+        token.y_coord <= maxs.y &&
+        token.y_coord >= mins.y
+      )
+    });
+
+    this.grabData.group = tokens;
+    // console.log(tokens);
+  }
+
   // Adds token location to grabData just in case token is dropped in a forbidden location (or off-screen)
   pickUpToken(event: MouseEvent): void {
-    let Tk = this.getTarget(event);
-    if(Tk){
-      this.grabData.grab_x = Tk.x_coord;
-      this.grabData.grab_y = Tk.y_coord;
+    if(this.grabData.group.length === 0){
+      let Tk = this.getTarget(event);
+      if(Tk){
+        this.grabData.grab_x = Tk.x_coord;
+        this.grabData.grab_y = Tk.y_coord;
+
+        this.grabData.isDragging = true;
+      }  
+    } else {
+      let grabCoords = this.screenToCoords(event.x, event.y);
+      this.grabData.grab_x = grabCoords.x;
+      this.grabData.grab_y = grabCoords.y
 
       this.grabData.isDragging = true;
-    }  
+    }
+  }
+
+  startGroupSelect(event:MouseEvent):void { 
+    this.grabData.isGroup = true;
+    this.grabData.grab_x = event.x;
+    this.grabData.grab_y = event.y;
+  }
+
+  visualizeGroupSelect(event:MouseEvent):void {
+    this.ctx.strokeStyle = "#333333";
+    this.ctx.setLineDash([5]);
+    this.ctx.lineWidth = 1;
+
+    let width:number = event.x - this.grabData.grab_x;
+    let height:number = event.y - this.grabData.grab_y;
+    this.ctx.strokeRect(this.grabData.grab_x, this.grabData.grab_y - 40, width, height);
   }
 
   // Increments the position of the dragged token by the event movement props
@@ -228,8 +281,15 @@ export class InitiativeComponent implements OnInit {
   dragToken(event: MouseEvent): void {
     let dx = event.movementX;
     let dy = event.movementY;
-    this.grabData.token.x_coord += dx / this.gridScale / this.zoom;
-    this.grabData.token.y_coord += dy / this.gridScale / this.zoom;
+    if(this.grabData.group.length === 0){ 
+      this.grabData.token.x_coord += dx / this.gridScale / this.zoom;
+      this.grabData.token.y_coord += dy / this.gridScale / this.zoom;
+    } else if (this.grabData.group.length > 0){
+      this.grabData.group.forEach(tk => {
+        tk.x_coord += dx / this.gridScale / this.zoom;
+        tk.y_coord += dy / this.gridScale / this.zoom; 
+      })
+    }
   }
 
   // Finds the nearest cell to the center of the token and snaps its location accordingly
@@ -238,17 +298,33 @@ export class InitiativeComponent implements OnInit {
     if(this.grabData.isDragging){
       this.grabData.isDragging = false;
       if(event.altKey){
-        this.grabData.token.x_coord = Math.max(this.grabData.token.x_coord, 0);
-        this.grabData.token.y_coord = Math.max(this.grabData.token.y_coord, 0); 
+        if(this.grabData.group.length === 0) {
+          this.grabData.token.x_coord = Math.max(this.grabData.token.x_coord, 0);
+          this.grabData.token.y_coord = Math.max(this.grabData.token.y_coord, 0); 
+        } else {
+          this.grabData.group.forEach(tk => { 
+            tk.x_coord = Math.max(tk.x_coord, 0);
+            tk.y_coord = Math.max(tk.y_coord, 0); 
+          })
+        }
       } else {
-        this.grabData.token.x_coord = Math.max(Math.floor(this.grabData.token.x_coord + this.grabData.token.width / 2), 0);
-        this.grabData.token.y_coord = Math.max(Math.floor(this.grabData.token.y_coord + this.grabData.token.height / 2), 0); 
+        if(this.grabData.group.length === 0){
+          this.grabData.token.x_coord = Math.max(Math.floor(this.grabData.token.x_coord + this.grabData.token.width / 2), 0);
+          this.grabData.token.y_coord = Math.max(Math.floor(this.grabData.token.y_coord + this.grabData.token.height / 2), 0); 
+        } else {
+          this.grabData.group.forEach(tk => {
+            tk.x_coord = Math.max(Math.floor(tk.x_coord + tk.width / 2), 0);
+            tk.y_coord = Math.max(Math.floor(tk.y_coord + tk.height / 2), 0); 
+          });
+        }
       }
       this.grabData = {
         grab_x: null,
         grab_y: null,
         token: null,
-        isDragging: false
+        isDragging: false,
+        isGroup: false,
+        group: []
       };
       this.update();
     }
@@ -464,6 +540,7 @@ export class InitiativeComponent implements OnInit {
       this.visualizeShape();
     } else if(this.tool === "select"){
       this.getTarget(event);
+      // this.groupSelect(event);
     }
   }
 
@@ -471,6 +548,10 @@ export class InitiativeComponent implements OnInit {
   mouseDownHandler(event: MouseEvent): void {
     if(this.tool === "select"){
       this.pickUpToken(event);
+      // if pickuptoken doesn't grab anything, then it might be a group selection
+      if(!this.grabData.token){
+        this.startGroupSelect(event);
+      }
       this.update();
     }
   }
@@ -482,13 +563,19 @@ export class InitiativeComponent implements OnInit {
     } else if(this.tool === "select" && this.grabData.isDragging){
       this.dragToken(event);
       this.update();
-    } 
+    }  else if (this.tool === "select" && !this.grabData.isDragging && event.buttons === 1){
+      this.update();
+      this.visualizeGroupSelect(event);
+    }
   }
 
   // Mouse Up Handler handles releasing a dragged object at this time
   mouseUpHandler(event: MouseEvent): void {
     if(this.tool === "select" && this.grabData.isDragging){
       this.dropToken(event);
+      this.update();
+    } else if(this.tool === "select" && this.grabData.isGroup){
+      this.groupSelect(event);
       this.update();
     }
   }
@@ -502,6 +589,8 @@ export class InitiativeComponent implements OnInit {
       this.grabData.token.y_coord = this.grabData.grab_y;
       this.grabData.isDragging = false;
       this.grabData.token = null;
+      this.grabData.group = [];
+      this.grabData.isGroup = false;
       this.update();
     }
   }
@@ -640,6 +729,9 @@ export class InitiativeComponent implements OnInit {
       }
     } 
     if(token === this.grabData.token){
+      this.drawBoundingBox(token);
+    }
+    if(this.grabData.group.includes(token)){
       this.drawBoundingBox(token);
     }
   }
