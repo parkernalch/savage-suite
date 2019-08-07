@@ -249,14 +249,15 @@ export class InitiativeComponent implements OnInit {
       return (
         event.x > tkScreenCoords.x &&
         event.x < tkScreenCoords.x + tk.width * this.gridScale * this.zoom * tk.scale &&
-        event.y > tkScreenCoords.y &&
-        event.y < tkScreenCoords.y + tk.height * this.gridScale * this.zoom * tk.scale
+        event.y > tkScreenCoords.y + 40 &&
+        event.y < tkScreenCoords.y + 40 + tk.height * this.gridScale * this.zoom * tk.scale
         );
     });
 
     if(tkMatches.length > 0){ 
       this.grabData.token = tkMatches[0];
     } else {
+      return null;
       // console.log("no token at location");
       // this.grabData.token = this.grabData.token;
       // this.grabData.token = null;
@@ -411,7 +412,7 @@ export class InitiativeComponent implements OnInit {
     // console.log('starting rotate');
     this.grabData.isDragging = false;
     this.grabData.grab_x = screenCoords.x + this.grabData.token.width * this.gridScale * this.zoom * this.grabData.token.scale/2;
-    this.grabData.grab_y = screenCoords.y + this.grabData.token.height * this.gridScale * this.zoom * this.grabData.token.scale/2;
+    this.grabData.grab_y = screenCoords.y + 40 + this.grabData.token.height * this.gridScale * this.zoom * this.grabData.token.scale/2;
     this.grabData.group = [];
     this.grabData.isGroup = false;
     this.grabData.isRotating = true;
@@ -715,7 +716,10 @@ export class InitiativeComponent implements OnInit {
       if(!this.getTarget(event)){
         this.grabData.token = null;
         this.update();
+      } else {
+        this.grabData.isGroup = false;
       }
+      // console.log(this.grabData);
     }
   }
 
