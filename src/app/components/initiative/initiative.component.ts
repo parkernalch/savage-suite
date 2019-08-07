@@ -42,6 +42,19 @@ export class InitiativeComponent implements OnInit {
     initialangle?:number
   }
 
+  measureData: {
+    from: {
+      x:number,
+      y:number
+    },
+    to: {
+      x:number,
+      y:number
+    },
+    type:string,
+    isMeasuring:boolean
+  }
+
   drawData: {
     isDrawing: boolean,
     points: {x: number, y:number }[],
@@ -86,6 +99,18 @@ export class InitiativeComponent implements OnInit {
       isGroup: false,
       group: [],
       initialangle: null
+    };
+    this.measureData = {
+      from: {
+        x: null,
+        y: null
+      },
+      to: {
+        x:null,
+        y:null
+      },
+      type: 'standard',
+      isMeasuring: false
     };
     this.drawData = {
       isDrawing: false,
@@ -206,7 +231,7 @@ export class InitiativeComponent implements OnInit {
   coordsToScreen(x:number, y:number):{x:number,y:number} {
     return {
       x: x * this.gridScale * this.zoom + this.offset.x_offset,
-      y: y * this.gridScale * this.zoom + this.offset.y_offset + 40
+      y: y * this.gridScale * this.zoom + this.offset.y_offset
     }
   }
 
@@ -554,6 +579,71 @@ export class InitiativeComponent implements OnInit {
     this.ctx.stroke();
   }
 
+  // =================
+  // MEASURE FUNCTIONS
+  // =================
+  setMeasureFrom(event:MouseEvent):void{
+    let startCoords = this.screenToCoords(event.x, event.y);
+    this.measureData.from = {
+      x: startCoords.x,
+      y: startCoords.y
+    }
+    this.measureData.isMeasuring = true;
+  }
+
+  getMeasurement(event:MouseEvent):void {
+    let currentCoords = this.screenToCoords(event.x, event.y);
+    this.measureData.to = {
+      x: currentCoords.x,
+      y: currentCoords.y
+    }
+
+    let dx = this.measureData.to.x - this.measureData.from.x;
+    let dy = this.measureData.to.y - this.measureData.from.y;
+    let dist:number = Math.round(
+      Math.sqrt(
+        dx * dx + 
+        dy * dy
+      )
+    );
+    this.visualizeMeasurement(dist);
+  }
+
+  clearMeasureData():void {
+    this.measureData = {
+      from: {x: 0, y: 0},
+      to: {x: 0, y: 0},
+      type: 'standard',
+      isMeasuring: false
+    };
+  }
+
+  visualizeMeasurement(d:number):void {
+    this.update();
+    if(this.measureData.isMeasuring){
+      let screenFrom = this.coordsToScreen(
+        this.measureData.from.x + 0.5,
+        this.measureData.from.y + 0.5
+      );
+      let screenTo = this.coordsToScreen(
+        this.measureData.to.x + 0.5,
+        this.measureData.to.y + 0.5
+      );
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(screenFrom.x, screenFrom.y);
+      this.ctx.lineTo(screenTo.x, screenTo.y);
+      this.ctx.stroke();
+      this.ctx.moveTo(screenFrom.x, screenFrom.y);
+      this.ctx.font = "800 30px Arial";
+      this.ctx.fillText(`${d}`, screenTo.x, screenTo.y); 
+      this.ctx.lineWidth = 1;
+      this.ctx.strokeStyle = "#ffffff";
+      this.ctx.strokeText(`${d}`, screenTo.x, screenTo.y); 
+
+    }
+  }
+
   // ============
   // TOOL SWAPPER
   // ============
@@ -647,9 +737,8 @@ export class InitiativeComponent implements OnInit {
         }
       }
     } else if (this.tool === "measure"){
-
+      this.setMeasureFrom(event);
     }
-
     this.update();
   }
 
@@ -665,6 +754,8 @@ export class InitiativeComponent implements OnInit {
       this.visualizeGroupSelect(event);
     } else if (this.tool === "select" && this.grabData.isRotating){
       this.rotateToken(event);
+    } else if (this.tool === "measure"){
+      this.getMeasurement(event);
     }
   }
 
@@ -681,6 +772,8 @@ export class InitiativeComponent implements OnInit {
         this.stopRotateToken(event);
       }
       this.update();
+    } else if (this.tool === "measure"){
+      this.clearMeasureData();
     }
   }
 
@@ -691,6 +784,8 @@ export class InitiativeComponent implements OnInit {
     if(this.tool === "select" && this.grabData.isDragging){
       this.clearGrabData(event);
       this.update();
+    } if(this.tool === "measure") {
+      this.clearMeasureData();
     }
   }
 
