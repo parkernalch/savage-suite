@@ -3,11 +3,14 @@
 <div class="row">
     <div class="col">
         <h3>Campaign Selector</h3>
-        <select>
+        <select #campaignPicker (change)="setCampaign()">
             <option>Select a Campaign...</option>
             <option *ngFor="let campaign of campaigns">{{campaign.name}}</option>
         </select>
         <h3>Quick Add</h3>
+        <ul>
+            <li *ngFor="let c of quickAddChars">{{c.name}}</li>
+        </ul>
         <br>
         <input />
         <br>
