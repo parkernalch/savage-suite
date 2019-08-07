@@ -76,7 +76,7 @@ export class InitiativeComponent implements OnInit {
       x_offset: 20,
       y_offset: 20
     };
-    this.tool = "hand";
+    this.tool = "select";
     this.grabData = {
       grab_x: null,
       grab_y: null,
@@ -123,7 +123,7 @@ export class InitiativeComponent implements OnInit {
         icon: tk.icon,
         htmlImage: null,
         rotation: tk.rotation || 0,
-        scale: 1
+        scale: tk.scale || 1
       });
     });
     data.tokens.map.map(tk => {
@@ -223,16 +223,18 @@ export class InitiativeComponent implements OnInit {
       let tkScreenCoords = this.coordsToScreen(tk.x_coord,tk.y_coord);
       return (
         event.x > tkScreenCoords.x &&
-        event.x < tkScreenCoords.x + tk.width * this.gridScale * this.zoom &&
+        event.x < tkScreenCoords.x + tk.width * this.gridScale * this.zoom * tk.scale &&
         event.y > tkScreenCoords.y &&
-        event.y < tkScreenCoords.y + tk.height * this.gridScale * this.zoom
+        event.y < tkScreenCoords.y + tk.height * this.gridScale * this.zoom * tk.scale
         );
     });
 
     if(tkMatches.length > 0){ 
       this.grabData.token = tkMatches[0];
     } else {
-      this.grabData.token = null;
+      // console.log("no token at location");
+      // this.grabData.token = this.grabData.token;
+      // this.grabData.token = null;
     }
 
     this.update();
@@ -284,7 +286,7 @@ export class InitiativeComponent implements OnInit {
   }
   
   // Adds token location to grabData just in case token is dropped in a forbidden location (or off-screen)
-  pickUpToken(event: MouseEvent): void {
+  pickUpToken(event: MouseEvent): boolean {
     if(this.grabData.group.length === 0){
       let Tk = this.getTarget(event);
       if(Tk){
@@ -292,7 +294,9 @@ export class InitiativeComponent implements OnInit {
         this.grabData.grab_y = Tk.y_coord;
 
         this.grabData.isDragging = true;
-      }  
+      } else {
+        return false
+      } 
     } else {
       let grabCoords = this.screenToCoords(event.x, event.y);
       this.grabData.grab_x = grabCoords.x;
@@ -300,6 +304,7 @@ export class InitiativeComponent implements OnInit {
 
       this.grabData.isDragging = true;
     }
+    return true
   }
 
   // Increments the position of the dragged token by the event movement props
@@ -377,30 +382,33 @@ export class InitiativeComponent implements OnInit {
   }
 
   startRotateToken(event:MouseEvent):void {
-    // this.grabData.token = this.getTarget(event);
     let screenCoords = this.coordsToScreen(this.grabData.token.x_coord, this.grabData.token.y_coord);
+    // console.log('starting rotate');
     this.grabData.isDragging = false;
-    this.grabData.grab_x = screenCoords.x + this.grabData.token.width/2;
-    this.grabData.grab_y = screenCoords.y + this.grabData.token.height/2;
+    this.grabData.grab_x = screenCoords.x + this.grabData.token.width * this.gridScale * this.zoom * this.grabData.token.scale/2;
+    this.grabData.grab_y = screenCoords.y + this.grabData.token.height * this.gridScale * this.zoom * this.grabData.token.scale/2;
     this.grabData.group = [];
     this.grabData.isGroup = false;
     this.grabData.isRotating = true;
-    this.grabData.initialangle = this.grabData.token.rotation;
+    this.grabData.initialangle = this.grabData.token.rotation; 
   }
 
   rotateToken(event:MouseEvent):void {
     let h:number = event.y - this.grabData.grab_y;
     let b:number = event.x - this.grabData.grab_x;
-    let ang:number = Math.atan2(h, b) + this.grabData.initialangle;
-    // console.log(Math.round(ang * 180/Math.PI));
-    this.grabData.token.rotation = ang * 180/Math.PI;
+    let ang:number = Math.atan2(h, b) * 180/Math.PI + this.grabData.initialangle; 
+    if(event.shiftKey){
+      ang = Math.round(ang / 45);
+      // console.log(ang);
+      this.grabData.token.rotation = ang * 45 + 90;
+    } else { 
+      this.grabData.token.rotation = ang + 90;
+    }
     this.update();
   }
 
   stopRotateToken(event:MouseEvent):void{
-    // this.boardState.tokens.action.forEach(tk => {
-    //   console.log(tk.x_coord, tk.y_coord);
-    // });
+    this.grabData.token.rotation = this.grabData.token.rotation % 360;
     this.grabData.isRotating = false;
   }
 
@@ -612,28 +620,37 @@ export class InitiativeComponent implements OnInit {
         this.addVertex(event);
       }
       this.visualizeShape();
-    } else if(this.tool === "select"){
-      this.getTarget(event);
-      // this.groupSelect(event);
+    }  
+    else if(this.tool === "select"){
+      if(!this.getTarget(event)){
+        this.grabData.token = null;
+        this.update();
+      }
     }
   }
 
   // Mousedown Handler so far only handles picking up a token
-  mouseDownHandler(event: MouseEvent): void {
-    if(
-      this.tool === "select" &&
-      this.grabData.token
-      ){
-        console.log("starting rotation");
-      this.startRotateToken(event);
-    } else if(this.tool === "select"){
-      this.pickUpToken(event);
-      // if pickuptoken doesn't grab anything, then it might be a group selection
-      if(!this.grabData.token){
-        this.startGroupSelect(event);
+  mouseDownHandler(event: MouseEvent): void { 
+    if(this.tool === "select"){
+      let mouseCoords = this.screenToCoords(event.x, event.y);
+      if(!this.pickUpToken(event)){
+        if(
+          this.grabData.token &&
+          mouseCoords.x > this.grabData.token.x_coord - this.grabData.token.scale &&
+          mouseCoords.x < this.grabData.token.x_coord + this.grabData.token.scale &&
+          mouseCoords.y < this.grabData.token.y_coord &&
+          mouseCoords.y > this.grabData.token.y_coord - 2 
+        ) {
+          this.startRotateToken(event);
+        } else { 
+          this.startGroupSelect(event);
+        }
       }
-      this.update();
+    } else if (this.tool === "measure"){
+
     }
+
+    this.update();
   }
 
   // Mouse Move Handler handles dragging of an object or panning the canvas
@@ -653,15 +670,16 @@ export class InitiativeComponent implements OnInit {
 
   // Mouse Up Handler handles releasing a dragged object at this time
   mouseUpHandler(event: MouseEvent): void {
-    if(this.tool === "select" && this.grabData.isDragging){
-      this.dropToken(event);
-      this.update();
-    } else if(this.tool === "select" && this.grabData.isGroup){
-      this.groupSelect(event);
-      this.update();
-    } else if(this.tool === "select" && this.grabData.isRotating){
-      this.stopRotateToken(event);
-      // this.clearGrabData(event);
+    if(this.tool === "select"){
+      if(this.grabData.isDragging){
+        this.dropToken(event);
+      }
+      else if(this.grabData.isGroup){
+        this.groupSelect(event);
+      }
+      else if (this.grabData.isRotating){
+        this.stopRotateToken(event);
+      }
       this.update();
     }
   }
@@ -799,8 +817,8 @@ export class InitiativeComponent implements OnInit {
     this.ctx.fillStyle = token.color;
     let tx: number = token.x_coord * this.gridScale * this.zoom + this.offset.x_offset;
     let ty: number = token.y_coord * this.gridScale * this.zoom + this.offset.y_offset;
-    let tw: number = token.width * this.gridScale * this.zoom;
-    let th: number = token.width * this.gridScale * this.zoom;
+    let tw: number = token.width * this.gridScale * this.zoom * token.scale;
+    let th: number = token.width * this.gridScale * this.zoom * token.scale;
 
     this.ctx.strokeStyle = "#000000";
     this.ctx.lineWidth = 2;
@@ -840,6 +858,7 @@ export class InitiativeComponent implements OnInit {
   loadImage(src:string): Observable<HTMLImageElement>{
     // create image object
     var image = new Image();
+    image.onload = () => this.update();
 
     image.src = src;
     return of(image);
@@ -851,17 +870,23 @@ export class InitiativeComponent implements OnInit {
     this.ctx.lineWidth = 2;
     let bbx:number = token.x_coord * this.gridScale * this.zoom + this.offset.x_offset;
     let bby:number = token.y_coord * this.gridScale * this.zoom + this.offset.y_offset;
-    let bbw:number = token.width * this.gridScale * this.zoom;
-    let bbh:number = token.height * this.gridScale * this.zoom;
-    if(
-      Math.max(bbx - 2*bbw) < this.canvas.nativeElement.width ||
-      Math.max(bby - 2*bbh) < this.canvas.nativeElement.height ||
-      bbx > -bbw ||
-      bby > -bbh )
-    {
-    this.ctx.strokeRect(bbx, bby, bbw, bbh);
-    } 
-    this.drawBBHandles(token, {x: bbx, y: bby, width: bbw, height: bbh});
+    let bbw:number = token.width * this.gridScale * this.zoom * token.scale;
+    let bbh:number = token.height * this.gridScale * this.zoom * token.scale;
+    if(this.grabData.isRotating){
+      this.ctx.beginPath();
+      this.ctx.arc(bbx + bbw/2, bby + bbh/2, bbh/1.5, 0, Math.PI *2);
+      this.ctx.stroke();
+    } else {
+      if(
+        Math.max(bbx - 2*bbw) < this.canvas.nativeElement.width ||
+        Math.max(bby - 2*bbh) < this.canvas.nativeElement.height ||
+        bbx > -bbw ||
+        bby > -bbh )
+      {
+        this.ctx.strokeRect(bbx, bby, bbw, bbh);
+        this.drawBBHandles(token, {x: bbx, y: bby, width: bbw, height: bbh});
+      } 
+    }
   }
 
   // Draws the little handles in the corners (square) and attached to a rotation arm (circle)
@@ -891,18 +916,19 @@ export class InitiativeComponent implements OnInit {
       this.ctx.fillRect(corner.x - 5, corner.y - 5, 10, 10);
     });
 
-    let topmiddle: {x: number, y:number } = {
-      x: topleft.x + 0.5 * box.width - 5,
-      y: topleft.y
-    };
-
-    this.ctx.beginPath();
-    this.ctx.moveTo(topmiddle.x + 5, topmiddle.y);
-    this.ctx.lineTo(topmiddle.x + 5, topmiddle.y - 25);
-    this.ctx.stroke();
-    this.ctx.beginPath();
-    this.ctx.arc(topmiddle.x + 5, topmiddle.y - 25, 5, 0, Math.PI * 2);
-    this.ctx.stroke();
-    this.ctx.fill();
+    if(!this.grabData.isGroup){ 
+      let topmiddle: {x: number, y:number } = {
+        x: topleft.x + 0.5 * box.width - 5,
+        y: topleft.y
+      };
+      this.ctx.beginPath();
+      this.ctx.moveTo(topmiddle.x + 5, topmiddle.y);
+      this.ctx.lineTo(topmiddle.x + 5, topmiddle.y - 25);
+      this.ctx.stroke();
+      this.ctx.beginPath();
+      this.ctx.arc(topmiddle.x + 5, topmiddle.y - 25, 5, 0, Math.PI * 2);
+      this.ctx.stroke();
+      this.ctx.fill();
+    }
   }
 }
