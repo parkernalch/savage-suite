@@ -5,7 +5,7 @@ interface _ChroniclePost {
     content:string;
     type:string;
     tags:string[];
-    author:_User;
+    author:string
 }
 
 export default _ChroniclePost;
