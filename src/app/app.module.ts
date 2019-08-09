@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +21,7 @@ import { CviewPowerComponent } from './components/cview-power/cview-power.compon
 import { CampaignViewComponent } from './components/campaign-view/campaign-view.component';
 import { AttributeTableComponent } from './components/attribute-table/attribute-table.component';
 import { AttributeDieComponent } from './components/attribute-die/attribute-die.component';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { AttributeDieComponent } from './components/attribute-die/attribute-die.
   imports: [
     FormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
