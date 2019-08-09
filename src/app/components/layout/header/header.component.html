@@ -5,4 +5,26 @@
     <a href="characters" class="navlink">VAULT</a>
     <a href="encounter" class="navlink">ENCOUNTER</a>
     <a href="campaign" class="navlink">CAMPAIGN</a>
+    <span (click)="displayLoginModal()" class="navlink">LOGIN</span>
 </header>
+
+<div #darkOverlay class="page-dimmer" (click)="dismissModal()"></div>
+
+<div #loginModal class="modal">
+    <div class="modal-header">Log In</div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label>username</label><br>
+                <input #usernameInput type="text">
+            </div>
+            <div class="form-group">
+                <label>password</label><br>
+                <input #passwordInput type="password">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" (click)="validateUser()">
+    </div>
+</div>
