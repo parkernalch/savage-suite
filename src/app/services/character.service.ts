@@ -10,6 +10,7 @@ import _Edge from '../models/Edge';
 import _Hindrance from '../models/Hindrance';
 import _Power from '../models/Power';
 import {CampaignService} from '../services/campaign.service';
+import { HttpClient } from '@angular/common/http';
 // import campaigns from '../data/campaigns.json';
 
 @Injectable({
@@ -18,7 +19,9 @@ import {CampaignService} from '../services/campaign.service';
 export class CharacterService {
   characters:SavageCharacter[];
 
-  constructor(private campaignService: CampaignService) { }
+  constructor(
+    private http: HttpClient,
+    private campaignService: CampaignService) { }
 
   getCharacters():Observable<SavageCharacter[]>{
     this.campaignService.getCampaigns()
@@ -30,6 +33,22 @@ export class CharacterService {
       })
     // console.log(this.characters);
     
+    return of(this.characters);
+  }
+
+  getCharactersHTTP(): Observable<SavageCharacter[]> {
+    this.http.get('/api/characters')
+      .subscribe(res => {
+        let party = res['characters'];
+        for(let i=0; i<party.length; i++){
+          let _C: SavageCharacter = new SavageCharacter(
+            party[i]["_id"],
+            party[i]["name"],
+            party[i]["race"]
+          );
+          this.characters.push(_C);
+        } 
+      });
     return of(this.characters);
   }
 

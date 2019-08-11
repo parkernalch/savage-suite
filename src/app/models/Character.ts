@@ -3,6 +3,7 @@ import _Hindrance from './Hindrance';
 import _Edge from './Edge';
 import _Power from './Power';
 import _Race from './Race';
+import Item from './Item';
 
 export interface _BaseCharacter {
     id:number;
@@ -46,7 +47,9 @@ export default class SavageCharacter implements _SavageCharacter {
     hand_cards: number[];
     tactician_cards?: number[];
     adventure_cards?: string[];
-    
+
+    equipment: Item[];
+
     isEdit:boolean;
 
     constructor(
