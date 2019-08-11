@@ -1,6 +1,7 @@
 interface _Edge {
+    type: string;
     name:string;
-    description:string;
+    description?:string;
     effect:string;
     prerequisites:string[];
     initiative_cards?:number;
