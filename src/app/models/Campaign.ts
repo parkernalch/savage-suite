@@ -3,8 +3,9 @@ import  _ChroniclePost from "./ChroniclePost";
 import _ChatMessage from "./ChatMessage";
 
 export default interface _Campaign {
-    id:number;
+    // id:number;
     name:string;
+    description:string;
     chronicle:_ChroniclePost[];
     party: SavageCharacter[];
     sessions: Date[];
