@@ -31,21 +31,12 @@ export class AuthService {
     this.http.post(url, {username, password})
       .subscribe(res => {
         if(Object.keys(res).includes("token") && Object.keys(res).includes("user")){
-          // console.log(res["user"]);
-          // console.log(res["token"]);
-          localStorage.setItem('currentUser', JSON.stringify(res["user"]));
-          localStorage.setItem('userToken', JSON.stringify(res["token"]));
+          let resUser = res["user"];
+          let resToken = res["token"];
+          localStorage.setItem('currentUser', JSON.stringify(resUser));
+          localStorage.setItem('userToken', JSON.stringify(resToken));
         }
       });
-      // .pipe(map( (user, token) => {
-      //   console.log(user, token);
-      //   if(user && token){
-      //     localStorage.setItem('currentUser', JSON.stringify(user));
-      //     localStorage.setItem('userToken', JSON.stringify(token));
-      //   }
-
-      //   return user;
-      // }));
   }
 
   logout(): void {
