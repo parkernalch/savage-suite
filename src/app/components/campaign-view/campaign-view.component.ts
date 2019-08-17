@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 })
 export class CampaignViewComponent implements OnInit {
   @Input() campaign: _Campaign;
-  id: number;
+  id: string;
 
   constructor(
     private campaignService: CampaignService,
@@ -21,7 +21,7 @@ export class CampaignViewComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.route.snapshot.paramMap.get("id"));
-    this.id = parseInt(this.route.snapshot.paramMap.get("id"));
+    this.id = this.route.snapshot.paramMap.get("id");
     this.campaignService.getCampaignByID(this.id).subscribe(campaign => {
       console.log(campaign);
       this.campaign = campaign

@@ -1,9 +1,10 @@
 interface _Skill {
     name:string;
+    linked_attribute: String;
     description?:string;
     level?:number;
-    trained?:number;
     modifier?:number;
+    trained?:number;
 }
 
 export default _Skill;

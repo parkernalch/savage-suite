@@ -1,4 +1,5 @@
 interface _Edge {
+    id: string;
     type: string;
     name:string;
     description?:string;

@@ -5,10 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import _Edge from 'src/app/models/Edge';
 import _Hindrance from 'src/app/models/Hindrance';
-import _Power from 'src/app/models/Power';
+import _Power, { _PowerInstance } from 'src/app/models/Power';
 import { CampaignService } from 'src/app/services/campaign.service';
-import { DOCUMENT } from "@angular/common";
-import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 @Component({
   selector: 'app-character-view',
@@ -16,8 +14,9 @@ import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrie
   styleUrls: ['./character-view.component.sass']
 })
 export class CharacterViewComponent implements OnInit {
-  id:number;
+  id:string;
   character: SavageCharacter;
+  isEdit: boolean;
 
   constructor(
     private campaignService: CampaignService,
@@ -28,7 +27,7 @@ export class CharacterViewComponent implements OnInit {
 
   ngOnInit() {
     // console.log(this.route.snapshot.paramMap.get("id"));
-    this.id = parseInt(this.route.snapshot.paramMap.get("id"));
+    this.id = this.route.snapshot.paramMap.get("id");
     this.characterService.getCharacterByID(this.id).subscribe(character => {
       // console.log(`Character: ${character}`);
       this.character = character
@@ -37,6 +36,8 @@ export class CharacterViewComponent implements OnInit {
 
   addEdge() {
     let edge: _Edge = {
+      "id": "abc123",
+      "type": "Social",
       "name": "Command",
       "description": "You are a leader of men. ",
       "effect": "Extras within 5 inches increase their parry by 1",
@@ -49,10 +50,10 @@ export class CharacterViewComponent implements OnInit {
 
   addHindrance() {
     let hind: _Hindrance = {
+      "id": "asdfghjkl",
       "name": "Gravity Sickness",
       "description": "You really prefer solid ground.",
       "major": false,
-      "minor": true
     };
   
     this.characterService.addHindranceToCharacter(this.character.id, hind).subscribe(
@@ -61,16 +62,22 @@ export class CharacterViewComponent implements OnInit {
   }
 
   addPower() {
-    let power: _Power = {
-      "name": "Fly",
+    let basePower: _Power = {
+      "name": "fly",
+      "rank": 40,
+      "ruletext": "You can fly around like a bird. Congrats on this achievement"
+    };
+
+    let power: _PowerInstance = {
+      "name": "Jetpack",
       "trapping": "Cybernetic Jet Engines",
-      "varieties": [
-        {
-          "name": "Jetpack",
-          "cost": 4,
-          "effect": "for the next minute, you have a fly speed equal to your pace"
-        }
-      ]
+      "cost": 4,
+      "effect": "for the next minute, you have a fly speed equal to your pace",
+      "power": basePower,
+      "range": "self",
+      "duration": "3 rounds",
+      "sustain": "1/round",
+      "notes": "You can cast this on an adjacent, willing creature for the same cost"
     };
 
     this.characterService.addPowerToCharacter(this.character.id, power).subscribe(
@@ -80,6 +87,6 @@ export class CharacterViewComponent implements OnInit {
 
 
   toggleEdit() {
-    this.character.isEdit = !this.character.isEdit;
+    this.isEdit = !this.isEdit;
   }
 }

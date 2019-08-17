@@ -1,6 +1,7 @@
 import _Edge from './Edge';
 
 interface _Race {
+    id: string;
     name:string;
     description:string;
     features: _Edge[];

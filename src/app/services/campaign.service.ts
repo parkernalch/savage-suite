@@ -21,6 +21,7 @@ export class CampaignService {
       var C: _Campaign = {
         id: campaign.id,
         name: campaign.name,
+        description: campaign.description,
         motd: campaign.motd,
         chat: [],
         chronicle: [],
@@ -59,12 +60,20 @@ export class CampaignService {
       // Add Party
       campaign.party.forEach(char => {
         let race: _Race = {
+          id: char.race.id,
           name: char.race.name,
           description: char.race.description,
-          features: char.race.features
+          features: char.race.features,
+          base_stats: {
+            agility: 4,
+            smarts: 4,
+            strength: 4,
+            spirit: 4,
+            vigor: 4
+          }
         }
 
-        let CH: SavageCharacter = new SavageCharacter(char.id, char.name, race, char.campaign, char.rank);
+        let CH: SavageCharacter = new SavageCharacter(char.id, char.name, race, C, char.rank);
 
         CH.traits = {
           attributes: char.traits.attributes,
@@ -83,7 +92,9 @@ export class CampaignService {
         if(char.edges){ 
           char.edges.forEach((edge) => {
             let _E: _Edge = {
+              id: edge.id,
               name: edge.name,
+              type: edge.type,
               description: edge.description,
               prerequisites: edge.prerequisites,
               effect: edge.effect
@@ -95,29 +106,39 @@ export class CampaignService {
         if(char.powers){
           char.powers.forEach(power => {
             let _P: _Power = {
+              name: power.power.name,
+              ruletext: power.power.ruletext,
+              rank: power.power.rank
+            };
+            let _PI: _PowerInstance = {
               name: power.name,
               trapping: power.trapping,
-              varieties: []
+              cost: power.cost,
+              effect: power.effect,
+              range: power.range,
+              sustain: power.sustain,
+              duration: power.duration,
+              power: _P
             };
-            power.varieties.forEach(v => {
-              let _V: _PowerInstance = {
-                name: v.name,
-                cost: v.cost,
-                effect: v.effect
-              }
-              _P.varieties.push(_V);
-            });
-            CH.powers.push(power);
+            // power.varieties.forEach(v => {
+            //   let _V: _PowerInstance = {
+            //     name: v.name,
+            //     cost: v.cost,
+            //     effect: v.effect
+            //   }
+            //   _P.varieties.push(_V);
+            // });
+            CH.powers.push(_PI);
           });
         }
 
         if(char.hindrances){
           char.hindrances.forEach(hindrance => {
             let _H: _Hindrance = {
+              id: hindrance.id,
               name: hindrance.name,
               description: hindrance.description,
-              major: hindrance.major,
-              minor: hindrance.minor
+              major: hindrance.major
             };
 
             CH.hindrances.push(_H);
@@ -161,7 +182,7 @@ export class CampaignService {
     return of(this.campaigns);
   }
 
-  getCampaignByID(id:number): Observable<_Campaign> {
+  getCampaignByID(id:string): Observable<_Campaign> {
     return of(this.campaigns.filter(campaign => campaign.id === id)[0]);
   }
 }

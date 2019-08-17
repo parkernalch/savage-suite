@@ -1,14 +1,16 @@
 [
     {
-        "id": 1,
+        "id": "1",
         "name": "Skimmers of Ord",
+        "description": "Adventurers travel the world-sea in search of the mystical and powerful Glimmer that rises from the deep.",
         "chronicle": [ ],
         "party": [
             {
-                "id": 1,
+                "id": "1",
                 "name": "Tennison Aqualian",
                 "description": "Haggard old pirate driven mad by years on the sea",
                 "race": {
+                    "id": "ordianhuman",
                     "name": "Human",
                     "description": "Seen one, you've seen em all",
                     "features": []
@@ -41,40 +43,48 @@
                     "skills": [
                         {
                             "name": "Fighting",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Shooting",
+                            "linked_attribute": "agility",
                             "level": 8
                         },
                         {
                             "name": "Notice",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Sailing",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Persuasion",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Stealth",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Intimidation",
+                            "linked_attribute": "agility",
                             "level": 8
                         }
                     ]
                 }
             },
             {
-                "id": 2,
+                "id": "2",
                 "name": "Yug Lamron",
                 "description": "A rusted out automaton convinced of his humanity in spite of his appearance",
                 "race": {
+                    "id": "ordianrobot",
                     "name": "Automaton",
                     "description": "A machine operating and perceiving powered by an unknown energy source",
                     "features": []
@@ -107,30 +117,37 @@
                     "skills": [
                         {
                             "name": "Fighting",
+                            "linked_attribute": "agility",
                             "level": 12
                         },
                         {
                             "name": "Shooting",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Notice",
+                            "linked_attribute": "agility",
                             "level": 10
                         },
                         {
                             "name": "Sailing",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Persuasion",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Stealth",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Intimidation",
+                            "linked_attribute": "agility",
                             "level": 4
                         }
                     ]
@@ -138,10 +155,11 @@
 
             },
             {
-                "id": 3,
+                "id": "3",
                 "name": "Baron Tydes",
                 "description": "Headstrong captain of his ship and owner to pet monkey, Steven",
                 "race": {
+                    "id": "ordianhuman",
                     "name": "Human",
                     "description": "Seen one, you've seen em all",
                     "features": []
@@ -174,40 +192,48 @@
                     "skills": [
                         {
                             "name": "Fighting",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Shooting",
+                            "linked_attribute": "agility",
                             "level": 10
                         },
                         {
                             "name": "Notice",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Sailing",
+                            "linked_attribute": "agility",
                             "level": 8
                         },
                         {
                             "name": "Persuasion",
+                            "linked_attribute": "agility",
                             "level": 10
                         },
                         {
                             "name": "Stealth",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Intimidation",
+                            "linked_attribute": "agility",
                             "level": 4
                         }
                     ]
                 }
             },
             {
-                "id": 4,
+                "id": "4",
                 "name": "The Skipper",
                 "description": "Nobody knows why they call him The Skipper. He has a face that makes you want to turn away at the first chance you get",
                 "race": {
+                    "id": "ordianhuman",
                     "name": "Human",
                     "description": "Seen one, you've seen em all",
                     "features": []
@@ -240,30 +266,37 @@
                     "skills": [
                         {
                             "name": "Fighting",
+                            "linked_attribute": "agility",
                             "level": 10
                         },
                         {
                             "name": "Shooting",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Notice",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Sailing",
+                            "linked_attribute": "agility",
                             "level": 8
                         },
                         {
                             "name": "Persuasion",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Stealth",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Intimidation",
+                            "linked_attribute": "agility",
                             "level": 4
                         }
                     ]
@@ -279,19 +312,19 @@
         "motd": "Welcome, Skimmers! Keep an eye out for the next session date, releasing soon.",
         "chat": [
             {
-                "user": 4,
+                "user": "4",
                 "message": "Hey guys, I'm excited for the game tonight!",
                 "date": "2019-5-10|2001",
                 "tags": []
             },
             {
-                "user": 2,
+                "user": "2",
                 "message": "you do realize we started an hour ago, right?",
                 "date": "2019-5-10|2020",
                 "tags": []
             },
             {
-                "user": 3,
+                "user": "3",
                 "message": "LOL",
                 "date": "2019-5-10|2125",
                 "tags": []
@@ -299,28 +332,34 @@
         ]
     },
     {
-        "id": 2,
+        "id": "2",
         "name": "The Hyperion Chronicles",
+        "description": "A crew of a council-chartered science vessel finds themselves embroiled in a battle for the existence of the known worlds.",
         "chronicle": [ ],
         "party": [
             {
-                "id": 5,
+                "id": "5",
                 "name": "Sukorb Tsif",
                 "description": "First Officer aboard the Hyperion and now vice president of the Black Hole Coalition",
                 "race": {
+                    "id": "spacedwarf",
                     "name": "Dwarf",
                     "description": "Fantasy dwarf",
                     "features": []
                 },
                 "edges": [
                     {
+                        "id": "hyperiontactician",
                         "name": "Tactician",
+                        "type": "battle",
                         "description": "You are a seasoned battle director",
                         "effect": "draw an additional two cards at the start of each turn. You may give them to your allies in battle",
                         "prerequisites": []
                     },
                     {
+                        "id": "hyperiontwofisted",
                         "name": "Two-Fisted",
+                        "type": "background",
                         "description": "You have trained in two-weapon fighting",
                         "effect": "Ignore the MAP when shooting with one weapon in each hand",
                         "prerequisites": []
@@ -354,40 +393,48 @@
                     "skills": [
                         {
                             "name": "Fighting",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Shooting",
+                            "linked_attribute": "agility",
                             "level": 12
                         },
                         {
                             "name": "Notice",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Sailing",
+                            "linked_attribute": "agility",
                             "level": 10
                         },
                         {
                             "name": "Persuasion",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Stealth",
+                            "linked_attribute": "agility",
                             "level": 10
                         },
                         {
                             "name": "Intimidation",
+                            "linked_attribute": "agility",
                             "level": 6
                         }
                     ]
                 }
             },
             {
-                "id": 6,
+                "id": "6",
                 "name": "Klethic Parnastalos",
                 "description": "Once-ambassador between the Saurian homeworld and the Council-controlled worlds. Klethic now serves as the de facto leader of our band of heroes",
                 "race": {
+                    "id": "spacesaurian",
                     "name": "Pelosteran Saurian",
                     "description": "Green-skinned bipedal lizard-men",
                     "features": []
@@ -420,40 +467,48 @@
                     "skills": [
                         {
                             "name": "Fighting",
+                            "linked_attribute": "agility",
                             "level": 10
                         },
                         {
                             "name": "Shooting",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Notice",
+                            "linked_attribute": "agility",
                             "level": 8
                         },
                         {
                             "name": "Sailing",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Persuasion",
+                            "linked_attribute": "agility",
                             "level": 12
                         },
                         {
                             "name": "Stealth",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Intimidation",
+                            "linked_attribute": "agility",
                             "level": 4
                         }
                     ]
                 }
             },
             {
-                "id": 7,
+                "id": "7",
                 "name": "Ravikanth Naraiya",
                 "description": "Equal parts gruff and brilliant, Vik can engineer his way out of any situation",
                 "race": {
+                    "id": "spacerakshasan",
                     "name": "Rakshasan",
                     "description": "Bipedal feral cat-person",
                     "features": []
@@ -487,87 +542,114 @@
                     "skills": [
                         {
                             "name": "Fighting",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Shooting",
+                            "linked_attribute": "agility",
                             "level": 10
                         },
                         {
                             "name": "Notice",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Sailing",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Persuasion",
+                            "linked_attribute": "agility",
                             "level": 8
                         },
                         {
                             "name": "Stealth",
+                            "linked_attribute": "agility",
                             "level": 12
                         },
                         {
                             "name": "Intimidation",
+                            "linked_attribute": "agility",
                             "level": 10
                         }
                     ]
                 },
                 "powers": [
                     {
-                        "name": "Bolt",
+                        "name": "Rivet Gun",
                         "trapping": "Arm-Mounted Matter Accelerator",
-                        "varieties": [
-                            {
-                                "name": "Rivet Gun",
-                                "cost": 1,
-                                "effect": "Deal 2d6 damage per bolt (up to three) in a range of 12/24/48"
-                            },
-                            {
-                                "name": "Strut Cannon",
-                                "cost": 2,
-                                "effect": "Deal 3d6 damage in a single big bolt of range 12/24/48"
-                            }
-                        ]
+                        "cost": 1,
+                        "effect": "Deal 2d6 damage per bolt (up to three) in a range of 12/24/48",
+                        "range": "Smarts",
+                        "duration": "Instantaneous",
+                        "sustain": null,
+                        "notes": "",
+                        "power": {
+                            "name": "Bolt",
+                            "ruletext": "You shoot a bolt, yayyyy.",
+                            "rank": 0 
+                        }
+                    },
+                    {
+                        "name": "Strut Cannon",
+                        "trapping": "Arm-Mounted Matter Accelerator",
+                        "cost": 2,
+                        "effect": "Deal 2d6 damage per bolt (up to three) in a range of 12/24/48",
+                        "range": "Smarts",
+                        "duration": "Instantaneous",
+                        "sustain": null,
+                        "notes": "",
+                        "power": {
+                            "name": "Bolt",
+                            "ruletext": "You shoot a bolt, yayyyy.",
+                            "rank": 0 
+                        }
                     }
                 ],
                 "hindrances": [
                     {
+                        "id": "hyperionmean",
                         "name": "Mean",
                         "description": "This fellow is ill-tempered and disagreeable. No one really likes him, and he has trouble doing anything kind for anyone else. He must be paid for his troubles and doesn't even accept awards graciously. Your character suffers from -2 to Charisma.",
-                        "major": false,
-                        "minor": true
+                        "major": false
                     },
                     {
+                        "id": "hyperionarrogant",
                         "name": "Arrogant",
                         "description": "Your hero doesn't think he's the best -- he knows he is. Winning isn't enough for your hero. He must DOMINATE his opponent. Arrogant heroes always look for the 'boss' in battle, attacking lesser minions only if they get in the way",
-                        "major": false,
-                        "minor": true
+                        "major": false
                     },
                     {
+                        "id": "hyperionoutsider",
                         "name": "Outsider",
                         "description": "In a society made up of only a few types of people, your hero isn't one of them. Locals are likely to raise prices for you, ignore your pleas for help, and generally treat you as if you're a lower class of society. You suffer -2 Charisma when interacting with anyone outside your own race.",
-                        "major": false,
-                        "minor": true
+                        "major": false
                     }
                 ],
                 "edges": [
                     {
+                        "id": "hyperionluck",
                         "name": "Luck",
+                        "type": "background",
                         "description": "You're blessed by fate, the gods, or some external force",
                         "effect": "Draw one extra Benny at the beginning of each game session",
                         "prerequisites": ["Novice"]
                     },
                     {
+                        "id": "hyperionnaturalweapons",
                         "name": "Natural Weapons",
+                        "type": "racial",
                         "description": "You have retractable claws",
                         "effect": "Deal Str+d6 damage when you would otherwise be unarmed and have +2 to Climbing rolls on non-sheer surfaces",
                         "prerequisites": ["Rakshasan"]
                     },
                     {
+                        "id": "hyperiongadgeteer",
                         "name": "Gadgeteer",
+                        "type": "weird",
                         "description": "You are so technically savvy that you can quickly build a machine to handle nearly any situation",
                         "effect": "Once per game session, you can create a 'jury-rigged' device that operates just like any Weird Science device and uses any power available to Weird Scientists. It has half your PP and does not recharge. Construction time: 1d20 minutes.",
                         "prerequisites": [
@@ -585,10 +667,11 @@
                 ]
             },
             {
-                "id": 8,
+                "id": "8",
                 "name": "Garen Aldor",
                 "description": "Though his medical training makes him the medic of the crew, it is his even head that keeps the party from losing its humanity",
                 "race": {
+                    "id": "spacehuman",
                     "name": "Human",
                     "description": "Seen one, you've seen em all",
                     "features": []
@@ -621,40 +704,48 @@
                     "skills": [
                         {
                             "name": "Fighting",
+                            "linked_attribute": "agility",
                             "level": 10
                         },
                         {
                             "name": "Shooting",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Notice",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Sailing",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Persuasion",
+                            "linked_attribute": "agility",
                             "level": 10
                         },
                         {
                             "name": "Stealth",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Intimidation",
+                            "linked_attribute": "agility",
                             "level": 4
                         }
                     ]
                 }
             },
             {
-                "id": 9,
+                "id": "9",
                 "name": "Soombala",
                 "description": "Sent from his far-off homeworld to establish political relations, Soombala has become one of the prime officers in the fight against the rise of the Eclipse",
                 "race": {
+                    "id": "lunarserran",
                     "name": "Lunar Serran",
                     "description": "Long limbed, dark skinned psionic inhabitant of a distant world",
                     "features": []
@@ -687,40 +778,48 @@
                     "skills": [
                         {
                             "name": "Fighting",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Shooting",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Notice",
+                            "linked_attribute": "agility",
                             "level": 8
                         },
                         {
                             "name": "Sailing",
+                            "linked_attribute": "agility",
                             "level": 12
                         },
                         {
                             "name": "Persuasion",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Stealth",
+                            "linked_attribute": "agility",
                             "level": 8
                         },
                         {
                             "name": "Intimidation",
+                            "linked_attribute": "agility",
                             "level": 6
                         }
                     ]
                 }
             },
             {
-                "id": 10,
+                "id": "10",
                 "name": "Caspian Wright",
                 "description": "Brash, headstrong, and now dying slowly in an alien restoration pod",
                 "race": {
+                    "id": "spacehuman",
                     "name": "Human",
                     "description": "Seen one, you've seen em all",
                     "features": []
@@ -753,40 +852,48 @@
                     "skills": [
                         {
                             "name": "Fighting",
+                            "linked_attribute": "agility",
                             "level": 0
                         },
                         {
                             "name": "Shooting",
+                            "linked_attribute": "agility",
                             "level": 0
                         },
                         {
                             "name": "Notice",
+                            "linked_attribute": "agility",
                             "level": 0
                         },
                         {
                             "name": "Sailing",
+                            "linked_attribute": "agility",
                             "level": 0
                         },
                         {
                             "name": "Persuasion",
+                            "linked_attribute": "agility",
                             "level": 0
                         },
                         {
                             "name": "Stealth",
+                            "linked_attribute": "agility",
                             "level": 0
                         },
                         {
                             "name": "Intimidation",
+                            "linked_attribute": "agility",
                             "level": 0
                         }
                     ]
                 }
             },
             {
-                "id": 11,
+                "id": "11",
                 "name": "Hector Barrelwaite",
                 "description": "Dumb as rocks, but loyal as nothing you've ever seen before.",
                 "race": {
+                    "id": "spacehuman",
                     "name": "Human",
                     "description": "Seen one, you've seen em all",
                     "features": []
@@ -819,30 +926,37 @@
                     "skills": [
                         {
                             "name": "Fighting",
+                            "linked_attribute": "agility",
                             "level": 12
                         },
                         {
                             "name": "Shooting",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Notice",
+                            "linked_attribute": "agility",
                             "level": 6
                         },
                         {
                             "name": "Sailing",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Persuasion",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Stealth",
+                            "linked_attribute": "agility",
                             "level": 4
                         },
                         {
                             "name": "Intimidation",
+                            "linked_attribute": "agility",
                             "level": 8
                         }
                     ]
@@ -871,61 +985,61 @@
         "motd": "On hiatus until Parker finds a job or starts his program, sorry.",
         "chat": [
             {
-                "user": 9,
+                "user": "9",
                 "message": "Hope the game goes well tonight, gents. I didn't have time for a whole game",
                 "date": "2019-3-14",
                 "tags": []
             },
             {
-                "user": 11,
+                "user": "11",
                 "message": "Sunday the 24th from Noon to about 4pm, I'd like to run another game. If you're available and interested, please let me know!.",
                 "date": "2019-3-20",
                 "tags": ["Announcement"]
             },
             {
-                "user": 7,
+                "user": "7",
                 "message": "I should be available, if anyone else is.",
                 "date": "2019-3-24",
                 "tags": []
             },
             {
-                "user": 11,
+                "user": "11",
                 "message": "Yeah, to the best of my knowledge, Burke and Aaron will be playing as well.",
                 "date": "2019-3-24",
                 "tags": []
             },
             {
-                "user": 7,
+                "user": "7",
                 "message": "Wrapping up now. Will be home shortly",
                 "date": "2019-3-24",
                 "tags": []
             },
             {
-                "user": 9,
+                "user": "9",
                 "message": "7pm?",
                 "date": "2019-3-29",
                 "tags": []
             },
             {
-                "user": 11,
+                "user": "11",
                 "message": "yes indeedy",
                 "date": "2019-3-29",
                 "tags": []
             },
             {
-                "user": 8,
+                "user": "8",
                 "message": "Hangouts or Roll20?",
                 "date": "2019-3-29",
                 "tags": []
             },
             {
-                "user": 11,
+                "user": "11",
                 "message": "how about the voice channel on Discord?",
                 "date": "2019-3-29",
                 "tags": []
             },
             {
-                "user": 8,
+                "user": "8",
                 "message": "sure",
                 "date": "2019-3-29",
                 "tags": []

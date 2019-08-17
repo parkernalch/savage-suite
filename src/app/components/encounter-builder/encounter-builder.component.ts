@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { _SavageCharacter } from 'src/app/models/Character';
+import SavageCharacter, { _SavageCharacter } from 'src/app/models/Character';
 import Encounter from 'src/app/models/Encounter';
 import _Campaign from 'src/app/models/Campaign';
 import { CampaignService } from 'src/app/services/campaign.service';
@@ -11,11 +11,11 @@ import { CharacterService } from 'src/app/services/character.service';
   styleUrls: ['./encounter-builder.component.sass']
 })
 export class EncounterBuilderComponent implements OnInit {
-  combatants: _SavageCharacter[];
+  combatants: SavageCharacter[];
   encounter: Encounter;
   campaigns: _Campaign[];
   selectedCampaign: _Campaign;
-  quickAddChars: _SavageCharacter[];
+  quickAddChars: SavageCharacter[];
 
   @ViewChild('campaignPicker', {static:true})
   campaignPicker: ElementRef<HTMLSelectElement>;

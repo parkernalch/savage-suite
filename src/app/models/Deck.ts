@@ -59,15 +59,17 @@ class Deck {
     }
 
 
-    constructor(deck?:Deck){
-        if(deck){
-            this.cards = deck.cards;
-            this.next_index = deck.next_index;
+    // constructor(deck?:Deck){
+    constructor(cards?:number[], index?:number){
+        if(cards && index){
+            this.cards = cards;
+            this.next_index = index;
         } else {
             for(let i=0;i<54;i++){
                 this.cards.push(i);
             }
             this.next_index = 0;
+            this.Shuffle();
         }
     }
 

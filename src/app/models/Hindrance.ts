@@ -1,8 +1,9 @@
 interface _Hindrance {
+    id: string;
     name:string;
     description:string;
-    major:boolean;
-    minor:boolean;
+    // if !major then minor
+    major: boolean;
 }
 
 export default _Hindrance;

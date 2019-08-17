@@ -1,9 +1,10 @@
 import _TraitBlock from './TraitBlock';
 import _Hindrance from './Hindrance';
 import _Edge from './Edge';
-import _Power from './Power';
+import _Power, { _PowerInstance } from './Power';
 import _Race from './Race';
 import Item from './Item';
+import _Campaign from './Campaign';
 
 export interface _BaseCharacter {
     id:number;
@@ -27,8 +28,8 @@ export interface _SavageCharacter extends _BaseCharacter {
     rank:number;
 }
 
-export default class SavageCharacter implements _SavageCharacter {
-    id:number;
+export default class SavageCharacter {
+    id:string;
     name:string;
     traits: _TraitBlock;
     race:_Race;
@@ -36,9 +37,9 @@ export default class SavageCharacter implements _SavageCharacter {
     class?:string;
     edges:_Edge[];
     hindrances:_Hindrance[];
-    powers:_Power[];
+    powers:_PowerInstance[];
     rank:number;
-    campaign?:string;
+    campaign?:_Campaign;
 
     deal_initiative:number;
     deal_tactician:number;
@@ -50,24 +51,22 @@ export default class SavageCharacter implements _SavageCharacter {
 
     equipment: Item[];
 
-    isEdit:boolean;
-
     constructor(
-        id:number,
+        id:string,
         name:string,
         race:_Race, 
-        campaign?:string,
+        campaign?:_Campaign,
         rank?:number, 
         edges?:_Edge[], 
         hindrances?:_Hindrance[], 
-        powers?:_Power[]
+        powers?:_PowerInstance[]
     ){
         this.id = id;
         this.name = name;
         this.description = '';
         this.rank = rank || 0;
         this.race = race;
-        this.campaign = campaign || 'unset';
+        this.campaign = campaign || null;
         this.deal_adventure = this.rank;
         this.deal_initiative = 1;
         this.deal_tactician = 0;
@@ -75,11 +74,6 @@ export default class SavageCharacter implements _SavageCharacter {
         this.hindrances = hindrances || [];
         this.powers = powers || [];
         this.SetInitiative();
-        this.isEdit = false;
-    }
-
-    toggleEdit(): void {
-        this.isEdit = !this.isEdit;
     }
 
     SetInitiative(){
@@ -96,6 +90,5 @@ export default class SavageCharacter implements _SavageCharacter {
             tactician_cards: this.deal_tactician
         };
     }
-    
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CharacterService } from '../../services/character.service';
 import SavageCharacter from 'src/app/models/Character';
 import { CampaignService } from '../../services/campaign.service';
@@ -10,6 +10,8 @@ import { CampaignService } from '../../services/campaign.service';
 })
 export class CharacterVaultComponent implements OnInit {
   characters: SavageCharacter[];
+  @ViewChild("charlist", {static: true})
+  charlist: ElementRef<HTMLLIElement>;
 
   constructor(
     private campaignService: CampaignService,
@@ -17,6 +19,10 @@ export class CharacterVaultComponent implements OnInit {
 
   ngOnInit() {
     this.getCharacters();
+  }
+
+  ngAfterViewInit(){
+    console.log(this.charlist);
   }
 
   getCharacters(): void {
@@ -28,7 +34,9 @@ export class CharacterVaultComponent implements OnInit {
 
   toggleEdit(character:SavageCharacter): void {
     console.log(character);
-    character.toggleEdit();
+    console.log(this.charlist);
+    // this.isEdit = !this.isEdit;
+    // character.toggleEdit();
   }
 
   filterCharacters($event:KeyboardEvent): void {
@@ -36,7 +44,7 @@ export class CharacterVaultComponent implements OnInit {
     let val:string = (<HTMLInputElement>document.getElementById('filterfield')).value.toLowerCase();
     let pattern:RegExp = new RegExp(`${val}`);
     this.getCharacters();
-    this.characters = this.characters.filter(character => pattern.test(character.campaign.toLowerCase() + character.name.toLowerCase()));
+    this.characters = this.characters.filter(character => pattern.test(character.campaign.name.toLowerCase() + character.name.toLowerCase()));
     // return this.characters.filter(character => pattern.test(character.name.toLowerCase()));
   }
 

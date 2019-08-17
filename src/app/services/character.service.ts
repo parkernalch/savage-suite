@@ -8,7 +8,7 @@ import hindrances from '../data/hindrances.json';
 import powers from '../data/powers.json';
 import _Edge from '../models/Edge';
 import _Hindrance from '../models/Hindrance';
-import _Power from '../models/Power';
+import _Power, { _PowerInstance } from '../models/Power';
 import {CampaignService} from '../services/campaign.service';
 import { HttpClient } from '@angular/common/http';
 // import campaigns from '../data/campaigns.json';
@@ -52,26 +52,26 @@ export class CharacterService {
     return of(this.characters);
   }
 
-  getCharacterByID(id:number): Observable<SavageCharacter> {
+  getCharacterByID(id:string): Observable<SavageCharacter> {
     if(!this.characters) this.getCharacters();
     return of(this.characters.filter(character => character.id == id)[0]);
   }
 
-  addEdgeToCharacter(id:number, edge:_Edge): Observable<SavageCharacter> {
+  addEdgeToCharacter(id:string, edge:_Edge): Observable<SavageCharacter> {
     let char:SavageCharacter = this.characters.filter(character => character.id === id)[0];
     char.edges.push(edge);
 
     return of(this.characters.filter(character => character.id === id)[0]);
   }
 
-  addHindranceToCharacter(id:number, hindrance:_Hindrance): Observable<SavageCharacter> {
+  addHindranceToCharacter(id:string, hindrance:_Hindrance): Observable<SavageCharacter> {
     let char:SavageCharacter = this.characters.filter(character => character.id === id)[0];
     char.hindrances.push(hindrance);
 
     return of(this.characters.filter(character => character.id === id)[0]);
   }
 
-  addPowerToCharacter(id:number, power:_Power): Observable<SavageCharacter> {
+  addPowerToCharacter(id:string, power:_PowerInstance): Observable<SavageCharacter> {
     let char: SavageCharacter = this.characters.filter(character => character.id === id)[0];
     char.powers.push(power);
 
