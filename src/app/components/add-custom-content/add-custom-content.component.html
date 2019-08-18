@@ -1,0 +1,300 @@
+<div class="container"> 
+    <h1>Add Custom Content</h1>
+
+    <h3 (click)="toggleAddEdge()"> Edges </h3>
+    <form *ngIf="addEdge" (submit)="postNewEdge($event)">
+        <div class="formgroup">
+            <label>Type</label>
+            <select [(ngModel)]="edge.type" name="edgetype">
+                <!-- <option value="none" selected="selected">Select a Type...</option> -->
+                <option value="background">Background</option>
+                <option value="combat">Combat</option>
+                <option value="leadership">Leadership</option>
+                <option value="power">Power</option>
+                <option value="professional">Professional</option>
+                <option value="social">Social</option>
+                <option value="weird">Weird</option>
+                <option value="wild card">Wild Card</option>
+                <option value="legendary">Legendary</option>
+            </select>
+            <!-- <input [(ngModel)]="edge.type" type="text" name="edgetype"> -->
+        </div>
+        <div class="formgroup">
+            <label>Name</label>
+            <input [(ngModel)]="edge.name" type="text" name="edgename">
+        </div>
+        <div class="formgroup">
+            <label>Description</label>
+            <input [(ngModel)]="edge.description" type="text" name="edgedescription">
+        </div>
+        <div class="formgroup">
+            <label>Effect</label>
+            <input [(ngModel)]="edge.effect" type="text" name="edgeeffect">
+        </div>
+        <div class="formgroup">
+            <label>Prerequisites</label>
+            <input [(ngModel)]="edgePrerequisite" type="text" name="edgeprerequisites">
+        </div>
+        <div class="formgroup">
+            <label>Initiative Cards</label>
+            <input [(ngModel)]="edge.initiative_cards" type="number" value="0" name="edgeinitiative">
+        </div>
+        <div class="formgroup">
+            <label>Tactician Cards</label>
+            <input [(ngModel)]="edge.tactician_cards" type="number" value="0" name="edgetactician">
+        </div>
+        <div class="formgroup">
+            <label>Adventure Cards</label>
+            <input [(ngModel)]="edge.adventure_cards" type="number" value="0" name="edgeadventure">
+        </div>
+        <input type="submit">
+    </form>
+
+    <hr>
+
+    <h3 (click)="toggleAddHindrance()">Hindrances</h3>
+    <form *ngIf="addHindrance" (submit)="postNewHindrance($event)"> 
+        <div class="formgroup">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="hindrance.name" name="hindname">
+        </div>
+        <div class="formgroup">
+            <label>Description</label>
+            <input type="text" [(ngModel)]="hindrance.description" name="hinddesc">
+        </div>
+        <div class="formgroup">
+            <label>Severity</label>
+            <select [(ngModel)]="hindrance.major" name="hindseverity">
+                <!-- <option value="none">Select an option...</option> -->
+                <option value="true">Major</option>
+                <option value="false">Minor</option>
+            </select>
+            <!-- <input type="text" [(ngModel)]="hindrance.major" name="hindseverity"> -->
+        </div>
+        <input type="submit">
+    </form>
+
+    <hr>
+
+    <h3 (click)="toggleAddPower()">Powers</h3>
+    <form *ngIf="addPower" (submit)="postNewPower($event)"> 
+        <div class="formgroup">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="power.name" name="powername">
+        </div>
+        <div class="formgroup">
+            <label>Rule Text</label>
+            <input type="text" [(ngModel)]="power.ruletext" name="powerruletext">
+        </div>
+        <div class="formgroup">
+            <label>Rank Required</label>
+            <select [(ngModel)]="power.rank" name="powerrank">
+                <option value="0">Novice</option>
+                <option value="20">Seasoned</option>
+                <option value="40">Veteran</option>
+                <option value="60">Heroic</option>
+                <option value="80">Legendary</option>
+            </select>
+            <!-- <input type="number" [(ngModel)]="power.rank" name="powerrank"> -->
+        </div> 
+        <input type="submit">
+    </form>
+
+    <hr>
+
+    <h3 (click)="toggleAddPowerInstance()">Trapped Powers</h3>
+    <form *ngIf="addPowerInstance" (submit)="postNewPowerInstance($event)"> 
+        <div class="formgroup">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="powerInstance.name" name="piname">
+        </div>
+        <div class="formgroup">
+            <label>Trapping</label>
+            <input type="text" [(ngModel)]="powerInstance.trapping" name="pitrapping">
+        </div>
+        <div class="formgroup">
+            <label>Cost</label>
+            <input type="number" [(ngModel)]="powerInstance.cost" name="picost">
+        </div>
+        <div class="formgroup">
+            <label>Effect</label>
+            <input type="text" [(ngModel)]="powerInstance.effect" name="pieffect">
+        </div>
+        <div class="formgroup">
+            <label>Base Power</label>
+            <input type="text" [(ngModel)]="powerInstance.power" name="pipower">
+        </div>
+        <div class="formgroup">
+            <label>Range</label>
+            <input type="number" [(ngModel)]="powerInstance.range" name="pirange">
+        </div>
+        <div class="formgroup">
+            <label>Duration</label>
+            <input type="text" [(ngModel)]="powerInstance.duration" name="piduration">
+        </div>
+        <div class="formgroup">
+            <label>Sustain</label>
+            <input type="text" [(ngModel)]="powerInstance.sustain" name="pisustain">
+        </div> 
+        <div class="formgroup">
+            <label>Notes</label>
+            <input type="text" [(ngModel)]="powerInstance.notes" name="pinotes">
+        </div> 
+
+        <input type="submit">
+    </form>
+
+    <hr>
+
+    <h3 (click)="toggleAddCharacter()">Characters</h3>
+    <form *ngIf="addCharacter" (submit)="postNewCharacter($event)"> 
+        <div class="formgroup">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="character.name" name="charname">
+        </div>
+        <div class="formgroup">
+            <label>Agility</label>
+            <input type="number" [(ngModel)]="characterAgility" name="charagility">
+        </div>
+        <div class="formgroup">
+            <label>Smarts</label>
+            <input type="number" [(ngModel)]="characterSmarts" name="charsmarts">
+        </div>
+        <div class="formgroup">
+            <label>Spirit</label>
+            <input type="number" [(ngModel)]="characterSpirit" name="charspirit">
+        </div>
+        <div class="formgroup">
+            <label>Strength</label>
+            <input type="number" [(ngModel)]="characterStrength" name="charstrength">
+        </div>
+        <div class="formgroup">
+            <label>Vigor</label>
+            <input type="number" [(ngModel)]="characterVigor" name="charvigor">
+        </div>
+        <div class="formgroup">
+            <label>Race</label>
+            <input type="text" [(ngModel)]="character.race" name="charrace">
+        </div>
+        <div class="formgroup">
+            <label>Description</label>
+            <input type="text" [(ngModel)]="character.description" name="chardesc"> 
+        </div>
+        <div class="formgroup">
+            <label>Class</label>
+            <input type="text" [(ngModel)]="character.class" name="charclass"> 
+        </div>
+        <div class="formgroup">
+            <label>Rank</label>
+            <input type="number" [(ngModel)]="character.rank" name="charrank"> 
+        </div>
+        <div class="formgroup">
+            <label>Campaign</label>
+            <input type="text" [(ngModel)]="character.campaign" name="charcampaign"> 
+        </div>
+        <input type="submit">
+    </form>
+
+    <hr>
+
+    <h3 (click)="toggleAddRace()">Races</h3>
+    <form *ngIf="addRace" (submit)="postNewRace($event)"> 
+        <div class="formgroup">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="race.name" name="racename">
+        </div>
+        <div class="formgroup">
+            <label>Description</label>
+            <input type="text" [(ngModel)]="race.description" name="racedesc">
+        </div>
+        <div class="formgroup">
+            <label>Features</label>
+            <input type="text" [(ngModel)]="raceFeatures" name="racefeat">
+        </div>
+        <div class="formgroup">
+            <label>Agility</label>
+            <input type="number" value="4" [(ngModel)]="race.base_stats.agility" name="raceagility">
+        </div>
+        <div class="formgroup">
+            <label>Smarts</label>
+            <input type="number" value="4" [(ngModel)]="race.base_stats.smarts" name="racesmarts">
+        </div>
+        <div class="formgroup">
+            <label>Spirit</label>
+            <input type="number" value="4" [(ngModel)]="race.base_stats.spirit" name="racespirit">
+        </div>
+        <div class="formgroup">
+            <label>Strength</label>
+            <input type="number" value="4" [(ngModel)]="race.base_stats.strength" name="racestrength">
+        </div>
+        <div class="formgroup">
+            <label>Vigor</label>
+            <input type="number" value="4" [(ngModel)]="race.base_stats.vigor" name="racevigor">
+        </div>
+    
+        <input type="submit">
+    </form>
+
+    <hr>
+
+    <h3 (click)="toggleAddUser()">Users</h3>
+    <form *ngIf="addUser" (submit)="postNewUser($event)"> 
+        <div class="formgroup">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="user.name" name="username">
+        </div>
+        <div class="formgroup">
+            <label>Username</label>
+            <input type="text" [(ngModel)]="user.username" name="userusername">
+        </div>
+        <div class="formgroup">
+            <label>Email</label>
+            <input type="text" [(ngModel)]="user.email" name="useremail">
+        </div>
+        <div class="formgroup">
+            <label>Role</label>
+            <input type="text" [(ngModel)]="user.role" name="userrole">
+        </div> 
+        <input type="submit">
+    </form>
+
+    <hr>
+
+    <h3 (click)="toggleAddItem()">Items</h3>
+    <form *ngIf="addItem" (submit)="postNewItem($event)"> 
+        <div class="formgroup">
+            <label>Type</label>
+            <input type="text">
+        </div>
+        <div class="formgroup">
+            <label>Name</label>
+            <input type="text" >
+        </div>
+        <div class="formgroup">
+            <label>Description</label>
+            <input type="text" >
+        </div>
+        <div class="formgroup">
+            <label>Effect</label>
+            <input type="text" >
+        </div>
+        <div class="formgroup">
+            <label>Prerequisites</label>
+            <input type="text" >
+        </div>
+        <div class="formgroup">
+            <label>Initiative Cards</label>
+            <input type="number" value="0">
+        </div>
+        <div class="formgroup">
+            <label>Tactician Cards</label>
+            <input type="number" value="0">
+        </div>
+        <div class="formgroup">
+            <label>Adventure Cards</label>
+            <input type="number" value="0" >
+        </div>
+    
+        <input type="submit">
+    </form>
+</div>
