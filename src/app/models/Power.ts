@@ -1,10 +1,12 @@
 interface _Power {
+    id: string;
     name:string;
     ruletext:string;
     rank: number;
 }
 
 export interface _PowerInstance {
+    id: string;
     name: string;
     trapping: string;
     cost: number;

@@ -8,5 +8,5 @@ export interface _User {
     // password:string;
     // is_verified: boolean;
     role: _Role;
-    register_dastringte:Date;
+    register_date: Date;
 }

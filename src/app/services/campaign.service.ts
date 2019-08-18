@@ -106,11 +106,13 @@ export class CampaignService {
         if(char.powers){
           char.powers.forEach(power => {
             let _P: _Power = {
+              id: null,
               name: power.power.name,
               ruletext: power.power.ruletext,
               rank: power.power.rank
             };
             let _PI: _PowerInstance = {
+              id: null,
               name: power.name,
               trapping: power.trapping,
               cost: power.cost,

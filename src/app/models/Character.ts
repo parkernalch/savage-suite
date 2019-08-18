@@ -73,6 +73,36 @@ export default class SavageCharacter {
         this.edges = edges || [];
         this.hindrances = hindrances || [];
         this.powers = powers || [];
+        this.traits = {
+            attributes: [
+                {
+                    name: "agility",
+                    level: 0,
+                    modifier: 0
+                },
+                {
+                    name: "smarts",
+                    level: 0,
+                    modifier: 0
+                },
+                {
+                    name: "spirit",
+                    level: 0,
+                    modifier: 0
+                },
+                {
+                    name: "strength",
+                    level: 0,
+                    modifier: 0
+                },
+                {
+                    name: "vigor",
+                    level: 0,
+                    modifier: 0
+                }
+            ],
+            skills: [ ]
+        }
         this.SetInitiative();
     }
 

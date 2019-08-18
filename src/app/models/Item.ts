@@ -1,6 +1,6 @@
 import { _PowerInstance } from './Power';
 
-export default class Item {
+export default class _Item {
     type: string;
     item: string;
     cost: number;

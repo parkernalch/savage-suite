@@ -63,12 +63,14 @@ export class CharacterViewComponent implements OnInit {
 
   addPower() {
     let basePower: _Power = {
+      "id": "hyperionfly",
       "name": "fly",
       "rank": 40,
       "ruletext": "You can fly around like a bird. Congrats on this achievement"
     };
 
     let power: _PowerInstance = {
+      "id": "hyperionflyjetpack",
       "name": "Jetpack",
       "trapping": "Cybernetic Jet Engines",
       "cost": 4,

@@ -21,6 +21,7 @@ import { CviewPowerComponent } from './components/cview-power/cview-power.compon
 import { CampaignViewComponent } from './components/campaign-view/campaign-view.component';
 import { AttributeTableComponent } from './components/attribute-table/attribute-table.component';
 import { AttributeDieComponent } from './components/attribute-die/attribute-die.component';
+import { AddCustomContentComponent } from './components/add-custom-content/add-custom-content.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { AttributeDieComponent } from './components/attribute-die/attribute-die.
     CviewPowerComponent,
     CampaignViewComponent,
     AttributeTableComponent,
-    AttributeDieComponent
+    AttributeDieComponent,
+    AddCustomContentComponent
   ],
   imports: [
     FormsModule,
