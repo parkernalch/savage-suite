@@ -12,6 +12,8 @@ import _Campaign from 'src/app/models/Campaign';
 import { CampaignService } from 'src/app/services/campaign.service';
 import { EdgeService } from 'src/app/services/edge.service';
 import { HindranceService } from 'src/app/services/hindrance.service';
+import { PowerService } from 'src/app/services/power.service';
+import { RaceService } from 'src/app/services/race.service';
 
 @Component({
   selector: 'app-add-custom-content',
@@ -33,6 +35,7 @@ export class AddCustomContentComponent implements OnInit {
 
   addPower: boolean;
   power: _Power;
+  powers: _Power[];
 
   addPowerInstance: boolean;
   powerInstance: _PowerInstance;
@@ -47,6 +50,7 @@ export class AddCustomContentComponent implements OnInit {
 
   addRace: boolean;
   race: _Race;
+  races: _Race[];
   
   addUser: boolean;
   user: _User;
@@ -58,6 +62,8 @@ export class AddCustomContentComponent implements OnInit {
     private edgeService: EdgeService,
     private hindranceService: HindranceService,
     private campaignService: CampaignService,
+    private powerService: PowerService,
+    private raceService: RaceService,
     private http: HttpClient
     ) { 
     this.addEdge = true;
@@ -87,6 +93,20 @@ export class AddCustomContentComponent implements OnInit {
         this.hindrances = hindrances;
         console.log(this.hindrances);
       }); 
+
+    this.raceService.getRaces()
+      .subscribe(races => {
+        this.races = races;
+        console.log(this.races);
+      });
+
+    this.powerService.getPowers()
+      .subscribe(powers => {
+        this.powers = powers;
+        console.log(this.powers);
+      });
+
+    
 
     this.edge = { 
       id: null,

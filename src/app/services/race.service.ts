@@ -22,18 +22,46 @@ export class RaceService {
     };
   }
 
+  mapResToRace(result: Object):_Race{
+    let _R:_Race = {
+      id: result["_id"],
+      name: result["name"],
+      description: result["description"],
+      features: result["features"],
+      base_stats: {
+        agility: result["base_stats"]["agility"],
+        smarts: result["base_stats"]["smarts"],
+        spirit: result["base_stats"]["spirit"],
+        strength: result["base_stats"]["strength"],
+        vigor: result["base_stats"]["vigor"]
+      } 
+    };
+    return _R; 
+  }
+
   getRaces(): Observable<_Race[]> {
+    this.races = [];
     this.http.get<_Race[]>(this.raceUrl, this.httpOptions).subscribe(races => {
       console.log(races);
-      this.races = races;
+      this.races = races.map(race => this.mapResToRace(race));
     });
     return of(this.races)
   }
 
+  getRaceById(id: string): Observable<_Race> {
+    this.newRace = null;
+    this.http.get<_Race>(this.raceUrl + "/" + id, this.httpOptions).subscribe(race => {
+      console.log(race);
+      this.newRace = this.mapResToRace(race);
+    });
+    return of(this.newRace);
+  }
+
   addRace(race: _Race): Observable<_Race> {
+    this.newRace = null;
     this.http.post<_Race>(this.raceUrl, race, this.httpOptions).subscribe(race => {
       console.log(race);
-      this.newRace = race;
+      this.newRace = this.mapResToRace(race);
     });
     return of(this.newRace);
   }
