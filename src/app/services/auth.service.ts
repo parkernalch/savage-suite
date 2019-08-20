@@ -25,14 +25,17 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    console.log("validating");
+    console.log("validating...");
     let url = "/api/auth";
     this.http.post(url, {username, password})
       .subscribe(res => {
+        // console.log(res);
         if(Object.keys(res).includes("token") && Object.keys(res).includes("user")){
           let resUser = res["user"];
           let resToken = res["token"];
+          localStorage.removeItem('currentUser');
           localStorage.setItem('currentUser', JSON.stringify(resUser));
+          localStorage.removeItem('userToken');
           localStorage.setItem('userToken', JSON.stringify(resToken));
         }
       });
