@@ -73,7 +73,7 @@ export class CampaignService {
           }
         }
 
-        let CH: SavageCharacter = new SavageCharacter(char.id, char.name, race, C, char.rank);
+        let CH: SavageCharacter = new SavageCharacter(char.id, char.name, race, char.rank);
 
         CH.traits = {
           attributes: char.traits.attributes,

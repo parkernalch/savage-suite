@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import _Edge from 'src/app/models/Edge';
 import _Hindrance from 'src/app/models/Hindrance';
 import _Power, { _PowerInstance } from 'src/app/models/Power';
@@ -8,6 +8,10 @@ import _Race from 'src/app/models/Race';
 import { _User } from 'src/app/models/User';
 import _Item from 'src/app/models/Item';
 import _Attribute from 'src/app/models/Attribute';
+import _Campaign from 'src/app/models/Campaign';
+import { CampaignService } from 'src/app/services/campaign.service';
+import { EdgeService } from 'src/app/services/edge.service';
+import { HindranceService } from 'src/app/services/hindrance.service';
 
 @Component({
   selector: 'app-add-custom-content',
@@ -15,11 +19,16 @@ import _Attribute from 'src/app/models/Attribute';
   styleUrls: ['./add-custom-content.component.sass']
 })
 export class AddCustomContentComponent implements OnInit {
+  campaigns: _Campaign[];
+  selectedCampaign: _Campaign;
+
   addEdge: boolean;
+  edges: _Edge[];
   edge:_Edge;
   edgePrerequisite: string;
 
   addHindrance: boolean;
+  hindrances: _Hindrance[];
   hindrance: _Hindrance;
 
   addPower: boolean;
@@ -45,7 +54,12 @@ export class AddCustomContentComponent implements OnInit {
   addItem: boolean;
   item: _Item;
 
-  constructor(private http: HttpClient) { 
+  constructor(
+    private edgeService: EdgeService,
+    private hindranceService: HindranceService,
+    private campaignService: CampaignService,
+    private http: HttpClient
+    ) { 
     this.addEdge = true;
     this.addHindrance = false;
     this.addPower = false;
@@ -57,7 +71,24 @@ export class AddCustomContentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.edge = {
+    this.campaignService.getCampaigns()
+      .subscribe(campaigns => this.campaigns = campaigns);
+    this.selectedCampaign = this.campaigns[0];
+
+    this.edgeService.getEdges()
+      .subscribe(edges => {
+        // console.log(edges);
+        this.edges = edges
+        console.log(this.edges);
+      });
+
+    this.hindranceService.getHindrances()
+      .subscribe(hindrances => {
+        this.hindrances = hindrances;
+        console.log(this.hindrances);
+      }); 
+
+    this.edge = { 
       id: null,
       name: null,
       type: null,
@@ -122,7 +153,7 @@ export class AddCustomContentComponent implements OnInit {
     };
     this.user.register_date = new Date(Date.now());
 
-    this.item = new _Item('mundane', null, 0, 0, null, {addtl: null});
+    this.item = new _Item('mundane', null, 0, 0, null, {addtl: null}); 
   }
 
   toggleAddEdge() {
@@ -132,8 +163,13 @@ export class AddCustomContentComponent implements OnInit {
     event.preventDefault();
     console.log("Posting Edge...");
     this.edge.prerequisites = [... this.edgePrerequisite.split(',')];
-    console.log(this.edge);
-    // this.http.post('/api/edges', edge);
+    // console.log(this.edge);
+    this.edgeService.addEdge(this.edge).subscribe(edge => {
+      if(edge){
+        this.edges = [... this.edges, edge];
+      }
+      console.log(this.edges); 
+    });
   }
 
   toggleAddHindrance() {
@@ -142,6 +178,7 @@ export class AddCustomContentComponent implements OnInit {
   postNewHindrance(event){
     event.preventDefault();
     console.log(this.hindrance); 
+    this.hindranceService.addHindrance(this.hindrance);
   }
 
   toggleAddPower() {
@@ -197,6 +234,7 @@ export class AddCustomContentComponent implements OnInit {
       strength,
       vigor
     ];
+    // this.character.campaign = this.selectedCampaign;
     console.log(this.character);
   }
 
