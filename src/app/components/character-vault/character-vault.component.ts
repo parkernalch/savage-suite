@@ -44,7 +44,8 @@ export class CharacterVaultComponent implements OnInit {
     let val:string = (<HTMLInputElement>document.getElementById('filterfield')).value.toLowerCase();
     let pattern:RegExp = new RegExp(`${val}`);
     this.getCharacters();
-    this.characters = this.characters.filter(character => pattern.test(character.campaign.name.toLowerCase() + character.name.toLowerCase()));
+    // this.characters = this.characters.filter(character => pattern.test(character.campaign.name.toLowerCase() + character.name.toLowerCase()));
+    this.characters = this.characters.filter(character => pattern.test(character.name.toLowerCase()));
     // return this.characters.filter(character => pattern.test(character.name.toLowerCase()));
   }
 
