@@ -1,3 +1,7 @@
+<!-- <select [(ngModel)]="selectedCampaign" name="selectedcampaign">
+    <option *ngFor="let campaign of campaigns" value="{{campaign}}">{{campaign.name}}</option>
+</select> -->
+
 <div class="container"> 
     <h1>Add Custom Content</h1>
 
@@ -8,6 +12,7 @@
             <select [(ngModel)]="edge.type" name="edgetype">
                 <!-- <option value="none" selected="selected">Select a Type...</option> -->
                 <option value="background">Background</option>
+                <option value="racial">Racial</option>
                 <option value="combat">Combat</option>
                 <option value="leadership">Leadership</option>
                 <option value="power">Power</option>
@@ -63,7 +68,7 @@
             <input type="text" [(ngModel)]="hindrance.description" name="hinddesc">
         </div>
         <div class="formgroup">
-            <label>Severity</label>
+            <label>Type</label>
             <select [(ngModel)]="hindrance.major" name="hindseverity">
                 <!-- <option value="none">Select an option...</option> -->
                 <option value="true">Major</option>
@@ -76,7 +81,7 @@
 
     <hr>
 
-    <h3 (click)="toggleAddPower()">Powers</h3>
+    <h3 (click)="toggleAddPower()">Base Powers</h3>
     <form *ngIf="addPower" (submit)="postNewPower($event)"> 
         <div class="formgroup">
             <label>Name</label>
@@ -102,7 +107,7 @@
 
     <hr>
 
-    <h3 (click)="toggleAddPowerInstance()">Trapped Powers</h3>
+    <h3 (click)="toggleAddPowerInstance()">Powers</h3>
     <form *ngIf="addPowerInstance" (submit)="postNewPowerInstance($event)"> 
         <div class="formgroup">
             <label>Name</label>
@@ -126,7 +131,7 @@
         </div>
         <div class="formgroup">
             <label>Range</label>
-            <input type="number" [(ngModel)]="powerInstance.range" name="pirange">
+            <input type="text" [(ngModel)]="powerInstance.range" name="pirange">
         </div>
         <div class="formgroup">
             <label>Duration</label>
@@ -188,10 +193,10 @@
             <label>Rank</label>
             <input type="number" [(ngModel)]="character.rank" name="charrank"> 
         </div>
-        <div class="formgroup">
+        <!-- <div class="formgroup">
             <label>Campaign</label>
             <input type="text" [(ngModel)]="character.campaign" name="charcampaign"> 
-        </div>
+        </div> -->
         <input type="submit">
     </form>
 
