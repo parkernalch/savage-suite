@@ -39,7 +39,7 @@ export default class SavageCharacter {
     hindrances:_Hindrance[];
     powers:_PowerInstance[];
     rank:number;
-    campaign?:_Campaign;
+    // campaign?:_Campaign;
 
     deal_initiative:number;
     deal_tactician:number;
@@ -55,7 +55,7 @@ export default class SavageCharacter {
         id:string,
         name:string,
         race:_Race, 
-        campaign?:_Campaign,
+        // campaign?:_Campaign,
         rank?:number, 
         edges?:_Edge[], 
         hindrances?:_Hindrance[], 
@@ -66,7 +66,7 @@ export default class SavageCharacter {
         this.description = '';
         this.rank = rank || 0;
         this.race = race;
-        this.campaign = campaign || null;
+        // this.campaign = campaign || null;
         this.deal_adventure = this.rank;
         this.deal_initiative = 1;
         this.deal_tactician = 0;
