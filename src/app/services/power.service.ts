@@ -18,7 +18,7 @@ export class PowerService {
   constructor(private http: HttpClient) {
     this.powers = [];
     this.basePowerUrl = "http://localhost:5000/api/powers/core"; 
-    this.trappedPowerUrl = "hhtp://localhost:5000/api/powers";
+    this.trappedPowerUrl = "http://localhost:5000/api/powers";
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -38,9 +38,9 @@ export class PowerService {
   }
 
   mapResToPowerInstance(result: Object): _PowerInstance {
-    let piPowerID = result["power"];
-    let piPower: _Power;
-    this.getPowerById(piPowerID).subscribe(power => piPower = power);
+    // let piPowerID = result["power"];
+    // let piPower: _Power;
+    // this.getPowerById(piPowerID).subscribe(power => piPower = power);
     let _PI: _PowerInstance = {
       id: result["_id"],
       name: result["name"],
@@ -50,7 +50,7 @@ export class PowerService {
       sustain: result["sustain"],
       duration: result["duration"],
       range: result["range"],
-      power: piPower
+      power: result["power"]
     }; 
     return _PI;
   }
@@ -58,9 +58,13 @@ export class PowerService {
   getPowers(): Observable<_Power[]> {
     this.powers = [];
     this.http.get<_Power[]>(this.basePowerUrl, this.httpOptions).subscribe(powers=> {
-      console.log(powers);
-      this.powers = powers.map(power => this.mapResToPower(power));
-      // this.powers = powers;
+      // this.powers = powers.map(power => this.mapResToPower(power));
+      powers.map(power => {
+        let p: _Power = this.mapResToPower(power);
+        this.powers.push(p);
+      });
+      // console.log('Powerservice Powers');
+      // console.log(this.powers);
     });
     return of(this.powers); 
   }
@@ -68,7 +72,7 @@ export class PowerService {
   getPowerById(id: string): Observable<_Power>{
     this.newPower = null;
     this.http.get<_Power>(this.basePowerUrl + "/" + id, this.httpOptions).subscribe(power => {
-      console.log(power);
+      // console.log(power);
       this.newPower = this.mapResToPower(power);
     });
     return of(this.newPower);
@@ -78,6 +82,7 @@ export class PowerService {
     this.http.post<_Power>(this.basePowerUrl, power, this.httpOptions).subscribe(power => {
       console.log(power);
       this.newPower = this.mapResToPower(power);
+      console.log(this.newPower);
     }); 
     return of(this.newPower);
   }
@@ -89,9 +94,16 @@ export class PowerService {
   }
 
   getPowerInstances(): Observable<_PowerInstance[]> {
+    this.powerInstances = [];
     this.http.get<_PowerInstance[]>(this.trappedPowerUrl, this.httpOptions).subscribe(pis => {
-      console.log(pis);
-      this.powerInstances = pis.map(pi => this.mapResToPowerInstance(pi));
+      // console.log(pis);
+      // this.powerInstances = pis.map(pi => this.mapResToPowerInstance(pi));
+      pis.map(pi => {
+        let newPI: _PowerInstance = this.mapResToPowerInstance(pi);
+        this.powerInstances.push(newPI);
+      });
+      // console.log("powerService Instances");
+      // console.log(this.powerInstances);
     }); 
     return of(this.powerInstances);
   }
@@ -106,6 +118,8 @@ export class PowerService {
   }
 
   addPowerInstance(pi: _PowerInstance): Observable<_PowerInstance> {
+    this.newPowerInstance = null;
+    console.log(pi);
     this.http.post<_PowerInstance>(this.trappedPowerUrl, pi, this.httpOptions).subscribe(pi => {
       console.log(pi);
       this.newPowerInstance = this.mapResToPowerInstance(pi);
