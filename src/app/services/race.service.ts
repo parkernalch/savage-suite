@@ -12,7 +12,7 @@ export class RaceService {
   raceUrl: string;
   httpOptions: Object;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient){
     this.raceUrl = "http://localhost:5000/api/races";
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -20,7 +20,7 @@ export class RaceService {
         'x-auth-token': JSON.parse(localStorage.getItem('userToken'))
       })
     };
-  }
+ }
 
   mapResToRace(result: Object):_Race{
     let _R:_Race = {
@@ -28,13 +28,7 @@ export class RaceService {
       name: result["name"],
       description: result["description"],
       features: result["features"],
-      base_stats: {
-        agility: result["base_stats"]["agility"],
-        smarts: result["base_stats"]["smarts"],
-        spirit: result["base_stats"]["spirit"],
-        strength: result["base_stats"]["strength"],
-        vigor: result["base_stats"]["vigor"]
-      } 
+      base_stats: result["base_stats"]
     };
     return _R; 
   }
@@ -42,8 +36,13 @@ export class RaceService {
   getRaces(): Observable<_Race[]> {
     this.races = [];
     this.http.get<_Race[]>(this.raceUrl, this.httpOptions).subscribe(races => {
-      console.log(races);
-      this.races = races.map(race => this.mapResToRace(race));
+      // console.log(races);
+      // this.races = races.map(race => this.mapResToRace(race));
+      races.map(race => {
+        this.races.push(this.mapResToRace(race));
+      });
+      console.log('RaceService Races');
+      console.log(this.races); 
     });
     return of(this.races)
   }
@@ -59,7 +58,10 @@ export class RaceService {
 
   addRace(race: _Race): Observable<_Race> {
     this.newRace = null;
-    this.http.post<_Race>(this.raceUrl, race, this.httpOptions).subscribe(race => {
+    let postRace: any = race;
+    let postFeats = postRace.features.map(feature => feature.id );
+    postRace.features = postFeats;
+    this.http.post<_Race>(this.raceUrl, postRace, this.httpOptions).subscribe(race => {
       console.log(race);
       this.newRace = this.mapResToRace(race);
     });
