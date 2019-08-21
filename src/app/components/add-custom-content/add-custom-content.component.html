@@ -1,7 +1,3 @@
-<!-- <select [(ngModel)]="selectedCampaign" name="selectedcampaign">
-    <option *ngFor="let campaign of campaigns" value="{{campaign}}">{{campaign.name}}</option>
-</select> -->
-
 <div class="container"> 
     <h1>Add Custom Content</h1>
 
@@ -30,11 +26,13 @@
         </div>
         <div class="formgroup">
             <label>Description</label>
-            <input [(ngModel)]="edge.description" type="text" name="edgedescription">
+            <!-- <input [(ngModel)]="edge.description" type="text" name="edgedescription"> -->
+            <textarea [(ngModel)]="edge.description" name="edgedescription" ></textarea>
         </div>
         <div class="formgroup">
             <label>Effect</label>
-            <input [(ngModel)]="edge.effect" type="text" name="edgeeffect">
+            <!-- <input [(ngModel)]="edge.effect" type="text" name="edgeeffect"> -->
+            <textarea [(ngModel)]="edge.effect" name="edgeeffect"></textarea>
         </div>
         <div class="formgroup">
             <label>Prerequisites</label>
@@ -65,7 +63,8 @@
         </div>
         <div class="formgroup">
             <label>Description</label>
-            <input type="text" [(ngModel)]="hindrance.description" name="hinddesc">
+            <!-- <input type="text" [(ngModel)]="hindrance.description" name="hinddesc"> -->
+            <textarea [(ngModel)]="hindrance.description" name="hinddesc"></textarea>
         </div>
         <div class="formgroup">
             <label>Type</label>
@@ -89,7 +88,8 @@
         </div>
         <div class="formgroup">
             <label>Rule Text</label>
-            <input type="text" [(ngModel)]="power.ruletext" name="powerruletext">
+            <!-- <input type="text" [(ngModel)]="power.ruletext" name="powerruletext"> -->
+            <textarea [(ngModel)]="power.ruletext" name="powerruletext"></textarea>
         </div>
         <div class="formgroup">
             <label>Rank Required</label>
@@ -123,11 +123,15 @@
         </div>
         <div class="formgroup">
             <label>Effect</label>
-            <input type="text" [(ngModel)]="powerInstance.effect" name="pieffect">
+            <!-- <input type="text" [(ngModel)]="powerInstance.effect" name="pieffect"> -->
+            <textarea [(ngModel)]="powerInstance.effect" name="pieffect"></textarea>
         </div>
         <div class="formgroup">
             <label>Base Power</label>
-            <input type="text" [(ngModel)]="powerInstance.power" name="pipower">
+            <!-- <input type="text" [(ngModel)]="powerInstance.power" name="pipower"> -->
+            <select [(ngModel)]="powerInstance.power" name="pipower">
+                <option *ngFor="let p of powers" value="{{p.id}}">{{p.name}}</option>
+            </select>
         </div>
         <div class="formgroup">
             <label>Range</label>
@@ -143,9 +147,9 @@
         </div> 
         <div class="formgroup">
             <label>Notes</label>
-            <input type="text" [(ngModel)]="powerInstance.notes" name="pinotes">
+            <!-- <input type="text" [(ngModel)]="powerInstance.notes" name="pinotes"> -->
+            <textarea [(ngModel)]="powerInstance.notes" name="pinotes"></textarea>
         </div> 
-
         <input type="submit">
     </form>
 
@@ -183,7 +187,8 @@
         </div>
         <div class="formgroup">
             <label>Description</label>
-            <input type="text" [(ngModel)]="character.description" name="chardesc"> 
+            <!-- <input type="text" [(ngModel)]="character.description" name="chardesc">  -->
+            <textarea [(ngModel)]="character.description" name="chardesc"></textarea>
         </div>
         <div class="formgroup">
             <label>Class</label>
@@ -210,11 +215,21 @@
         </div>
         <div class="formgroup">
             <label>Description</label>
-            <input type="text" [(ngModel)]="race.description" name="racedesc">
+            <!-- <input type="text" [(ngModel)]="race.description" name="racedesc"> -->
+            <textarea [(ngModel)]="race.description" name="racedesc"></textarea>
         </div>
         <div class="formgroup">
             <label>Features</label>
-            <input type="text" [(ngModel)]="raceFeatures" name="racefeat">
+            <ul>
+                <li *ngFor="let edge of race.features" >
+                    {{edge.name}}
+                    <button (click)="tryRemoveRaceFeat(edge.id)">X</button>
+                </li>
+            </ul>
+            <!-- <input type="text" [(ngModel)]="raceFeatures" name="racefeat"> -->
+            <select [(ngModel)]="raceFeat" name="racefeat" (ngModelChange)="addRaceFeature($event)">
+                <option *ngFor="let edge of edges" value="{{edge.id}}">{{edge.name}}</option>
+            </select>
         </div>
         <div class="formgroup">
             <label>Agility</label>
@@ -235,8 +250,7 @@
         <div class="formgroup">
             <label>Vigor</label>
             <input type="number" value="4" [(ngModel)]="race.base_stats.vigor" name="racevigor">
-        </div>
-    
+        </div> 
         <input type="submit">
     </form>
 
