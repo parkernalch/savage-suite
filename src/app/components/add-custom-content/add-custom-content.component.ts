@@ -39,6 +39,7 @@ export class AddCustomContentComponent implements OnInit {
 
   addPowerInstance: boolean;
   powerInstance: _PowerInstance;
+  powerInstances: _PowerInstance[];
 
   addCharacter: boolean;
   character: SavageCharacter;
@@ -51,6 +52,8 @@ export class AddCustomContentComponent implements OnInit {
   addRace: boolean;
   race: _Race;
   races: _Race[];
+  raceFeatures: _Edge[];
+  raceFeat: string;
   
   addUser: boolean;
   user: _User;
@@ -66,7 +69,7 @@ export class AddCustomContentComponent implements OnInit {
     private raceService: RaceService,
     private http: HttpClient
     ) { 
-    this.addEdge = true;
+    this.addEdge = false;
     this.addHindrance = false;
     this.addPower = false;
     this.addPowerInstance = false;
@@ -74,6 +77,9 @@ export class AddCustomContentComponent implements OnInit {
     this.addRace = false;
     this.addUser = false;
     this.addItem = false;
+
+    this.raceFeat = null;
+    this.raceFeatures = [];
   }
 
   ngOnInit() {
@@ -85,28 +91,32 @@ export class AddCustomContentComponent implements OnInit {
       .subscribe(edges => {
         // console.log(edges);
         this.edges = edges
-        console.log(this.edges);
+        console.log("Edges:", this.edges);
       });
 
     this.hindranceService.getHindrances()
       .subscribe(hindrances => {
         this.hindrances = hindrances;
-        console.log(this.hindrances);
+        console.log("Hindrances:", this.hindrances);
       }); 
 
     this.raceService.getRaces()
       .subscribe(races => {
         this.races = races;
-        console.log(this.races);
+        console.log("Races:", this.races);
       });
 
     this.powerService.getPowers()
       .subscribe(powers => {
         this.powers = powers;
-        console.log(this.powers);
+        console.log("Powers:", this.powers);
       });
 
-    
+    this.powerService.getPowerInstances()
+      .subscribe(powers => {
+        this.powerInstances = powers;
+        console.log("Power Costs", this.powerInstances);
+      });
 
     this.edge = { 
       id: null,
@@ -205,8 +215,18 @@ export class AddCustomContentComponent implements OnInit {
     this.addPower = !this.addPower;
   }
   postNewPower(event) {
-    event.preventDefault();
+    event.preventDefault(); 
     console.log(this.power);
+    this.powerService.addPower(this.power).subscribe(power => {
+      console.log(power);
+      if(power && this.powers.length === 0){
+        this.powers.push(power);
+      } else if(power && this.powers.length > 0) {
+        this.powers = [... this.powers, power];
+      } else {
+        console.log('Power is missing');
+      }
+    });
   }
 
   toggleAddPowerInstance() {
@@ -214,7 +234,18 @@ export class AddCustomContentComponent implements OnInit {
   }
   postNewPowerInstance(event){
     event.preventDefault();
-    console.log(this.powerInstance);
+    let _P: _Power; 
+    console.log(this.powerInstance); 
+    this.powerService.addPowerInstance(this.powerInstance).subscribe(pi => {
+      console.log(pi);
+      if(pi && this.powerInstances.length === 0){
+        this.powerInstances.push(pi);
+      } else if (pi && this.powerInstances.length > 0){
+        this.powerInstances = [... this.powerInstances, pi];
+      } else {
+        console.log('Power Instance Missing');
+      }
+    });
   }
 
   toggleAddCharacter() {
@@ -261,9 +292,26 @@ export class AddCustomContentComponent implements OnInit {
   toggleAddRace() {
     this.addRace = !this.addRace;
   }
+  addRaceFeature(e:Event){
+    let rf: _Edge = this.edges.filter(edge => edge.id === this.raceFeat)[0];
+    this.race.features.push(rf);
+  }
+  tryRemoveRaceFeat(id: string){
+    this.race.features = this.race.features.filter(feat => feat.id !== id);
+  }
   postNewRace(event){
     event.preventDefault();
     console.log(this.race);
+    this.raceService.addRace(this.race).subscribe(race => {
+      console.log(race);
+      if(race && this.races.length === 0){
+        this.races.push(race);
+      } else if (race && this.races.length > 0){
+        this.races = [... this.races, race];
+      } else {
+        console.log("Race Missing");
+      }
+    });
   }
 
   toggleAddUser() {
