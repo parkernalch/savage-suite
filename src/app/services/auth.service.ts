@@ -35,6 +35,7 @@ export class AuthService {
           let resToken = res["token"];
           localStorage.removeItem('currentUser');
           localStorage.setItem('currentUser', JSON.stringify(resUser));
+          console.log(`Setting user token to: ${resToken}`);
           localStorage.removeItem('userToken');
           localStorage.setItem('userToken', JSON.stringify(resToken));
         }
