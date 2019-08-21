@@ -38,11 +38,12 @@ export class HindranceService {
     console.log("getting hindrances");
     this.hindrances = [];
     this.http.get<Object[]>(this.hindranceUrl, this.httpOptions).subscribe(hindrances => {
-      console.log(hindrances);
       hindrances.map(hindrance => {
         let H = this.mapResToHindrance(hindrance);
         this.hindrances.push(H);
       });
+      // console.log('HindranceService Hindrances');
+      // console.log(this.hindrances);
     });
     return of(this.hindrances);
   }
