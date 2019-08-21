@@ -40,6 +40,7 @@ export class EdgeService {
   }
 
   getEdges():Observable<_Edge[]>{
+    console.log('getting edges...');
     this.edges = [];
     this.http.get<_Edge[]>(this.edgeUrl, this.httpOptions).subscribe(edges => {
       // console.log(edges);
