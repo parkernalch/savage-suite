@@ -62,6 +62,9 @@ export default class _Item {
             case "magic":
                 this.loadMagicProps(additionalProps);
                 break;
+	    case "armor":
+	    	this.loadArmorProps(additionalProps);
+		break;
             default:
                 this.loadMundaneProps(additionalProps);
                 break;
@@ -164,6 +167,21 @@ export default class _Item {
                     this.magicItemPP = props[key];
             }
         } 
+    }
+
+    loadArmorProps(props: Object){
+    	for(let key of Object.keys(props)){
+		switch(key){
+			case 'type':
+				this.armorType = props[key];
+				break;
+			case 'mod':
+				this.armorMod = props[key];
+				break;
+			default:
+				continue;
+		}
+	}
     }
 
     loadMundaneProps(props: Object){
