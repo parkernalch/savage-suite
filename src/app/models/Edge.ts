@@ -5,6 +5,7 @@ interface _Edge {
     description?:string;
     effect:string;
     prerequisites:string[];
+    rank: number;
     initiative_cards?:number;
     tactician_cards?:number;
     adventure_cards?:number;
