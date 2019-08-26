@@ -28,7 +28,9 @@ export class RaceService {
       name: result["name"],
       description: result["description"],
       features: result["features"],
-      base_stats: result["base_stats"]
+      hindrances: result["hindrances"],
+      base_stats: result["base_stats"],
+      creator: result["creator"]
     };
     return _R; 
   }

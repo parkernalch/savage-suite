@@ -9,6 +9,9 @@ interface _Edge {
     initiative_cards?:number;
     tactician_cards?:number;
     adventure_cards?:number;
+    creator: string;
+    racialAbilityCost?: number;
+    racialAbilityCount?: number;
 }
 
 export default _Edge;

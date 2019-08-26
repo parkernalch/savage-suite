@@ -32,8 +32,17 @@ export class PowerService {
       id: result["_id"],
       name: result["name"],
       ruletext: result["ruletext"],
+      effect: result["effect"],
       rank: result["rank"],
+      cost: result["cost"],
+      range: result["range"],
+      duration: result["duration"],
+      modifiers: result["modifiers"],
+      creator: result["creator"]
     };
+    if(Object.keys(result).includes('specialCost')){
+      _P.specialCost = result['specialCost'];
+    }
     return _P;
   }
 
@@ -47,10 +56,12 @@ export class PowerService {
       cost: result["cost"],
       effect: result["effect"],
       trapping: result["trapping"],
-      sustain: result["sustain"],
+      // sustain: result["sustain"],
       duration: result["duration"],
       range: result["range"],
-      power: result["power"]
+      power: result["power"],
+      notes: result["notes"],
+      creator: result["creator"]
     }; 
     return _PI;
   }

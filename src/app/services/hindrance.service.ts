@@ -29,7 +29,9 @@ export class HindranceService {
       id: result["_id"],
       name: result["name"],
       description: result["description"],
-      major: result["major"]
+      type: result["type"],
+      major: result["major"],
+      creator: result["creator"]
     };
     return _H;
   }

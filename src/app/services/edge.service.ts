@@ -33,7 +33,9 @@ export class EdgeService {
       prerequisites: result["prerequisites"],
       initiative_cards: result["initiative_cards"],
       adventure_cards: result["adventure_cards"],
-      tactician_cards: result["tactician_cards"]
+      tactician_cards: result["tactician_cards"],
+      rank: result["rank"],
+      creator: result["creator"]
     };
 
     return E;

@@ -127,21 +127,31 @@ export class AddCustomContentComponent implements OnInit {
       prerequisites: [],
       initiative_cards: 0,
       tactician_cards: 0,
-      adventure_cards: 0
+      adventure_cards: 0,
+      rank: 0,
+      creator: null
     };
 
     this.hindrance = {
       id: null,
+      type: null,
       name: null,
       description: null,
-      major: false
+      major: false,
+      creator: null
     };
 
     this.power = {
       id: null,
       name: null,
+      effect: null,
       ruletext: null,
-      rank: 0
+      rank: 0,
+      cost: 0,
+      range: null,
+      duration: null,
+      modifiers: [],
+      creator: null
     };
 
     this.powerInstance = {
@@ -154,7 +164,8 @@ export class AddCustomContentComponent implements OnInit {
       range: null,
       duration: null,
       sustain: null,
-      notes: null
+      notes: null,
+      creator: null
     };
 
     this.character = new SavageCharacter(null, null, null);
@@ -164,13 +175,15 @@ export class AddCustomContentComponent implements OnInit {
       name: null,
       description: null,
       features: [],
+      hindrances: [],
       base_stats: {
         agility: 0,
         smarts: 0,
         spirit: 0,
         strength: 0,
         vigor: 0
-      }
+      },
+      creator: null
     };
 
     this.user = {
