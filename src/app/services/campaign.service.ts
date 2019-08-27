@@ -64,13 +64,15 @@ export class CampaignService {
           name: char.race.name,
           description: char.race.description,
           features: char.race.features,
+          hindrances: [],
           base_stats: {
             agility: 4,
             smarts: 4,
             strength: 4,
             spirit: 4,
             vigor: 4
-          }
+          },
+          creator: null
         }
 
         let CH: SavageCharacter = new SavageCharacter(char.id, char.name, race, char.rank);
@@ -97,7 +99,9 @@ export class CampaignService {
               type: edge.type,
               description: edge.description,
               prerequisites: edge.prerequisites,
-              effect: edge.effect
+              effect: edge.effect,
+              rank: 0,
+              creator: null
             }
             CH.edges.push(_E);
           });
@@ -109,7 +113,13 @@ export class CampaignService {
               id: null,
               name: power.power.name,
               ruletext: power.power.ruletext,
-              rank: power.power.rank
+              rank: power.power.rank,
+              cost: 0,
+              range: '0',
+              duration: '0',
+              effect: '',
+              creator: '',
+              modifiers: []
             };
             let _PI: _PowerInstance = {
               id: null,
@@ -120,7 +130,8 @@ export class CampaignService {
               range: power.range,
               sustain: power.sustain,
               duration: power.duration,
-              power: _P
+              power: _P,
+              creator: null
             };
             // power.varieties.forEach(v => {
             //   let _V: _PowerInstance = {
@@ -138,9 +149,11 @@ export class CampaignService {
           char.hindrances.forEach(hindrance => {
             let _H: _Hindrance = {
               id: hindrance.id,
+              type: null,
               name: hindrance.name,
               description: hindrance.description,
-              major: hindrance.major
+              major: hindrance.major,
+              creator: null
             };
 
             CH.hindrances.push(_H);
@@ -176,7 +189,6 @@ export class CampaignService {
       // console.log(C.next_session);
 
       this.campaigns.push(C);
-
     });
   }
   
