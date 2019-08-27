@@ -14,6 +14,7 @@ import { EdgeService } from 'src/app/services/edge.service';
 import { HindranceService } from 'src/app/services/hindrance.service';
 import { PowerService } from 'src/app/services/power.service';
 import { RaceService } from 'src/app/services/race.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-custom-content',
@@ -27,19 +28,23 @@ export class AddCustomContentComponent implements OnInit {
   addEdge: boolean;
   edges: _Edge[];
   edge:_Edge;
+  displayEdge: _Edge;
   edgePrerequisite: string;
 
   addHindrance: boolean;
   hindrances: _Hindrance[];
   hindrance: _Hindrance;
+  displayHindrance: _Hindrance;
 
   addPower: boolean;
   power: _Power;
   powers: _Power[];
+  displayPower: _Power;
 
   addPowerInstance: boolean;
   powerInstance: _PowerInstance;
   powerInstances: _PowerInstance[];
+  displayPowerInstance: _PowerInstance;
 
   addCharacter: boolean;
   character: SavageCharacter;
@@ -54,12 +59,15 @@ export class AddCustomContentComponent implements OnInit {
   races: _Race[];
   raceFeatures: _Edge[];
   raceFeat: string;
+  displayRace: _Race;
   
   addUser: boolean;
   user: _User;
 
   addItem: boolean;
   item: _Item;
+
+  Subscriptions: Subscription[];
 
   constructor(
     private edgeService: EdgeService,
@@ -80,43 +88,40 @@ export class AddCustomContentComponent implements OnInit {
 
     this.raceFeat = null;
     this.raceFeatures = [];
+    
+    this.Subscriptions = [];
   }
 
   ngOnInit() {
-    this.campaignService.getCampaigns()
-      .subscribe(campaigns => this.campaigns = campaigns);
-    this.selectedCampaign = this.campaigns[0];
-
-    this.edgeService.getEdges()
+    this.Subscriptions.push(this.edgeService.getEdges()
       .subscribe(edges => {
-        // console.log(edges);
-        this.edges = edges
+        this.edges = edges;
         console.log("Edges:", this.edges);
-      });
+      }));
 
-    this.hindranceService.getHindrances()
+    this.Subscriptions.push(this.hindranceService.getHindrances()
       .subscribe(hindrances => {
         this.hindrances = hindrances;
         console.log("Hindrances:", this.hindrances);
-      }); 
+      })); 
 
-    this.raceService.getRaces()
+    this.Subscriptions.push(this.raceService.getRaces()
       .subscribe(races => {
         this.races = races;
         console.log("Races:", this.races);
-      });
+      }));
 
-    this.powerService.getPowers()
+    this.Subscriptions.push(this.powerService.getPowers()
       .subscribe(powers => {
         this.powers = powers;
         console.log("Powers:", this.powers);
-      });
+      }));
 
-    this.powerService.getPowerInstances()
+    this.Subscriptions.push(this.powerService.getPowerInstances()
       .subscribe(powers => {
         this.powerInstances = powers;
         console.log("Power Costs", this.powerInstances);
-      });
+      }));
 
     this.edge = { 
       id: null,
@@ -194,9 +199,15 @@ export class AddCustomContentComponent implements OnInit {
       role: null,
       register_date: null
     };
+
     this.user.register_date = new Date(Date.now());
 
     this.item = new _Item('mundane', null, 0, 0, null, {addtl: null}); 
+  }
+
+  ngAfterViewInit(){
+    console.log('unsubscribing from GETs');
+    this.Subscriptions.forEach(sub => sub.unsubscribe);
   }
 
   toggleAddEdge() {
