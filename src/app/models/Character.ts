@@ -54,7 +54,7 @@ export default class SavageCharacter {
     constructor(
         id:string,
         name:string,
-        race:_Race, 
+        race?:_Race, 
         // campaign?:_Campaign,
         rank?:number, 
         edges?:_Edge[], 
@@ -65,7 +65,7 @@ export default class SavageCharacter {
         this.name = name;
         this.description = '';
         this.rank = rank || 0;
-        this.race = race;
+        this.race = race || null;
         // this.campaign = campaign || null;
         this.deal_adventure = this.rank;
         this.deal_initiative = 1;
@@ -121,4 +121,182 @@ export default class SavageCharacter {
         };
     }
 
+}
+
+export interface dbCharacter {
+    _id: string;
+    name: string;
+    traits: {
+        attributes: [
+            {
+                name: string;
+                level: number;
+                modifier: number;
+            }
+        ],
+        skills: [
+            {
+                name: string;
+                linked_attribute: string;
+                description: string;
+                level: number;
+                modifier: number;
+                trained: boolean;
+            }
+        ]
+    },
+    race: {
+        _id: string;
+        name: string;
+        description: string;
+        features: [
+            {
+                type: string;
+                name: string;
+                description: string;
+                effect: string;
+                prerequisites: string[];
+                initiative_cards: number;
+                tactician_cards: number;
+                adventure_cards: number;
+                creator: string;
+                rank: number;
+                racialAbilityCost: number;
+                racialAbilityCount: number; 
+            }
+        ];
+        hindrances: [
+            {
+                name: string;
+                type: string;
+                description: string;
+                major: boolean;
+                racialAbilityCost: number;
+                racialAbilityCount: number;
+                creator: string; 
+            }
+        ];
+        base_stats: {
+            agility: number;
+            smarts: number;
+            spirit: number;
+            strength: number;
+            vigor: number;
+        };
+        creator: string;
+    };
+    description: string;
+    edges: [
+        {
+            type: string;
+            name: string;
+            description: string;
+            effect: string;
+            prerequisites: string[];
+            initiative_cards: number;
+            tactician_cards: number;
+            adventure_cards: number;
+            creator: string;
+            rank: number;
+            racialAbilityCost: number;
+            racialAbilityCount: number;
+        }
+    ];
+    hindrances: [
+        {
+            name: string;
+            type: string;
+            description: string;
+            major: boolean;
+            racialAbilityCost: number;
+            racialAbilityCount: number;
+            creator: string;
+        }
+    ];
+    powers: [
+        {
+            name: string;
+            trapping: string;
+            cost: number;
+            effect: number;
+            power: {
+                name: string;
+                rank: number;
+                cost: number;
+                specialCost?: string;
+                range: string;
+                duration: string;
+                effect: string;
+                ruletext: string;
+                modifiers: [
+                    {
+                        name: string;
+                        effect: string;
+                        additional_cost: number;
+                    }
+                ];
+                creator: string;
+            };
+            range: string;
+            duration: string;
+            sustain: string;
+            notes: string;
+            creator: string
+        }
+    ];
+    rank: number;
+    deal_initiative: number;
+    deal_tactician: number;
+    deal_adventure: number;
+    hand_cards: number[];
+    tactician_cards: number[];
+    adventure_cards: number[];
+    equipment: [
+        {
+            type: string;
+            item: string;
+            cost: number;
+            weight: number;
+            notes: string;
+            mWeaponType?:string;
+            mWeaponDamage?:string;
+            armorType?:string;
+            armorMod?:number;
+            rWeaponType?:string;
+            rWeaponDamage?:string;
+            rWeaponShortRange?: number;
+            rWeaponMidRange?: number;
+            rWeaponLongRange?: number;
+            rWeaponRateOfFire?: number;
+            rWeaponMinStrength?: number;
+            rWeaponShots?: number;
+            ammoType?:string;
+            sWeaponType?:string;
+            sWeaponAP:number;
+            sWeaponBurst: string;
+            magicItemType:string;
+            magicItemPP:string;
+            magicItemPower:{
+                name: string;
+                rank: number;
+                cost: number;
+                specialCost?: string;
+                range: string;
+                duration: string;
+                effect: string;
+                ruletext: string;
+                modifiers: [
+                    {
+                        name: string;
+                        effect: string;
+                        additional_cost: number;
+                    }
+                ];
+                creator: string; 
+            };
+            magicItemDescription:string;
+            creator: string;
+        }
+    ];
+    user: string;
 }
