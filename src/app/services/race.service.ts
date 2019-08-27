@@ -43,8 +43,8 @@ export class RaceService {
       races.map(race => {
         this.races.push(this.mapResToRace(race));
       });
-      console.log('RaceService Races');
-      console.log(this.races); 
+      // console.log('RaceService Races');
+      // console.log(this.races); 
     });
     return of(this.races)
   }

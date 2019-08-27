@@ -37,7 +37,7 @@ export class HindranceService {
   }
 
   getHindrances():Observable<_Hindrance[]>{
-    console.log("getting hindrances");
+    // console.log("getting hindrances");
     this.hindrances = [];
     this.http.get<Object[]>(this.hindranceUrl, this.httpOptions).subscribe(hindrances => {
       hindrances.map(hindrance => {
