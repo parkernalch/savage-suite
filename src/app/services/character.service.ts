@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import SavageCharacter, {_SavageCharacter} from '../models/Character';
+import SavageCharacter, {_SavageCharacter, dbCharacter} from '../models/Character';
 import _Race from '../models/Race';
 import { Observable, of } from 'rxjs';
 import data from '../data/characters.json';
@@ -18,23 +18,23 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CharacterService {
   characters:SavageCharacter[];
+  newCharacter: SavageCharacter;
 
   constructor(
     private http: HttpClient,
-    private campaignService: CampaignService) { }
+    private campaignService: CampaignService) 
+  { }
 
-  getCharacters():Observable<SavageCharacter[]>{
-    this.campaignService.getCampaigns()
-      .subscribe(campaigns => {
-        var charArrays = campaigns
-          .map(campaign => campaign.party)
-          .reduce((acc, val) => acc.concat(val), []);
-        this.characters = charArrays;
-      })
-    // console.log(this.characters);
-    
-    return of(this.characters);
-  }
+  // mapObjectToCharacter(object: dbCharacter): SavageCharacter {
+  //   let newchar = new SavageCharacter(object._id, object.name);
+  //   newchar.description = object.description;
+  //   newchar.traits = object.traits;
+  //   newchar.edges = object.edges;
+  //   newchar.hindrances = object.hindrances;
+  //   newchar.powers = object.powers;
+  //   newchar.
+  //   return newchar;
+  // }
 
   getCharactersHTTP(): Observable<SavageCharacter[]> {
     this.http.get('/api/characters')
@@ -51,6 +51,28 @@ export class CharacterService {
       });
     return of(this.characters);
   }
+
+  // postNewCharacter(char: SavageCharacter): Observable<SavageCharacter>{
+  //   this.http.post('/api/characters', char)
+  //     .subscribe(character => {
+  //       this.newCharacter = character
+  //     })
+  //     return of(this.newCharacter);
+  // }
+
+  getCharacters():Observable<SavageCharacter[]>{
+    this.campaignService.getCampaigns()
+      .subscribe(campaigns => {
+        var charArrays = campaigns
+          .map(campaign => campaign.party)
+          .reduce((acc, val) => acc.concat(val), []);
+        this.characters = charArrays;
+      })
+    // console.log(this.characters);
+    
+    return of(this.characters);
+  }
+
 
   getCharacterByID(id:string): Observable<SavageCharacter> {
     if(!this.characters) this.getCharacters();
