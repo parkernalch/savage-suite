@@ -25,11 +25,11 @@ export class EdgeService {
 
   mapResToEdge(result: Object): _Edge {
     let E: _Edge = {
+      id: result["_id"],
       name: result["name"],
       description: result["description"],
       effect: result["effect"],
       type: result["type"],
-      id: result["_id"],
       prerequisites: result["prerequisites"],
       initiative_cards: result["initiative_cards"],
       adventure_cards: result["adventure_cards"],
@@ -42,16 +42,17 @@ export class EdgeService {
   }
 
   getEdges():Observable<_Edge[]>{
-    console.log('getting edges...');
+    // console.log('getting edges...');
     this.edges = [];
-    this.http.get<_Edge[]>(this.edgeUrl, this.httpOptions).subscribe(edges => {
-      // console.log(edges);
-      edges.map( edge => {
-        let _E = this.mapResToEdge(edge);
-        this.edges.push(_E);
-      });
+    this.http.get<_Edge[]>(this.edgeUrl, this.httpOptions).subscribe((response: any) => {
+      // console.log(response);
+      if(response.success){
+        for(let i=0; i<response.edges.length; i++){
+          this.edges.push(this.mapResToEdge(response.edges[i]));
+        } 
+      }
     });
-    return of(this.edges);
+    return of<_Edge[]>(this.edges);
   }
 
   getEdgeById(id: string):Observable<_Edge>{
