@@ -35,56 +35,15 @@ export class CharacterViewComponent implements OnInit {
   }
 
   addEdge() {
-    let edge: _Edge = {
-      "id": "abc123",
-      "type": "Social",
-      "name": "Command",
-      "description": "You are a leader of men. ",
-      "effect": "Extras within 5 inches increase their parry by 1",
-      "prerequisites": []
-    };
-    this.characterService.addEdgeToCharacter(this.character.id, edge).subscribe(
-      character => this.character = character
-    );
+    console.log('adding edge (placeholder)');
   }
 
   addHindrance() {
-    let hind: _Hindrance = {
-      "id": "asdfghjkl",
-      "name": "Gravity Sickness",
-      "description": "You really prefer solid ground.",
-      "major": false,
-    };
-  
-    this.characterService.addHindranceToCharacter(this.character.id, hind).subscribe(
-      character => this.character = character
-    );
+    console.log('adding hindrance (placeholder');
   }
 
   addPower() {
-    let basePower: _Power = {
-      "id": "hyperionfly",
-      "name": "fly",
-      "rank": 40,
-      "ruletext": "You can fly around like a bird. Congrats on this achievement"
-    };
-
-    let power: _PowerInstance = {
-      "id": "hyperionflyjetpack",
-      "name": "Jetpack",
-      "trapping": "Cybernetic Jet Engines",
-      "cost": 4,
-      "effect": "for the next minute, you have a fly speed equal to your pace",
-      "power": basePower,
-      "range": "self",
-      "duration": "3 rounds",
-      "sustain": "1/round",
-      "notes": "You can cast this on an adjacent, willing creature for the same cost"
-    };
-
-    this.characterService.addPowerToCharacter(this.character.id, power).subscribe(
-      character => this.character = character
-    );
+    console.log('adding power (placeholder)');
   }
 
 
