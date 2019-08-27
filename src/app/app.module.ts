@@ -22,6 +22,7 @@ import { CampaignViewComponent } from './components/campaign-view/campaign-view.
 import { AttributeTableComponent } from './components/attribute-table/attribute-table.component';
 import { AttributeDieComponent } from './components/attribute-die/attribute-die.component';
 import { AddCustomContentComponent } from './components/add-custom-content/add-custom-content.component';
+import { NewCharFormComponent } from './components/new-char-form/new-char-form.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { AddCustomContentComponent } from './components/add-custom-content/add-c
     CampaignViewComponent,
     AttributeTableComponent,
     AttributeDieComponent,
-    AddCustomContentComponent
+    AddCustomContentComponent,
+    NewCharFormComponent
   ],
   imports: [
     FormsModule,
