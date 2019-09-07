@@ -42,7 +42,9 @@ export class HindranceService {
     this.http.get<Object[]>(this.hindranceUrl, this.httpOptions).subscribe(hindrances => {
       hindrances.map(hindrance => {
         let H = this.mapResToHindrance(hindrance);
-        this.hindrances.push(H);
+        if(H.type != "Racial"){
+          this.hindrances.push(H); 
+        }
       });
       // console.log('HindranceService Hindrances');
       // console.log(this.hindrances);
