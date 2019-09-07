@@ -9,6 +9,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { CharacterViewComponent } from './components/character-view/character-view.component';
 import { CampaignViewComponent } from './components/campaign-view/campaign-view.component';
 import { AddCustomContentComponent } from './components/add-custom-content/add-custom-content.component';
+import { NewCharFormComponent } from './components/new-char-form/new-char-form.component';
 
 const routes: Routes = [
   {path: '', component:HomepageComponent},
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: 'encounter', component: EncounterBuilderComponent},
   {path: 'characters', component: CharacterVaultComponent},
   {path: 'characters/:id', component:CharacterViewComponent},
-  {path: 'custom', component: AddCustomContentComponent}
+  {path: 'custom', component: AddCustomContentComponent},
+  {path: 'new/character', component: NewCharFormComponent}
 ];
 
 @NgModule({

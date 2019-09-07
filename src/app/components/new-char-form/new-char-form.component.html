@@ -1,7 +1,179 @@
 <div class="new-char-modal">
+    <div class="step-buttons">
+        <button class="chargen-step-btn">Step 1: Basic Info</button>
+        <button class="chargen-step-btn">Step 2: Race Selection</button>
+        <button class="chargen-step-btn">Step 3: Hindrances</button>
+        <button class="chargen-step-btn">Step 4: Attributes</button>
+        <button class="chargen-step-btn">Step 5: Skills</button>
+        <button class="chargen-step-btn">Step 6: Edges</button>
+        <button class="chargen-step-btn">Step 7: Gear</button>
+    </div>
+
     <h1>Create New Character</h1>
-    <div>
-        <input type="text" placeholder="Name">
-        <input type="submit">
-    </div> 
+    
+    <div class="expandable-step" id="expandInfo">
+        <h2>Character Details</h2>
+        <div class="input-group">
+            <label>Name</label>
+            <input type="text">
+        </div>
+        <div class="input-group">
+            <label>Portrait</label>
+            <input type="image">
+        </div>
+        <br />
+        <div class="input-group">
+            <div class="checkbox-group">
+                <label class="check">
+                    Core Adventure Edition
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="check">
+                    Fantasy Companion
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="check">
+                    Sci-Fi Companion
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="check">
+                    Superhero Companion
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="check">
+                    Deadlands
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="check">
+                    Interface: Zero
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="expandable-step" id="expandRace">
+        <h2>Character Race</h2>
+        <div class="input-group">
+            <label>Race</label>
+            <select #racePicker (change)="populateRaceViewer()">
+                <option>-- Choose a Race --</option>
+                <option *ngFor="let race of allRaces">{{race.name}}</option>
+            </select>
+        </div>
+        <div class="race-viewer" *ngIf="viewRace">
+            <label>{{viewRace.name}}</label>
+            <p>{{viewRace.description}}</p>
+            <div class="stat-block">
+                <div class="stat-view">
+                    <label>Agility</label>
+                    <span>{{viewRace.base_stats.agility}}</span>
+                </div>
+                <div class="stat-view">
+                    <label>Smarts</label>
+                    <span>{{viewRace.base_stats.smarts}}</span>
+                </div>
+                <div class="stat-view">
+                    <label>Spirit</label>
+                    <span>{{viewRace.base_stats.spirit}}</span>
+                </div>
+                <div class="stat-view">
+                    <label>Strength</label>
+                    <span>{{viewRace.base_stats.spirit}}</span>
+                </div>
+                <div class="stat-view">
+                    <label>Vigor</label>
+                    <span>{{viewRace.base_stats.spirit}}</span>
+                </div> 
+            </div>
+            <div class="race-features">
+                <div class="race-feat-view" *ngFor="let feature of viewRace.features">
+                    <label>{{feature.name}}</label>
+                    <p>{{feature.description}}</p>
+                    <p>{{feature.effect}}</p>
+                </div>
+            </div>
+            <div class="race-hindrances">
+                <div class="race-hind-view" *ngFor="let hindrance of viewRace.hindrances">
+                    <label>{{hindrance.name}}</label>
+                    <p>{{hindrance.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="expandable-step" id="expandHindrance">
+        <h2>Hindrances</h2>
+        <div class="major-minor-radios">
+            <label>Minor</label>
+            <input type="radio" 
+                name="majmin" 
+                [value]="false" 
+                [(ngModel)]="hindranceFilter"/>
+            <label>Major</label>
+            <input type="radio" 
+                name="majmin" 
+                [value]="true" 
+                [(ngModel)]="hindranceFilter"/> 
+        </div>
+        <select #hindrancePicker (change)="populateHindranceViewer()">
+            <option> -- Select a Hindrance --</option>
+            <option *ngFor="let hindrance of allHindrances">
+                {{hindrance.name}} | 
+                <span *ngIf="hindrance.major">Major</span>
+                <span *ngIf="!hindrance.major">Minor</span>
+            </option>
+        </select>
+        <div class="hindrance-viewer" *ngIf="viewHindrance" >
+            <label>{{viewHindrance.name}}</label>
+            <label>{{viewHindrance.description}}</label>
+        </div>
+    </div>
+
+    <div class="expandable-step" id="expandAttribute">
+        <h2>Attributes</h2>
+        <div class="stat-block">
+            <div class="stat-view" *ngFor="let attribute of CAttributes">
+                <label>{{attribute.name}}</label>
+                <span>{{attribute.level}}</span>
+                <span *ngIf="attribute.modifier > 0">+ {{attribute.modifier}}</span>
+                <button (click)="modifyAttribute(attribute, '+')">+</button>
+                <button (click)="modifyAttribute(attribute, '-')">-</button>
+            </div>
+        </div> 
+        <p>Remiaining Points: {{attributePoints}}</p>
+    </div>
+    
+    <div class="expandable-step" id="expandSkill">
+        <h2>Skills</h2> 
+        <div class="skill-list">
+            <div class="skill-list-item" *ngFor="let skill of CSkills">
+                <label>{{skill.name}}</label>
+                <span>{{skill.level}}</span>
+                <button>+</button>
+                <button>-</button>
+            </div>
+            <button>Add Skill</button>
+        </div>
+        <p>Remaining Skill Points: {{skillPoints}}</p>
+    </div>
+
+    <div class="expandable-step" id="expandEdge">
+        <h2>Edges</h2>
+    </div>
+
+    <div class="expandable-step" id="expandGear">
+        <h2>Gear</h2>
+    </div>
+    
+    <div class="expandable-step" id="expandPopwers">
+        <h2>Powers</h2>
+    </div>
+    <hr>
 </div>
