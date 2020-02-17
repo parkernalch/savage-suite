@@ -18,10 +18,38 @@ export class HeaderComponent implements OnInit {
   @ViewChild('passwordInput', {static: true })
   passwordInput: ElementRef<HTMLInputElement>;
 
+  topOffset:number = 0;
+
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    document.addEventListener('scroll', (e:Event) => {
+      if(document.documentElement.scrollTop > 30 && this.topOffset === 0){
+        this.MinimizeHeader();
+      } else if (document.documentElement.scrollTop === 0 && this.topOffset < 0){
+        this.MaximizeHeader();
+      }
+    }) 
+  }
 
+  MaximizeHeader():void{
+    let minimizing = setInterval(() => {
+      this.topOffset += 1;
+      if(this.topOffset >= 0){
+        this.topOffset = 0;
+        clearInterval(minimizing);
+      }
+    }, 5);
+  }
+
+  MinimizeHeader():void{ 
+    let maximizing = setInterval(() => {
+      this.topOffset -= 1;
+      if(this.topOffset <= -45){
+        this.topOffset = -45;
+        clearInterval(maximizing);
+      }
+    }, 5);
   }
 
   ngAfterViewInit() {

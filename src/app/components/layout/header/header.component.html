@@ -1,12 +1,16 @@
-<header class="header">
-    <a href="" class="navlink">HOME</a>
-    <a href="blog" class="navlink">BLOG</a>
-    <a href="initiative" class="navlink">INITIATIVE</a>
-    <a href="characters" class="navlink">VAULT</a>
-    <a href="encounter" class="navlink">ENCOUNTER</a>
-    <a href="campaign" class="navlink">CAMPAIGN</a>
-    <span (click)="displayLoginModal()" class="navlink">LOGIN</span>
-</header>
+<div class="header" [style.top.px]="topOffset">
+    <div class="title">Savage Suite</div>
+    <div class="links">
+        <a href="" class="navlink">HOME</a>
+        <!-- <a href="blog" class="navlink">BLOG</a> -->
+        <!-- <a href="initiative" class="navlink">INITIATIVE</a> -->
+        <a href="characters" class="navlink">VAULT</a>
+        <!-- <a href="encounter" class="navlink">ENCOUNTER</a> -->
+        <a href="campaign" class="navlink">CAMPAIGN</a>
+        <a href="account" class="navlink">ACCOUNT</a>
+        <span (click)="displayLoginModal()" class="navlink">LOGIN</span>
+    </div>
+</div>
 
 <div #darkOverlay class="page-dimmer" (click)="dismissModal()"></div>
 

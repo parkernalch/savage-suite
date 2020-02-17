@@ -13,6 +13,7 @@ export class CharacterListItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.character);
   }
 
   toggleEdit(): void {

@@ -10,17 +10,24 @@ import { CharacterViewComponent } from './components/character-view/character-vi
 import { CampaignViewComponent } from './components/campaign-view/campaign-view.component';
 import { AddCustomContentComponent } from './components/add-custom-content/add-custom-content.component';
 import { NewCharFormComponent } from './components/new-char-form/new-char-form.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SubscriptionComponent } from './components/subscription/subscription.component';
+import { HandoutComponent } from './components/handout/handout.component';
 
 const routes: Routes = [
   {path: '', component:HomepageComponent},
-  {path: 'initiative', component:InitiativeComponent},
+  {path: 'home', component:HomepageComponent},
   {path: 'campaign', component:CampaignManagerComponent},
   {path: 'campaign/:id', component:CampaignViewComponent}, 
-  {path: 'encounter', component: EncounterBuilderComponent},
+  {path: 'campaign/handout/:id', component:HandoutComponent}, 
   {path: 'characters', component: CharacterVaultComponent},
   {path: 'characters/:id', component:CharacterViewComponent},
-  {path: 'custom', component: AddCustomContentComponent},
-  {path: 'new/character', component: NewCharFormComponent}
+  {path: 'new/character', component: NewCharFormComponent},
+  {path: 'account', component:ProfileComponent},
+  {path: 'subscriptions', component:SubscriptionComponent}
+  // {path: 'initiative', component:InitiativeComponent},
+  // {path: 'encounter', component: EncounterBuilderComponent},
+  // {path: 'custom', component: AddCustomContentComponent},
 ];
 
 @NgModule({

@@ -1,23 +1,15 @@
-.slideshow
-    width: 100vw
-    height: 50vh
-    background-color: #333333
-    text-align: left
-    a
-        color: #ffffff
-        font-family: sans-serif
-.page-content
-    width: 100vw
-    height: 50vh
-.blog-preview
-    background-color: #00ff00
-    flex-basis: 60%
-.user-preview
-    background-color: #ff0000
-    flex-basis: 40%
-.slidebox-link
-    font-family: sans-serif
-    font-weight: bold
-    font-size: 24px
-    text-decoration-style: none
-    padding: 20px
+@import "../../../vars"
+
+.page-wrapper
+    width: 100%
+    overflow-x: hidden
+.page-gutter
+    display: block
+    border: 1px solid $creme
+    grid-column: 1
+.main-content
+    border: 1px solid $blue
+.sidebar-content
+    display: block
+    border: 1px solid $brown
+    grid-column: 3

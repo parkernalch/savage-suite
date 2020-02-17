@@ -23,6 +23,9 @@ import { AttributeTableComponent } from './components/attribute-table/attribute-
 import { AttributeDieComponent } from './components/attribute-die/attribute-die.component';
 import { AddCustomContentComponent } from './components/add-custom-content/add-custom-content.component';
 import { NewCharFormComponent } from './components/new-char-form/new-char-form.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SubscriptionComponent } from './components/subscription/subscription.component';
+import { HandoutComponent } from './components/handout/handout.component';
 
 
 @NgModule({
@@ -45,7 +48,10 @@ import { NewCharFormComponent } from './components/new-char-form/new-char-form.c
     AttributeTableComponent,
     AttributeDieComponent,
     AddCustomContentComponent,
-    NewCharFormComponent
+    NewCharFormComponent,
+    ProfileComponent,
+    SubscriptionComponent,
+    HandoutComponent
   ],
   imports: [
     FormsModule,

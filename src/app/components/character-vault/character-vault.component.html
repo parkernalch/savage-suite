@@ -1,13 +1,9 @@
 <h1 style="text-align: center">Character Vault</h1>
 <a href="new/character">Create Character</a>
-<!-- <div class="row"> -->
-    <!-- <div class="col"> -->
-        <h2>My Characters</h2>
-        <input type="text" (keyup)="filterCharacters()" id="filterfield">
-        <ul>
-            <li #charlist *ngFor="let character of characters">
-                <app-character-list-item [character]="character"></app-character-list-item>
-            </li>
-        </ul>
-    <!-- </div> -->
-<!-- </div> -->
+<h2>My Characters</h2>
+<input type="text" (keyup)="filterCharacters()" id="filterfield">
+<ul>
+    <li #charlist *ngFor="let character of characters">
+        <app-character-list-item [character]="character"></app-character-list-item>
+    </li>
+</ul>

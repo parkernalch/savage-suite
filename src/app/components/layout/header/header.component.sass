@@ -1,19 +1,29 @@
+@import "../../../../vars"
+
 .header
-    background-color: #aaaaaa
+    position: fixed
+    // top: 0
+    left: 0
+    z-index: 5
+    width: 100vw
+    background-color: $brown
     margin: 0px
-    height: 40px
+    height: 80px
     text-align: center
     .navlink
         position: relative
         text-decoration: none
-        top: 10px
+        // top: 10px
+        line-height: $bar-height
         padding: 0px 10px 0px 10px
-        font-family: sans-serif
+        font-family: $osans
         font-weight: bold
         font-size: 18px
-        color: #ffffff
+        color: $creme
         z-index: 2
-        cursor: pointer
+        cursor: pointer 
+    .navlink:hover
+        color: $white
     .center-circle
         position: relative
         height: 150px
@@ -24,6 +34,14 @@
         left: 50%
         top: -75px
         transform: translateX(-50%)
+
+.title
+    font-family: sans-serif
+    font-weight: bold
+    text-transform: uppercase
+    font-size: 32px
+    color: $white
+    margin-bottom: 10px
 
 .page-dimmer
     position: absolute

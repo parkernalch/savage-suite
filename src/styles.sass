@@ -1,7 +1,136 @@
-/* You can add global styles to this file, and also import other style files */
-html, *, body
-    margin: 0px
-    padding: 0px
+@import "./vars"
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Raleway&display=swap')
+
+// Base Styles
+
+*, *::before, *::after
+    box-sizing: border-box
+    margin: 0
+    padding: 0
+h1, h2
+    text-align: center
+    font-family: $osans
+    font-weight: bold
+    margin-bottom: 15px
+h3, h4
+    margin-bottom: 5px
+    font-family: $raleway
+    font-weight: bold
+a
+    color: $brown
+a:hover
+    color: $blue
+body
+    background: white
+
+// --- BUTTONS
+
+.btn
+    border: none
+    background: $creme
+    color: $blue
+    padding: 10px 20px
+    border-radius: 5px
+    cursor: pointer
+    transition: all 0.125s
+.btn:hover
+    background: $blue
+    color: $white
+.btn-small
+    padding: 5px 10px
+.btn-large
+    padding: 15px 30px
+.btn-blue
+    color: $white
+    background: $blue
+.btn-blue:hover
+    color: $blue
+    background: $creme
+
+// --- Input Types
+
+input, .underline
+    border: none
+    border-bottom: 1px solid $blue
+    background: $white
+    padding: 5px
+
+select, option, input
+    font-family: $raleway
+    padding: 5px
+
+// Layout Rules
+
+.marquee // Top rotating marquee
+    width: 100vw 
+    height: 300px
+    background: $black
+.page-content // 3-column display
+    display: grid
+    grid-template-columns: auto 1200px auto
+    @media screen and (max-width: $large) 
+        grid-template-columns: auto 900px auto
+    @media screen and (max-width: $medium) 
+        grid-template-columns: auto 600px auto
+    @media screen and (max-width: $small) 
+        grid-template-columns: 0px auto 0px
+.section
+    padding: 30px 0
+    border: 1px solid $creme
+    border-right: none
+    border-left: none
+.page-footer
+    height: 100px
+    background: $black
+    color: $white
+    display: grid
+    grid-template-columns: 20% auto 20%
+.footer-content
+    text-align: center
+    grid-column: 2
+    padding: 30px
+
+// --- Grid
+
+.grid-list
+    display: grid
+    grid-template-columns: repeat(5, 20%)//repeat(5, auto)
+    gap: 10px
+    margin: 0 10px
+    @media screen and (max-width: $large)
+        grid-template-columns: repeat(3, 33%) //repeat(3, auto)
+    @media screen and (max-width: $medium)
+        grid-template-columns: repeat(2, 50%) //repeat(2, auto)
+    @media screen and (max-width: $small)
+        grid-template-columns: 100%
+.grid-item
+    background: rgba($blue, 0.5)
+    transition: background-color 0.125s
+    padding: 10px
+    height: 300px
+    max-height: 300px
+    overflow: hidden
+    text-overflow: ellipsis
+.grid-item.thin
+    height: 100px
+    max-height: 100px
+.grid-item:hover
+    background: rgba($blue, 1.0)
+
+// --- Flexbox
+
+.flex
+    display: flex
+.flex.wrap
+    flex-wrap: wrap
+.flex.nowrap
+    flex-wrap: nowrap
+.flex-h
+    flex-direction: horizontal
+.flex-v
+    flex-direction: vertical
+
+// Flex Row/Col
 .row
     display: flex
     flex-direction: row
@@ -14,14 +143,76 @@ html, *, body
 .container
     padding-right: 15px
     padding-left: 15px
-    margin-right: auto
-    margin-left: auto
-@media (min-width: 768px)
-    .container
+    margin: 0 auto
+    @media (min-width: $small)
         width: 750px
-@media (min-width: 992px)
-    .container
+    @media (min-width: $medium)
         width: 970px
-@media (min-width: 1200px)
-    .container
+    @media (min-width: $large)
         width: 1170px
+
+// Module Rules
+
+.campaign-link
+    width: 285px
+    height: 285px
+    margin: 5px
+    background: rgba($blue, 0.5)
+    transition: background-color 0.2s
+    padding: 10px
+    cursor: pointer
+    @media screen and (max-width: $large)
+        width: 30%
+    @media screen and (max-width: $medium)
+        width: 45%
+    @media screen and (max-width: $small)
+        width: 100%
+.campaign-link:hover
+    background: rgba($blue, 1.0)
+
+.info-block
+    color: gray
+    font-family: "courier new", monospace
+    font-size: 12px
+    margin: 20px
+    margin-top: 0
+.info-block.center
+    text-align: center 
+
+// State Rules
+
+// Theme Rules
+
+// --- Shape
+
+.round-right
+    border-radius: 0 15px 15px 0
+.round-left
+    border-radius: 15px 0 0 15px
+.round-top
+    border-radius: 15px 15px 0 0 
+.round-bottom
+    border-radius: 0 0 15px 15px
+
+// --- Size
+
+.tx-large
+    font-size: 1.5em
+.tx-medium
+    font-size: 1.0em
+.tx-small
+    font-size: 0.7em
+
+// -- Decoration / Interactivity styles
+
+.emphasis
+    color: $blue
+    font-weight: bold
+    
+.clickable
+    color: $blue
+    cursor: pointer
+    transition: color 0.125s
+.clickable:hover
+    color: $brown
+    text-decoration: underline
