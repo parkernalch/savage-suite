@@ -1,0 +1,61 @@
+@import "../../../vars"
+
+
+.message-wrapper
+    display: grid
+    grid-template-columns: 70px auto 70px
+    padding: 5px 0
+
+.user-img
+    width: 50px
+    height: 50px
+    text-align: center
+    line-height: 50px
+    background: $black
+    font-family: $osans
+    color: $white
+    margin: 10px
+    border-radius: 50%
+
+.message-content
+    position: relative
+    display: flex
+    flex-flow: row nowrap
+    justify-content: flex-end
+
+.message
+    text-align: right
+    background: $blue
+    border-radius: 15px
+    margin-top: 15px
+    // max-width: 60%
+    padding: 10px 15px
+    color: $white
+    font-family: $raleway
+
+.message-date
+    grid-column: 2
+    grid-row: 1
+    display: block
+.message-date.hidden
+    display: none
+
+.message-wrapper
+    .user-img
+        grid-column: 3
+        grid-row: 1
+    .message-content
+        grid-column: 2 
+        grid-row: 1
+
+
+.message-wrapper.me
+    .user-img
+        grid-column: 1
+    .message-content
+        justify-content: flex-start
+        .message
+            text-align: left
+            right: 0
+            background: $brown
+            border-radius: 15px

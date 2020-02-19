@@ -30,9 +30,10 @@ body
     background: $creme
     color: $blue
     padding: 10px 20px
-    border-radius: 5px
     cursor: pointer
     transition: all 0.125s
+.btn.btn-round
+    border-radius: 5px
 .btn:hover
     background: $blue
     color: $white
@@ -94,28 +95,67 @@ select, option, input
 
 .grid-list
     display: grid
-    grid-template-columns: repeat(5, 20%)//repeat(5, auto)
+    grid-template-columns: repeat(4, auto)//repeat(5, auto)
     gap: 10px
     margin: 0 10px
     @media screen and (max-width: $large)
-        grid-template-columns: repeat(3, 33%) //repeat(3, auto)
+        grid-template-columns: repeat(3, auto) //repeat(3, auto)
     @media screen and (max-width: $medium)
-        grid-template-columns: repeat(2, 50%) //repeat(2, auto)
+        grid-template-columns: repeat(2, auto) //repeat(2, auto)
     @media screen and (max-width: $small)
         grid-template-columns: 100%
 .grid-item
     background: rgba($blue, 0.5)
     transition: background-color 0.125s
-    padding: 10px
+    // padding: 10px
     height: 300px
     max-height: 300px
     overflow: hidden
     text-overflow: ellipsis
+    cursor: pointer
 .grid-item.thin
     height: 100px
     max-height: 100px
-.grid-item:hover
+.grid-item:hover 
     background: rgba($blue, 1.0)
+.grid-item .title
+    width: 100%
+    background: rgba(0, 0, 0, 0.7)
+    color: $white
+    padding: 10px
+    font-family: $osans
+    font-size: 1.2em
+.grid-item .description
+    color: $black
+    background: rgba(255, 255, 255, 0.9)
+    max-height: 50%
+    text-overflow: ellipsis
+    overflow: hidden
+    margin: 10px 0
+    padding: 10px
+    font-family: $raleway
+    opacity: 0
+    transition: opacity 0.125s
+.grid-item:hover .description
+    opacity: 1
+.grid-item .details
+    background: rgba(0,0,0,0.7)
+    display: grid
+    grid-template-columns: repeat(2, auto)
+    color: rgba($white, 0.9)
+    position: absolute
+    bottom: 0
+    padding: 10px
+    width: 100%
+    opacity: 0.7
+    transition: opacity 0.125s
+.grid-item:hover .details
+    opacity: 1
+.grid-item .details .label
+    font-family: monospace
+.grid-item .details .data
+    margin-left: 10px
+    font-family: $raleway
 
 // --- Flexbox
 
@@ -215,4 +255,4 @@ select, option, input
     transition: color 0.125s
 .clickable:hover
     color: $brown
-    text-decoration: underline
+    // text-decoration: underline

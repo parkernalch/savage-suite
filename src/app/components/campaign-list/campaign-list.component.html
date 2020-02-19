@@ -1,0 +1,19 @@
+<div class="grid-list">
+    <div 
+        class="grid-item" 
+        style="position: relative"
+        *ngFor="let campaign of campaigns" 
+        (click)="LaunchCampaignView(campaign.id)"
+        [ngStyle]="{'background-image': 'url(' + campaign.imagepath + ')'}"> 
+        <div class="title">{{campaign.name}}</div>
+        <div class="description">{{campaign.description}}</div>
+        <div class="details">
+            <span class="label">Players:</span>
+            <span class="data">{{campaign.party.length}}</span>
+            <span class="label">Sessions Played:</span>
+            <span class="data">{{campaign.sessions.length}}</span>
+            <span class="label">Next Session</span>
+            <span class="data">{{campaign.next_session | date:'short'}}</span>
+        </div>
+    </div>
+</div>

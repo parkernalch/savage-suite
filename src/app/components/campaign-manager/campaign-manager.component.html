@@ -4,14 +4,7 @@
         <div class="main-content" style="grid-column: 2">
             <div class="homepage-section">
                 <h1>My Campaigns</h1>
-                <div class="grid-list">
-                    <div class="grid-item" *ngFor="let campaign of campaigns">
-                        <div class="title">
-                            <a href="campaign/{{campaign.id}}">{{campaign.name}}</a>
-                            <img src="../../../assets/cas.png">
-                        </div>
-                    </div>
-                </div>
+                <app-campaign-list></app-campaign-list>
             </div>
             <button class="btn btn-blue">Click Here</button>
             <input type="text" class="underline tx-large">

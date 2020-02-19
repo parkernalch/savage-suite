@@ -4,6 +4,7 @@
         "name": "Skimmers of Ord",
         "description": "Adventurers travel the world-sea in search of the mystical and powerful Glimmer that rises from the deep.",
         "chronicle": [ ],
+        "imagepath": "hand.jpg",
         "party": [
             {
                 "id": "1",
@@ -314,19 +315,19 @@
             {
                 "user": "4",
                 "message": "Hey guys, I'm excited for the game tonight!",
-                "date": "2019-5-10|2001",
+                "date": "5-10-2019 02:20:00",
                 "tags": []
             },
             {
                 "user": "2",
                 "message": "you do realize we started an hour ago, right?",
-                "date": "2019-5-10|2020",
+                "date": "5-10-2019 12:12:00",
                 "tags": []
             },
             {
                 "user": "3",
                 "message": "LOL",
-                "date": "2019-5-10|2125",
+                "date": "5-10-2019 11:11:00",
                 "tags": []
             }
         ]
@@ -336,6 +337,7 @@
         "name": "The Hyperion Chronicles",
         "description": "A crew of a council-chartered science vessel finds themselves embroiled in a battle for the existence of the known worlds.",
         "chronicle": [ ],
+        "imagepath": "cyberpunk.jpg",
         "party": [
             {
                 "id": "5",
@@ -987,61 +989,61 @@
             {
                 "user": "9",
                 "message": "Hope the game goes well tonight, gents. I didn't have time for a whole game",
-                "date": "2019-3-14",
+                "date": "3-14-2019 03:20:00",
                 "tags": []
             },
             {
                 "user": "11",
                 "message": "Sunday the 24th from Noon to about 4pm, I'd like to run another game. If you're available and interested, please let me know!.",
-                "date": "2019-3-20",
+                "date": "3-20-2019 12:32:00",
                 "tags": ["Announcement"]
             },
             {
                 "user": "7",
                 "message": "I should be available, if anyone else is.",
-                "date": "2019-3-24",
+                "date": "3-24-2019 01:11:00",
                 "tags": []
             },
             {
                 "user": "11",
                 "message": "Yeah, to the best of my knowledge, Burke and Aaron will be playing as well.",
-                "date": "2019-3-24",
+                "date": "3-24-2019 02:45:00",
                 "tags": []
             },
             {
                 "user": "7",
                 "message": "Wrapping up now. Will be home shortly",
-                "date": "2019-3-24",
+                "date": "3-24-2019 09:24:00",
                 "tags": []
             },
             {
                 "user": "9",
                 "message": "7pm?",
-                "date": "2019-3-29",
+                "date": "3-29-2019 03:33:00",
                 "tags": []
             },
             {
                 "user": "11",
                 "message": "yes indeedy",
-                "date": "2019-3-29",
+                "date": "3-29-2019 04:56:00",
                 "tags": []
             },
             {
                 "user": "8",
                 "message": "Hangouts or Roll20?",
-                "date": "2019-3-29",
+                "date": "3-29-2019 05:23:00",
                 "tags": []
             },
             {
                 "user": "11",
                 "message": "how about the voice channel on Discord?",
-                "date": "2019-3-29",
+                "date": "3-29-2019 07:06:00",
                 "tags": []
             },
             {
                 "user": "8",
                 "message": "sure",
-                "date": "2019-3-29",
+                "date": "3-29-2019 03:40:00",
                 "tags": []
             }
         ]

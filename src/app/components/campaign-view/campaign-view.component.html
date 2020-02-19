@@ -1,11 +1,22 @@
-<div class="campaign-view-header">
-    <div class="campaign-view-date">Next Game: {{campaign.next_session}}</div>
-    <div class="campaign-view-name">{{campaign.name}}</div>
-    <button >JOIN</button>
+<div class="marquee" style="padding-top: 80px; position: relative; background-position: center; background-repeat: no-repeat;" [ngStyle]="{'background-image': 'url(' + campaign.imagepath + ')'}">
+    <!-- <h4 style="color: white; float: left">Next Game: <span style="text-decoration: underline; margin-left: 15px">{{campaign.next_session | date:'MMM dd, yyyy @hh:mm'}}</span></h4>  -->
+    <h1 class="campaign-name">{{campaign.name}}</h1>
+    <div class="next-session">< {{campaign.next_session | date:'MMM dd, yyyy @hh:mm'}} ></div>
 </div>
-<div class="campaign-view-motd">
-    {{campaign.motd}}
+<div class="page-wrapper">
+    <div class="campaign-motd" style="grid-column: 2;">{{campaign.motd}}</div>
+    <div class="campaign-chat">
+        <h3 style="color: white">Chat Log</h3>
+        <div class="chat-list" style="padding-bottom: 20px; max-height: 300px; overflow-y:scroll;" >
+            <app-message *ngFor="let msg of campaign.chat" [message]="msg" me="Soombala"></app-message>
+        </div>
+        <div class="chat-new-message">
+            <input type="text" class="chat-input">
+            <button class="btn btn-blue">></button>
+        </div>
+    </div>
 </div>
+
 <div class="row">
     <div class="col campaign-view-characters">
         <h3>Characters</h3>
@@ -17,14 +28,6 @@
         <h3>Chronicle</h3>
         <ul>
             <li *ngFor="let post of campaign.chronicle">{{post}}</li>
-        </ul>
-    </div>
-    <div class="col campaign-view-chat">
-        <h3>Chat Log</h3>
-        <ul>
-            <li *ngFor="let msg of campaign.chat">
-                <span>{{msg.user}}: {{msg.message}}</span>
-            </li>
         </ul>
     </div>
 </div>

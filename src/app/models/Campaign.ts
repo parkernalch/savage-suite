@@ -16,6 +16,7 @@ export default interface _Campaign {
     next_session: Date;
     motd: string;
     chat: _ChatMessage[];
+    imagepath?: string;
     custom_content?: {
         edges: _Edge[];
         hindranes: _Hindrance[];

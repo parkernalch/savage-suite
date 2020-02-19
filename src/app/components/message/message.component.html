@@ -1,0 +1,9 @@
+<div class="message-wrapper" [ngClass]="{'me': me===message.user}" (click)="toggleShowDate()">
+    <div class="user-img">{{initials}}</div> 
+    <div class="message-content">
+        <div style="max-width: 60%">
+            <div class="message">{{message.message}}</div>
+            <div class="message-date" [ngClass]="{'hidden': !showDate }">{{message.date | date:'h:mm a'}}</div>
+        </div>
+    </div>
+</div>

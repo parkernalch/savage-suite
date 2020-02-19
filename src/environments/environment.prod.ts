@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  assetPath: "C:\\Users\\pgnal\\Projects\\savagesuite_old\\client\\src\\assets\\"
 };

@@ -1,0 +1,66 @@
+@import "../../../vars"
+
+.page-wrapper
+    display: grid
+    grid-template-columns: 250px auto 250px
+    @media screen and (max-width: $large)
+        width: auto 900px auto
+    @media screen and (max-width: $medium)
+        width: auto 600px auto
+    @media screen and (max-width: $small)
+        width: 0 100% 0
+.campaign-name
+    color: $white
+    background: rgba($black, 0.3)
+    width: 100%
+    position: absolute
+    padding-bottom: 15px
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+    font-size: 3em
+.next-session
+    color: $white
+    position: absolute
+    left: 50%
+    bottom: 20px 
+    transform: translateX(-50%)
+    font-family: $raleway
+.campaign-motd
+    position: relative
+    left: 50%
+    transform: translateX(-50%)
+    text-align: center
+    border-top: 1px solid $blue
+    border-bottom: 1px solid $blue
+    padding: 10px 40px
+    margin: 15px
+    width: 50%
+    @media screen and (max-width: $large)
+        width: 60%
+    @media screen and (max-width: $medium)
+        width: 70%
+    @media screen and (max-width: $small)
+        width: 90%
+.campaign-chat
+    padding: 5px
+    grid-column: 2
+    min-width: 300px
+    background: $blue
+    border-radius: 5px
+    @media screen and (max-width: $large)
+        grid-column: 2
+.chat-list
+    background: $white
+    // display: flex
+    // flex-flow: column nowrap
+    // justify-content: flex-end
+.chat-new-message
+    background: rgba($white,0.9)
+    display: grid
+    grid-template-columns: auto 80px
+    border: 1px solid $blue
+.chat-input
+    width: 100%
+.chat-input .btn
+    float: right

@@ -26,6 +26,8 @@ import { NewCharFormComponent } from './components/new-char-form/new-char-form.c
 import { ProfileComponent } from './components/profile/profile.component';
 import { SubscriptionComponent } from './components/subscription/subscription.component';
 import { HandoutComponent } from './components/handout/handout.component';
+import { CampaignListComponent } from './components/campaign-list/campaign-list.component';
+import { MessageComponent } from './components/message/message.component';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { HandoutComponent } from './components/handout/handout.component';
     NewCharFormComponent,
     ProfileComponent,
     SubscriptionComponent,
-    HandoutComponent
+    HandoutComponent,
+    CampaignListComponent,
+    MessageComponent
   ],
   imports: [
     FormsModule,

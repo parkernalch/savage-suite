@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { viewClassName } from '@angular/compiler';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +21,10 @@ export class HeaderComponent implements OnInit {
 
   topOffset:number = 0;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
     document.addEventListener('scroll', (e:Event) => {
@@ -82,6 +86,10 @@ export class HeaderComponent implements OnInit {
     let uname = this.usernameInput.nativeElement.value;
     let pwd = this.passwordInput.nativeElement.value;
     this.authService.login(uname, pwd);
+  }
+
+  navToHome():void{
+    this.router.navigate(['home'])
   }
 
 }

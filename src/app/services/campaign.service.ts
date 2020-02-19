@@ -8,6 +8,9 @@ import _Edge from "../models/Edge";
 import _Power, { _PowerInstance } from "../models/Power";
 import { Observable, of } from 'rxjs';
 import _Hindrance from '../models/Hindrance.js';
+// import {environment } from '../../environments/environment';
+
+// const assetPath = environment.assetPath
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +30,8 @@ export class CampaignService {
         chronicle: [],
         party: [],
         sessions: [],
-        next_session: new Date(2000,0,1,19,0,0)
+        next_session: new Date(2000,0,1,19,0,0),
+        imagepath: "/assets/" + campaign.imagepath
       };
       // console.log(C.next_session);
       // C.id = campaign.id;
@@ -40,8 +44,9 @@ export class CampaignService {
         // console.log(campaign.party);
         let user:string = campaign.party.filter(member => member.id === msg.user)[0].name;
 
-        let splitDate = msg.date.split('-');
-        let date:Date = new Date(parseInt(splitDate[0]),parseInt(splitDate[1])-1,parseInt(splitDate[2]));
+        // let splitDate = msg.date.split('-');
+        // let date:Date = new Date(parseInt(splitDate[0]),parseInt(splitDate[1])-1,parseInt(splitDate[2]));
+        let date:Date = new Date(msg.date);
         let M: _ChatMessage = {
           user: user,
           message: msg.message,
