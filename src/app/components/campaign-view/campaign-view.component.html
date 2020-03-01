@@ -1,52 +1,44 @@
 <div class="marquee" style="padding-top: 80px; position: relative; background-position: center; background-repeat: no-repeat;" [ngStyle]="{'background-image': 'url(' + campaign.imagepath + ')'}">
-    <!-- <h4 style="color: white; float: left">Next Game: <span style="text-decoration: underline; margin-left: 15px">{{campaign.next_session | date:'MMM dd, yyyy @hh:mm'}}</span></h4>  -->
     <h1 class="campaign-name">{{campaign.name}}</h1>
     <div class="next-session">< {{campaign.next_session | date:'MMM dd, yyyy @hh:mm'}} ></div>
 </div>
-<div class="page-wrapper">
-    <div class="campaign-motd" style="grid-column: 2;">{{campaign.motd}}</div>
-    <div class="campaign-chat">
-        <h3 style="color: white">Chat Log</h3>
-        <div class="chat-list" style="padding-bottom: 20px; max-height: 300px; overflow-y:scroll;" >
+<div class="campaign-motd">{{campaign.motd}}</div>
+
+<div class="grid-wrapper">
+    <div class="block left-1" id="character-list">
+        <div class="header">Characters</div> 
+        <div class="body">
+            <div class="character-tag" *ngFor="let char of campaign.party">
+                <div class="profile">HB</div>
+                <div class="character-name">{{char.name}}</div>
+                <div class="character-desc">{{char.description}}</div>
+                <div class="character-race">[{{char.race.name}}]</div>
+                <div class="character-rank">{{char.rank}}</div>
+            </div> 
+        </div>
+    </div>
+    <div class="block right-2" id="chat-log">
+        <div class="header">Chat Log</div>
+        <div class="body">
             <app-message *ngFor="let msg of campaign.chat" [message]="msg" me="Soombala"></app-message>
         </div>
-        <div class="chat-new-message">
+        <div class="footer">
             <input type="text" class="chat-input">
             <button class="btn btn-blue">></button>
         </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="col campaign-view-characters">
-        <h3>Characters</h3>
-        <ul>
-            <li *ngFor="let char of campaign.party">{{char.name}}</li>
-        </ul>
-    </div>
-    <div class="col campaign-view-chronicle">
-        <h3>Chronicle</h3>
-        <ul>
-            <li *ngFor="let post of campaign.chronicle">{{post}}</li>
-        </ul>
-    </div>
-</div>
-<h3>Custom Content</h3>
-<div class="row">
-    <div class="col campaign-view-custom-races">
-        <h3>Races</h3>
-        <ul></ul>
-    </div>
-    <div class="col campaign-view-custom-edges">
-        <h3>Edges</h3>
-        <ul></ul>
-    </div>
-    <div class="col campaign-view-custom-hindrances">
-        <h3>Hindrances</h3>
-        <ul></ul>
-    </div>
-    <div class="col campaign-view-custom-powers">
-        <h3>Powers</h3>
-        <ul></ul>
+    <div class="block left-3">
+        <h2>CONTENT</h2>
+        <div class="grid-wrapper">
+            <div class="block left-2">
+                <div class="block"></div>
+            </div>
+            <div class="block right-1"> 
+                <h1>Races</h1>
+                <h1>Edges</h1>
+                <h1>Hindrances</h1>
+                <h1>Powers</h1>
+            </div>
+        </div>
     </div>
 </div>
